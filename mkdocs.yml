@@ -1,0 +1,107 @@
+site_name: Playwright Mastery Path
+site_description: A structured, module-wise training program for browser automation and end-to-end testing with Playwright — Python-first, with JS/TS parity notes.
+site_url: https://sigilipelli.github.io/playwright-mastery-path/
+repo_url: https://github.com/SIGILIPELLI/playwright-mastery-path
+repo_name: playwright-mastery-path
+
+theme:
+  name: material
+  custom_dir: docs/overrides
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.indexes
+    - content.code.copy
+    - content.code.annotate
+    - search.suggest
+    - search.highlight
+
+markdown_extensions:
+  - admonition
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - toc:
+      permalink: true
+
+extra_css:
+  - stylesheets/extra.css
+
+# --- auto-pruned stub levels (see AdSense low-value-content fix) ---
+exclude_docs: |
+  level-2/*
+  level-3/*
+  level-4/*
+# --- end auto-pruned stub levels ---
+
+nav:
+  - Home: index.md
+  - Privacy Policy: privacy.md
+  - "Level 1 · Entry":
+      - Overview: level-1/index.md
+      - "01 · What Is Playwright & Why E2E Testing": level-1/01-what-is-playwright.md
+      - "02 · Installation & Project Setup": level-1/02-installation-setup.md
+      - "03 · Your First Script": level-1/03-first-script.md
+      - "04 · Locators": level-1/04-locators.md
+      - "05 · Actions": level-1/05-actions.md
+      - "06 · Assertions with expect": level-1/06-assertions.md
+      - "07 · Waiting & Auto-Wait Philosophy": level-1/07-waiting-auto-wait.md
+      - "08 · Forms & Dropdowns": level-1/08-forms-dropdowns.md
+      - "09 · Headed vs. Headless": level-1/09-headed-vs-headless.md
+      - "10 · Project — Automate a Login Flow": level-1/10-project-login-flow.md
+  - "Level 2 · Intermediate":
+      - Overview: level-2/index.md
+      - "01 · Page Object Model": level-2/01-page-object-model.md
+      - "02 · Fixtures & Test Hooks": level-2/02-fixtures-hooks.md
+      - "03 · Multiple Tabs, Frames & Popups": level-2/03-tabs-frames-popups.md
+      - "04 · Network Interception & Mocking": level-2/04-network-interception.md
+      - "05 · File Upload & Download": level-2/05-file-upload-download.md
+      - "06 · Parallel Execution & Sharding": level-2/06-parallel-sharding.md
+      - "07 · Test Configuration & Projects": level-2/07-test-configuration.md
+      - "08 · Environment & Test Data Management": level-2/08-env-test-data.md
+      - "09 · Debugging Failing Tests": level-2/09-debugging-failing-tests.md
+      - "10 · Project — POM Test Suite": level-2/10-project-pom-suite.md
+  - "Level 3 · Advanced":
+      - Overview: level-3/index.md
+      - "01 · Visual Regression Testing": level-3/01-visual-regression.md
+      - "02 · Authentication State Reuse": level-3/02-auth-state-reuse.md
+      - "03 · API Testing with Request Context": level-3/03-api-testing.md
+      - "04 · CI Integration (GitHub Actions)": level-3/04-ci-integration.md
+      - "05 · Test Retries & Flaky Test Triage": level-3/05-retries-flaky-tests.md
+      - "06 · Advanced Locator Strategies": level-3/06-advanced-locators.md
+      - "07 · Accessibility Testing": level-3/07-accessibility-testing.md
+      - "08 · Performance & Tracing": level-3/08-performance-tracing.md
+      - "09 · Test Data Seeding via API": level-3/09-test-data-seeding.md
+      - "10 · Project — Full CI E2E Pipeline": level-3/10-project-ci-pipeline.md
+  - "Level 4 · Master":
+      - Overview: level-4/index.md
+      - "01 · Cross-Browser & Device Strategy": level-4/01-cross-browser-strategy.md
+      - "02 · Component Testing": level-4/02-component-testing.md
+      - "03 · Custom Reporters": level-4/03-custom-reporters.md
+      - "04 · Scaling a Test Suite": level-4/04-scaling-test-suite.md
+      - "05 · Debugging with Trace Viewer": level-4/05-trace-viewer.md
+      - "06 · Playwright Architecture Internals": level-4/06-architecture-internals.md
+      - "07 · Test Ownership & Team Practices": level-4/07-test-ownership-practices.md
+      - "08 · Migrating from Selenium": level-4/08-migrating-from-selenium.md
+      - "09 · Extending Playwright (Custom Fixtures/Plugins)": level-4/09-extending-playwright.md
+      - "10 · Capstone — Production-Grade E2E Framework": level-4/10-capstone-project.md
