@@ -1830,6 +1830,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06 · Playwright Architecture Internals
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1846,6 +1864,102 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-out-of-process-browser-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The out-of-process browser model
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-auto-waiting-lives-in-the-client-not-the-browser" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why auto-waiting lives in the client, not the browser
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contexts-vs-pages-vs-browsers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contexts vs. pages vs. browsers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#strict-mode-a-deliberate-design-choice-not-a-limitation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strict mode: a deliberate design choice, not a limitation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-protocol-underneath-cdp-and-why-new_cdp_session-exists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The protocol underneath: CDP, and why new_cdp_session exists
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-headless-and-headed-can-behave-subtly-differently" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why headless and headed can behave subtly differently
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1991,6 +2105,91 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-out-of-process-browser-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The out-of-process browser model
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-auto-waiting-lives-in-the-client-not-the-browser" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why auto-waiting lives in the client, not the browser
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contexts-vs-pages-vs-browsers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contexts vs. pages vs. browsers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#strict-mode-a-deliberate-design-choice-not-a-limitation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strict mode: a deliberate design choice, not a limitation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-protocol-underneath-cdp-and-why-new_cdp_session-exists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The protocol underneath: CDP, and why new_cdp_session exists
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-headless-and-headed-can-behave-subtly-differently" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why headless and headed can behave subtly differently
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2010,8 +2209,111 @@
 
 
 <h1 id="06-playwright-architecture-internals">06 · Playwright Architecture Internals<a class="headerlink" href="#06-playwright-architecture-internals" title="Permanent link">&para;</a></h1>
-<p>This module is part of Level 4 · Master.</p>
-<p>More lessons are on the way — check back soon.</p>
+<p>Knowing <em>why</em> Playwright behaves the way it does — one process, a single
+WebSocket-driven protocol, auto-waiting baked into the client rather than
+the browser — makes its error messages and edge cases far less mysterious.</p>
+<h2 id="the-out-of-process-browser-model">The out-of-process browser model<a class="headerlink" href="#the-out-of-process-browser-model" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>┌─────────────────┐         WebSocket / pipe        ┌──────────────────┐
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│  Python process  │ ───────────────────────────────▶│  Browser process  │
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>│  (your test)      │◀─────────────────────────────── │  (Chromium/FF/WK) │
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│  playwright client │        CDP / BiDi-like protocol │  actual rendering │
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>└─────────────────┘                                  └──────────────────┘
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a># unlike Selenium's WebDriver (HTTP request/response per
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a># command), Playwright keeps one persistent connection to a
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a># separate browser process and communicates over a
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a># message-based protocol — closer to how Chrome DevTools
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a># itself talks to the browser than to a REST API
+</code></pre></div>
+<p>Chromium and WebKit are driven through a Playwright-patched build with
+extra automation hooks baked in; Firefox uses a similar patched build via a
+juggler protocol layer. This is <em>why</em> <code>playwright install</code> downloads its own
+browser binaries rather than reusing your system Chrome — the automation
+hooks aren't present in a stock browser release.</p>
+<h2 id="why-auto-waiting-lives-in-the-client-not-the-browser">Why auto-waiting lives in the client, not the browser<a class="headerlink" href="#why-auto-waiting-lives-in-the-client-not-the-browser" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Submit"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a># before performing the click, the Playwright client itself:
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>#  1. resolves the locator to a live DOM node reference
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>#  2. re-checks the actionability conditions (attached,
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>#     visible, stable, receives events, enabled) in a polling
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>#     loop — this loop runs in the CLIENT, re-querying the
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>#     browser each iteration, not as a single browser-side wait
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>#  3. only dispatches the actual click once all conditions
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>#     hold on the same iteration
+</code></pre></div>
+<p>This is why a <code>Locator</code> is a <em>description</em> that gets re-resolved every time
+you act on it — <code>page.locator("...")</code> alone does not query the DOM at all;
+only calling <code>.click()</code>, <code>.fill()</code>, or an <code>expect()</code> on it does. This is also
+why chaining a <code>Locator</code> (<code>row.get_by_role(...)</code>) is cheap and doesn't fail
+even if <code>row</code> doesn't exist yet at the time you write that line — the actual
+query happens lazily, at the moment of action.</p>
+<h2 id="contexts-vs-pages-vs-browsers">Contexts vs. pages vs. browsers<a class="headerlink" href="#contexts-vs-pages-vs-browsers" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Browser        — one actual browser process (chromium.launch())
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>  BrowserContext — an isolated "incognito-like" session: its own
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>                   cookies, localStorage, cache — cheap to create,
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>                   the recommended unit of test isolation
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    Page         — one tab within that context
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">browser</span> <span class="o">=</span> <span class="n">playwright</span><span class="o">.</span><span class="n">chromium</span><span class="o">.</span><span class="n">launch</span><span class="p">()</span>      <span class="c1"># expensive: ~200-500ms</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">context</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">()</span>             <span class="c1"># cheap: a few ms</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">page</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>                   <span class="c1"># cheap: a few ms</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a># this is why the standard advice is "one browser per test
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a># session (or worker), one fresh context per test" rather than
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a># launching a whole new browser per test — a browser process
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a># is the expensive resource; a context is deliberately cheap
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a># because it's the unit meant to be thrown away constantly
+</code></pre></div>
+<h2 id="strict-mode-a-deliberate-design-choice-not-a-limitation">Strict mode: a deliberate design choice, not a limitation<a class="headerlink" href="#strict-mode-a-deliberate-design-choice-not-a-limitation" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a># all "action" methods (click, fill, check, etc.) enforce
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a># strict mode: they throw if the locator resolves to more than
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a># one element, rather than silently acting on the first match —
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a># this traces back to the same underlying design principle as
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a># auto-waiting: prefer a loud, immediate, specific failure
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a># over a test that "usually" does the right thing
+</code></pre></div>
+<p><code>.first</code>, <code>.last</code>, and <code>.nth()</code> exist specifically to opt out of strict mode
+when multiplicity is genuinely expected — using them as a reflex fix for
+every strict-mode error defeats the feature.</p>
+<h2 id="the-protocol-underneath-cdp-and-why-new_cdp_session-exists">The protocol underneath: CDP, and why <code>new_cdp_session</code> exists<a class="headerlink" href="#the-protocol-underneath-cdp-and-why-new_cdp_session-exists" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">client</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">new_cdp_session</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">client</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">"Network.emulateNetworkConditions"</span><span class="p">,</span> <span class="p">{</span><span class="o">...</span><span class="p">})</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a># Playwright's own driver already speaks CDP to Chromium
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a># internally for standard actions — new_cdp_session exposes a
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a># raw channel to that same protocol for capabilities Playwright's
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a># high-level API doesn't wrap (like network/CPU throttling,
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a># covered in Level 3) — you're not going around Playwright here,
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a># you're using the same transport it already relies on
+</code></pre></div>
+<h2 id="why-headless-and-headed-can-behave-subtly-differently">Why headless and headed can behave subtly differently<a class="headerlink" href="#why-headless-and-headed-can-behave-subtly-differently" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a># headless mode historically ran a different code path inside
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a># the browser (no real compositor/GPU pipeline by default) —
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a># modern Chromium's "new headless" mode (Playwright's default
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a># since v1.9x-era Chromium) closes most of this gap, but GPU-
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a># dependent rendering (WebGL, some video codecs, certain font
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a># hinting) can still differ — this is why a visual regression
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a># test flaking only in CI's headless run, never locally headed,
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a># is a real and known category of difference, not always a bug
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a># in the test
+</code></pre></div>
+<h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Explain in your own words (a short comment block is fine) why
+   <code>page.locator("#foo")</code> doesn't throw immediately even if <code>#foo</code> doesn't
+   exist on the page yet, but <code>page.locator("#foo").click()</code> will wait then
+   throw.</li>
+<li>Open a CDP session with <code>new_cdp_session</code> and call any raw CDP command
+   not exposed by Playwright's high-level API (e.g. <code>Page.printToPDF</code> or
+   <code>Network.getCookies</code>), confirming you get a real response back.</li>
+<li>Create a <code>BrowserContext</code>, time how long <code>new_context()</code> takes versus
+   <code>chromium.launch()</code>, and confirm the order-of-magnitude difference that
+   justifies reusing one browser across many contexts.</li>
+<li>Trigger a genuine strict-mode violation, then instead of reaching for
+   <code>.first</code>, rewrite the locator to be unambiguous — and write a comment
+   explaining a case where <code>.first</code> genuinely would be the correct choice.</li>
+</ol>
 
 
 

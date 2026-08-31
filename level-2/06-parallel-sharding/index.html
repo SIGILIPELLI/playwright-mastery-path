@@ -1082,6 +1082,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06 · Parallel Execution & Sharding
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1098,6 +1116,102 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-parallelize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why parallelize
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pytest-xdist-for-localci-parallelism" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pytest-xdist for local/CI parallelism
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test-isolation-requirements-for-safe-parallelism" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test isolation requirements for safe parallelism
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#built-in-parallelism-via-playwrightconfig-js-vs-pytest-workers-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Built-in parallelism via playwright.config (JS) vs. pytest workers (Python)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sharding-across-multiple-ci-machines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sharding across multiple CI machines
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#combining-both" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combining both
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1991,6 +2105,91 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-parallelize" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why parallelize
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pytest-xdist-for-localci-parallelism" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pytest-xdist for local/CI parallelism
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test-isolation-requirements-for-safe-parallelism" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test isolation requirements for safe parallelism
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#built-in-parallelism-via-playwrightconfig-js-vs-pytest-workers-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Built-in parallelism via playwright.config (JS) vs. pytest workers (Python)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sharding-across-multiple-ci-machines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sharding across multiple CI machines
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#combining-both" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combining both
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2010,8 +2209,131 @@
 
 
 <h1 id="06-parallel-execution-sharding">06 · Parallel Execution &amp; Sharding<a class="headerlink" href="#06-parallel-execution-sharding" title="Permanent link">&para;</a></h1>
-<p>This module is part of Level 2 · Intermediate.</p>
-<p>More lessons are on the way — check back soon.</p>
+<h2 id="why-parallelize">Why parallelize<a class="headerlink" href="#why-parallelize" title="Permanent link">&para;</a></h2>
+<p>A suite of 500 E2E tests at ~2 seconds each is nearly 17 minutes run
+serially. Since most Playwright tests spend most of their wall-clock time
+waiting on the browser/network rather than the CPU, running many at once
+(across processes, and often across multiple CI machines) cuts wall-clock
+time dramatically without needing more powerful hardware per-test.</p>
+<h2 id="pytest-xdist-for-localci-parallelism"><code>pytest-xdist</code> for local/CI parallelism<a class="headerlink" href="#pytest-xdist-for-localci-parallelism" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>pytest-xdist
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>pytest<span class="w"> </span>-n<span class="w"> </span>auto
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>gw0 [500] / gw1 [500] / gw2 [500] / gw3 [500]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>................................................ [100%]
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>500 passed in 187.32s (0:03:07)
+</code></pre></div>
+<p><code>-n auto</code> spawns one worker process per CPU core; <code>-n 4</code> pins it to a
+specific count. Each worker gets its own Python interpreter and, with
+<code>pytest-playwright</code>'s default fixtures, its own browser/context per test —
+so tests running concurrently never share mutable state unless you've
+explicitly built a fixture that does (a shared file, a shared test-account
+login), which is the most common cause of "passes alone, fails with
+<code>-n auto</code>."</p>
+<h2 id="test-isolation-requirements-for-safe-parallelism">Test isolation requirements for safe parallelism<a class="headerlink" href="#test-isolation-requirements-for-safe-parallelism" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># BAD: all workers hit the same test account and could race</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_updates_profile_name</span><span class="p">(</span><span class="n">page</span><span class="p">):</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="n">login_as</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="s2">"shared_test_user@example.com"</span><span class="p">)</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="o">...</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="c1"># GOOD: each test gets a fresh, uniquely-named account or resource</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="kn">import</span><span class="w"> </span><span class="nn">uuid</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_updates_profile_name</span><span class="p">(</span><span class="n">page</span><span class="p">):</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="n">email</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"test_</span><span class="si">{</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">[:</span><span class="mi">8</span><span class="p">]</span><span class="si">}</span><span class="s2">@example.com"</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="n">register_new_account</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">email</span><span class="p">)</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    <span class="o">...</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a># no output — the difference only shows up as flaky, hard-to-
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a># reproduce failures under -n auto, since two workers editing the
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a># same shared_test_user's profile concurrently silently clobber
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a># each other's changes
+</code></pre></div>
+<p>The rule: any two tests must be safe to run at the exact same instant,
+against the same backend, without affecting each other's outcome. Shared
+read-only fixtures (a public catalog page) are fine; shared <em>mutable</em>
+state (one login used everywhere, one row in a database everyone edits)
+is the top cause of "flaky under parallel, fine alone."</p>
+<h2 id="built-in-parallelism-via-playwrightconfig-js-vs-pytest-workers-python">Built-in parallelism via <code>playwright.config</code> (JS) vs. pytest workers (Python)<a class="headerlink" href="#built-in-parallelism-via-playwrightconfig-js-vs-pytest-workers-python" title="Permanent link">&para;</a></h2>
+<p>Playwright's JS/TS test runner parallelizes natively with a <code>workers</code>
+config option; the Python <code>pytest-playwright</code> plugin instead delegates
+parallelism entirely to <code>pytest-xdist</code>, since that's the general-purpose
+Python test parallelism tool the ecosystem already uses. Functionally the
+outcome is equivalent — N worker processes running the suite concurrently
+— but Python projects reach for <code>-n auto</code> rather than a Playwright-specific
+setting.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># pytest.ini</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">[pytest]</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="na">addopts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">-n auto --dist loadscope</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a># no output — addopts bakes the flag into every `pytest` invocation
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a># so CI and local runs stay consistent without retyping flags
+</code></pre></div>
+<p><code>--dist loadscope</code> groups tests by module (or class) onto the same worker,
+useful when a <code>conftest.py</code> fixture with <code>scope="module"</code> does expensive
+one-time setup you don't want repeated per-test across workers.</p>
+<h2 id="sharding-across-multiple-ci-machines">Sharding across multiple CI machines<a class="headerlink" href="#sharding-across-multiple-ci-machines" title="Permanent link">&para;</a></h2>
+<p>Parallelism inside one machine has a ceiling (CPU cores, memory for N
+browser instances). Sharding splits the <em>whole suite</em> across separate CI
+job runners, each handling a fraction of the tests.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># .github/workflows/e2e.yml (excerpt)</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nt">strategy</span><span class="p">:</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span><span class="nt">matrix</span><span class="p">:</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span><span class="nt">shard</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">1</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">2</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">3</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">4</span><span class="p p-Indicator">]</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="nt">steps</span><span class="p">:</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pytest --shard-id=${{ matrix.shard }} --num-shards=4</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># conftest.py — a minimal manual sharding implementation</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">pytest_addoption</span><span class="p">(</span><span class="n">parser</span><span class="p">):</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="n">parser</span><span class="o">.</span><span class="n">addoption</span><span class="p">(</span><span class="s2">"--shard-id"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="n">parser</span><span class="o">.</span><span class="n">addoption</span><span class="p">(</span><span class="s2">"--num-shards"</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">pytest_collection_modifyitems</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">items</span><span class="p">):</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>    <span class="n">shard_id</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">getoption</span><span class="p">(</span><span class="s2">"--shard-id"</span><span class="p">)</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>    <span class="n">num_shards</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">getoption</span><span class="p">(</span><span class="s2">"--num-shards"</span><span class="p">)</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>    <span class="n">items</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>        <span class="n">item</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>        <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="n">num_shards</span> <span class="o">==</span> <span class="p">(</span><span class="n">shard_id</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>    <span class="p">]</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a># no output — pytest_collection_modifyitems runs after test
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a># collection but before execution, so each of the 4 CI jobs only
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a># executes roughly a quarter of the total collected tests
+</code></pre></div>
+<p>In practice, <code>pytest-split</code> is the standard plugin for this (it also
+supports duration-based balancing so shards finish around the same time,
+rather than a naive modulo split where one shard happens to get all the
+slow tests) — the hand-rolled version above shows the mechanism plainly.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>pip<span class="w"> </span>install<span class="w"> </span>pytest-split
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>pytest<span class="w"> </span>--splits<span class="w"> </span><span class="m">4</span><span class="w"> </span>--group<span class="w"> </span><span class="m">1</span><span class="w">     </span><span class="c1"># on CI runner 1</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>pytest<span class="w"> </span>--splits<span class="w"> </span><span class="m">4</span><span class="w"> </span>--group<span class="w"> </span><span class="m">2</span><span class="w">     </span><span class="c1"># on CI runner 2</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Running group 1/4 (127 tests)
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>...
+</code></pre></div>
+<h2 id="combining-both">Combining both<a class="headerlink" href="#combining-both" title="Permanent link">&para;</a></h2>
+<p>A common CI layout: 4 shards (matrix jobs), each shard itself running with
+<code>-n auto</code> internally — sharding gives you horizontal scale across
+machines, <code>-n auto</code> gives you vertical scale within each machine.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>pytest<span class="w"> </span>--splits<span class="w"> </span><span class="m">4</span><span class="w"> </span>--group<span class="w"> </span><span class="si">${</span><span class="p">{ matrix.shard </span><span class="si">}</span><span class="o">}</span><span class="w"> </span>-n<span class="w"> </span>auto
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a># no output — flags compose: pytest-split selects this shard's
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a># subset of tests first, then pytest-xdist parallelizes that subset
+</code></pre></div>
+<h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Take an existing small suite (5-10 tests) and time a serial run with
+   <code>pytest</code> alone, then with <code>pytest -n auto</code>; record both durations.</li>
+<li>Deliberately introduce a shared-state bug: two tests that both log into
+   the <em>same</em> hardcoded account and mutate a profile field with opposing
+   values. Run with <code>-n 2</code> several times and observe intermittent failures
+   that don't happen with <code>-n 1</code>.</li>
+<li>Fix it using a <code>uuid</code>-suffixed unique account/resource per test, and
+   confirm <code>-n 2</code> is now consistently green across several runs.</li>
+<li>Install <code>pytest-split</code>, split your suite into 3 groups, and run each
+   group's command separately, confirming the union of all three groups'
+   test counts equals your total test count with none run twice.</li>
+</ol>
 
 
 

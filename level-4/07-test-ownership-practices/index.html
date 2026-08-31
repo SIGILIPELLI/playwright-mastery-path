@@ -1858,6 +1858,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07 · Test Ownership & Team Practices
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1874,6 +1892,102 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#codeowners-for-test-directories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CODEOWNERS for test directories
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-review-checklist-specific-to-e2e-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A review checklist specific to E2E tests
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#triage-rotation-for-flaky-and-failing-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Triage rotation for flaky and failing tests
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deprecating-and-deleting-tests-deliberately" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deprecating and deleting tests deliberately
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-an-explicit-new-feature-new-test-norm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setting an explicit "new feature = new test" norm
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#onboarding-a-runnable-example-over-a-wiki-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Onboarding: a runnable example over a wiki page
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1991,6 +2105,91 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#codeowners-for-test-directories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CODEOWNERS for test directories
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-review-checklist-specific-to-e2e-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A review checklist specific to E2E tests
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#triage-rotation-for-flaky-and-failing-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Triage rotation for flaky and failing tests
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deprecating-and-deleting-tests-deliberately" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deprecating and deleting tests deliberately
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-an-explicit-new-feature-new-test-norm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Setting an explicit "new feature = new test" norm
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#onboarding-a-runnable-example-over-a-wiki-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Onboarding: a runnable example over a wiki page
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2010,8 +2209,119 @@
 
 
 <h1 id="07-test-ownership-team-practices">07 · Test Ownership &amp; Team Practices<a class="headerlink" href="#07-test-ownership-team-practices" title="Permanent link">&para;</a></h1>
-<p>This module is part of Level 4 · Master.</p>
-<p>More lessons are on the way — check back soon.</p>
+<p>Technical practices (retries, tracing, sharding) only pay off if the team
+around the suite treats it as owned, maintained infrastructure rather than a
+pile of files nobody wants to touch. This module covers the process side.</p>
+<h2 id="codeowners-for-test-directories">CODEOWNERS for test directories<a class="headerlink" href="#codeowners-for-test-directories" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a># .github/CODEOWNERS
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>/tests/checkout/     @checkout-team
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>/tests/search/       @search-team
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>/tests/shared/       @qa-platform-team
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>/e2e/conftest.py     @qa-platform-team
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a># this does two things: it auto-requests the right reviewers
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a># on a PR touching those tests, and it makes ownership legible
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a># to anyone browsing the repo — "who do I ask about this
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a># flaky checkout test" becomes a lookup, not a Slack guess
+</code></pre></div>
+<h2 id="a-review-checklist-specific-to-e2e-tests">A review checklist specific to E2E tests<a class="headerlink" href="#a-review-checklist-specific-to-e2e-tests" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="gu">## E2E test PR checklist</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">- [ ]</span> Does this test assert on user-visible behavior, not implementation
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>      detail (internal state, specific class names)?
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">- [ ]</span> Are preconditions seeded via API (Level 3), not clicked through the UI,
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>      unless the UI flow itself is what's under test?
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="k">- [ ]</span> Does it use <span class="sb">`expect()`</span> polling assertions instead of
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>      <span class="sb">`wait_for_timeout()`</span>?
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="k">- [ ]</span> Is the locator resilient to reasonable markup changes (role/label
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>      over brittle CSS/XPath, per Level 3's advanced locators)?
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="k">- [ ]</span> If genuinely flaky-prone (e.g. third-party embed), is it marked and
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>      ticketed, not left silently retried forever?
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a># a short, specific checklist catches the same handful of
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a># anti-patterns every time, far more reliably than relying on
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a># a reviewer to remember them all from memory on every PR
+</code></pre></div>
+<h2 id="triage-rotation-for-flaky-and-failing-tests">Triage rotation for flaky and failing tests<a class="headerlink" href="#triage-rotation-for-flaky-and-failing-tests" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Weekly rotation (one engineer per week):
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>  1. Review the flaky_log.jsonl / dashboard (Level 3 module 5,
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>     Level 4 module 3) for tests rerun more than N times this week
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>  2. For each: reproduce locally, root-cause using Trace Viewer
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>     (Level 4 module 5), then either fix, quarantine with a ticket,
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>     or escalate to the owning team if it's outside E2E's control
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>  3. Post a short summary in the team channel: fixed, quarantined,
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>     escalated — with links
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a># a named, rotating owner (not "whoever notices") is what
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a># actually gets flaky tests looked at — an unowned dashboard,
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a># however good, gets ignored
+</code></pre></div>
+<h2 id="deprecating-and-deleting-tests-deliberately">Deprecating and deleting tests deliberately<a class="headerlink" href="#deprecating-and-deleting-tests-deliberately" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">skip</span><span class="p">(</span><span class="n">reason</span><span class="o">=</span><span class="s2">"Feature removed in PR #4821; test kept 1 sprint for reference, delete by 2026-09-30"</span><span class="p">)</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_legacy_export_format</span><span class="p">(</span><span class="n">page</span><span class="p">):</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    <span class="o">...</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a># an unexplained @pytest.mark.skip is indistinguishable from
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a># "someone silenced this and forgot" a year later — a reason
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a># plus a concrete removal date turns a skip into a tracked,
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a># time-boxed decision instead of permanent dead weight
+</code></pre></div>
+<h2 id="setting-an-explicit-new-feature-new-test-norm">Setting an explicit "new feature = new test" norm<a class="headerlink" href="#setting-an-explicit-new-feature-new-test-norm" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="gu">## Definition of Done (excerpt)</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>A feature PR is not done until:
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span>at least one E2E test covers its primary happy path
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span>the PR description links the new test file/function
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span>if the feature has no meaningful E2E surface (a pure
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    backend refactor), the PR explicitly says so instead of
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>    silently having no test
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a># making "no test" a stated, visible choice rather than a
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a># silent gap is what prevents coverage from eroding as a
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a># codebase grows — reviewers can push back on an unstated gap,
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a># they can't push back on one they don't know exists
+</code></pre></div>
+<h2 id="onboarding-a-runnable-example-over-a-wiki-page">Onboarding: a runnable example over a wiki page<a class="headerlink" href="#onboarding-a-runnable-example-over-a-wiki-page" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># tests/examples/test_annotated_example.py</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="sd">"""</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="sd">Read this file top to bottom before writing your first E2E test.</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="sd">It is intentionally over-commented — production tests should not</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="sd">look like this.</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="sd">"""</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="kn">from</span><span class="w"> </span><span class="nn">playwright.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">Page</span><span class="p">,</span> <span class="n">expect</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_can_add_item_to_cart</span><span class="p">(</span><span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">,</span> <span class="n">api_context</span><span class="p">):</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>    <span class="c1"># 1. Seed preconditions via API, not UI clicks (Level 3 module 9)</span>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>    <span class="n">product</span> <span class="o">=</span> <span class="n">api_context</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/api/products"</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Widget"</span><span class="p">,</span> <span class="s2">"price"</span><span class="p">:</span> <span class="mf">9.99</span><span class="p">})</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>    <span class="c1"># 2. Navigate directly to the page under test</span>
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="sa">f</span><span class="s2">"/products/</span><span class="si">{</span><span class="n">product</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>
+<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>    <span class="c1"># 3. Act using role/label locators, never raw CSS unless unavoidable</span>
+<a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>    <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Add to cart"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+<a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>
+<a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a>    <span class="c1"># 4. Assert on user-visible outcome via expect() (auto-retrying)</span>
+<a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a>    <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_text</span><span class="p">(</span><span class="s2">"1 item in cart"</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_visible</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a># a real, runnable, heavily commented example test that lives
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a># in the repo (and gets updated when conventions change) stays
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a># accurate for longer than a wiki page describing the same
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a># conventions in prose, which drifts the moment the real
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a># pattern moves on
+</code></pre></div>
+<h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Add a <code>CODEOWNERS</code> entry mapping at least two test directories to
+   different (real or hypothetical) team handles.</li>
+<li>Write a short PR review checklist specific to your own suite's known
+   anti-patterns (pull at least one item from a real past incident, not
+   just this module's list).</li>
+<li>Design a one-paragraph flaky-test triage rotation for your team size,
+   including where the weekly summary gets posted.</li>
+<li>Convert one <code>@pytest.mark.skip</code> in your codebase (or a hypothetical one)
+   from an unexplained skip into one with a reason and a concrete
+   removal/review date.</li>
+</ol>
 
 
 

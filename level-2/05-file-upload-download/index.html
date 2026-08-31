@@ -1054,6 +1054,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 · File Upload & Download
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1070,6 +1088,113 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#uploading-via-set_input_files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uploading via set_input_files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multiple-files-and-clearing-a-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multiple files, and clearing a selection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uploading-a-file-created-in-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uploading a file created in-memory
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#triggering-upload-via-a-file-chooser-event" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Triggering upload via a file chooser event
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#downloading-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Downloading files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#asserting-on-downloaded-content" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Asserting on downloaded content
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuring-the-download-directory-for-a-whole-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuring the download directory for a whole run
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1991,6 +2116,102 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#uploading-via-set_input_files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uploading via set_input_files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multiple-files-and-clearing-a-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multiple files, and clearing a selection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uploading-a-file-created-in-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uploading a file created in-memory
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#triggering-upload-via-a-file-chooser-event" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Triggering upload via a file chooser event
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#downloading-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Downloading files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#asserting-on-downloaded-content" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Asserting on downloaded content
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuring-the-download-directory-for-a-whole-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuring the download directory for a whole run
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2010,8 +2231,141 @@
 
 
 <h1 id="05-file-upload-download">05 · File Upload &amp; Download<a class="headerlink" href="#05-file-upload-download" title="Permanent link">&para;</a></h1>
-<p>This module is part of Level 2 · Intermediate.</p>
-<p>More lessons are on the way — check back soon.</p>
+<h2 id="uploading-via-set_input_files">Uploading via <code>set_input_files</code><a class="headerlink" href="#uploading-via-set_input_files" title="Permanent link">&para;</a></h2>
+<p>Most upload widgets are, underneath any custom styling, an
+<code>&lt;input type="file"&gt;</code>. Playwright can set its value directly — no need to
+interact with the OS-native file picker dialog at all, which is the right
+approach: OS dialogs aren't part of the DOM and can't be automated
+reliably or portably across CI environments.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">playwright.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">Page</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_upload_resume</span><span class="p">(</span><span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">):</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"https://example.com/apply"</span><span class="p">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"input[type='file']"</span><span class="p">)</span><span class="o">.</span><span class="n">set_input_files</span><span class="p">(</span><span class="s2">"fixtures/resume.pdf"</span><span class="p">)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Submit application"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">playwright.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_text</span><span class="p">(</span><span class="s2">"resume.pdf uploaded"</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_visible</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>1 passed in 1.20s
+</code></pre></div>
+<p><code>set_input_files</code> works even if the input is visually hidden by CSS
+(<code>display: none</code> or <code>opacity: 0</code>, a common technique so a styled button
+triggers a native input under the hood) — Playwright can set files on it
+directly without needing it to be visible, since no real click on the OS
+dialog is involved.</p>
+<h2 id="multiple-files-and-clearing-a-selection">Multiple files, and clearing a selection<a class="headerlink" href="#multiple-files-and-clearing-a-selection" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"input[type='file']"</span><span class="p">)</span><span class="o">.</span><span class="n">set_input_files</span><span class="p">(</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="p">[</span><span class="s2">"fixtures/photo1.jpg"</span><span class="p">,</span> <span class="s2">"fixtures/photo2.jpg"</span><span class="p">]</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"input[type='file']"</span><span class="p">)</span><span class="o">.</span><span class="n">set_input_files</span><span class="p">([])</span>  <span class="c1"># clears the selection</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a># no output for either — a list of paths uploads multiple files
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a># at once (for inputs with the `multiple` attribute); an empty
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a># list clears whatever was previously selected
+</code></pre></div>
+<h2 id="uploading-a-file-created-in-memory">Uploading a file created in-memory<a class="headerlink" href="#uploading-a-file-created-in-memory" title="Permanent link">&para;</a></h2>
+<p>Sometimes there's no file on disk to reference — you want to test a CSV
+upload with content generated by the test itself.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"input[type='file']"</span><span class="p">)</span><span class="o">.</span><span class="n">set_input_files</span><span class="p">(</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="n">files</span><span class="o">=</span><span class="p">[{</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>        <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"data.csv"</span><span class="p">,</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>        <span class="s2">"mimeType"</span><span class="p">:</span> <span class="s2">"text/csv"</span><span class="p">,</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>        <span class="s2">"buffer"</span><span class="p">:</span> <span class="sa">b</span><span class="s2">"name,age</span><span class="se">\n</span><span class="s2">Ada,30</span><span class="se">\n</span><span class="s2">Grace,85</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    <span class="p">}]</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a># no output — Playwright writes this in-memory buffer as the
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a># uploaded file's content, with no temp file ever touching disk
+</code></pre></div>
+<h2 id="triggering-upload-via-a-file-chooser-event">Triggering upload via a file chooser event<a class="headerlink" href="#triggering-upload-via-a-file-chooser-event" title="Permanent link">&para;</a></h2>
+<p>Some UIs open the file input only after a button click dispatches a
+programmatic <code>.click()</code> on a hidden input — in that case, wrap the
+triggering click in <code>expect_file_chooser</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">with</span> <span class="n">page</span><span class="o">.</span><span class="n">expect_file_chooser</span><span class="p">()</span> <span class="k">as</span> <span class="n">fc_info</span><span class="p">:</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Choose file"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">file_chooser</span> <span class="o">=</span> <span class="n">fc_info</span><span class="o">.</span><span class="n">value</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="n">file_chooser</span><span class="o">.</span><span class="n">set_files</span><span class="p">(</span><span class="s2">"fixtures/resume.pdf"</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a># no output — expect_file_chooser listens for the native file
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a># dialog opening (fired as a page event even though the real OS
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a># dialog never actually appears in headless mode) and captures it
+</code></pre></div>
+<h2 id="downloading-files">Downloading files<a class="headerlink" href="#downloading-files" title="Permanent link">&para;</a></h2>
+<p>A download starts when the page navigates to a downloadable resource or a
+link/button triggers one. Playwright captures it as a <code>Download</code> object
+via <code>expect_download</code>, without your test needing to interact with the
+browser's actual download manager UI.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_export_report_downloads_csv</span><span class="p">(</span><span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">):</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"https://example.com/reports"</span><span class="p">)</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    <span class="k">with</span> <span class="n">page</span><span class="o">.</span><span class="n">expect_download</span><span class="p">()</span> <span class="k">as</span> <span class="n">download_info</span><span class="p">:</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>        <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Export as CSV"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    <span class="n">download</span> <span class="o">=</span> <span class="n">download_info</span><span class="o">.</span><span class="n">value</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>    <span class="k">assert</span> <span class="n">download</span><span class="o">.</span><span class="n">suggested_filename</span> <span class="o">==</span> <span class="s2">"report.csv"</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>    <span class="n">download</span><span class="o">.</span><span class="n">save_as</span><span class="p">(</span><span class="sa">f</span><span class="s2">"downloads/</span><span class="si">{</span><span class="n">download</span><span class="o">.</span><span class="n">suggested_filename</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>1 passed in 1.44s
+</code></pre></div>
+<p><code>download.suggested_filename</code> reflects the filename the server/browser
+would use by default (from <code>Content-Disposition</code> or the URL); <code>save_as</code>
+writes the downloaded bytes to a path you control, which you can then open
+and assert on the actual content.</p>
+<h2 id="asserting-on-downloaded-content">Asserting on downloaded content<a class="headerlink" href="#asserting-on-downloaded-content" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">csv</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_exported_csv_has_expected_rows</span><span class="p">(</span><span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">):</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"https://example.com/reports"</span><span class="p">)</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>    <span class="k">with</span> <span class="n">page</span><span class="o">.</span><span class="n">expect_download</span><span class="p">()</span> <span class="k">as</span> <span class="n">download_info</span><span class="p">:</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>        <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Export as CSV"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>    <span class="n">download</span> <span class="o">=</span> <span class="n">download_info</span><span class="o">.</span><span class="n">value</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>    <span class="n">path</span> <span class="o">=</span> <span class="n">download</span><span class="o">.</span><span class="n">path</span><span class="p">()</span>  <span class="c1"># temp path Playwright already saved it to</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">""</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>        <span class="n">rows</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>    <span class="k">assert</span> <span class="n">rows</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="p">[</span><span class="s2">"Date"</span><span class="p">,</span> <span class="s2">"Revenue"</span><span class="p">,</span> <span class="s2">"Orders"</span><span class="p">]</span>
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>1 passed in 1.51s
+</code></pre></div>
+<p><code>download.path()</code> gives you the temporary file Playwright already wrote
+the download to internally, without needing <code>save_as</code> at all when you only
+need to inspect content rather than keep a permanent copy — handy for
+assertions that don't need to persist the artifact past the test.</p>
+<h2 id="configuring-the-download-directory-for-a-whole-run">Configuring the download directory for a whole run<a class="headerlink" href="#configuring-the-download-directory-for-a-whole-run" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># conftest.py</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">"session"</span><span class="p">)</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">browser_context_args</span><span class="p">(</span><span class="n">browser_context_args</span><span class="p">):</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>    <span class="k">return</span> <span class="p">{</span><span class="o">**</span><span class="n">browser_context_args</span><span class="p">,</span> <span class="s2">"accept_downloads"</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a># no output — accept_downloads defaults to True in modern
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a># Playwright versions, but making it explicit documents intent
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a># and matters if a project has changed the default
+</code></pre></div>
+<h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
+<p>Using <code>https://the-internet.herokuapp.com/upload</code> (upload) and
+<code>https://the-internet.herokuapp.com/download</code> (a page listing downloadable
+files):</p>
+<ol>
+<li>Create a small local text file fixture, upload it via
+   <code>input[type='file']</code>, click "Upload", and assert the resulting page
+   shows the correct filename in <code>#uploaded-files</code>.</li>
+<li>Upload an in-memory buffer (no file on disk) with <code>set_input_files</code>
+   using the <code>files=[{...}]</code> form, and confirm it uploads successfully.</li>
+<li>On the download page, pick any linked file, wrap the click in
+   <code>expect_download()</code>, and assert <code>download.suggested_filename</code> matches
+   the link text.</li>
+<li>Save the downloaded file with <code>save_as()</code> into a <code>downloads/</code> folder in
+   your project, then open it with plain Python and assert it's non-empty.</li>
+<li>Write a test that uploads a file whose size exceeds a limit your app
+   enforces (pick any oversized fixture you create), and assert the
+   correct client-side validation error appears instead of a successful
+   upload.</li>
+</ol>
 
 
 

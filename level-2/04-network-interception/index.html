@@ -1026,6 +1026,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 · Network Interception & Mocking
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1042,6 +1060,113 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-intercept-network-traffic-in-a-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why intercept network traffic in a test
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reading-requests-and-responses-pageon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading requests and responses: page.on
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wait_for_response-for-precise-synchronization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        wait_for_response for precise synchronization
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mocking-a-response-with-pageroute" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mocking a response with page.route
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#simulating-errors-and-slow-networks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Simulating errors and slow networks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modifying-a-real-response-instead-of-replacing-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modifying a real response instead of replacing it
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stopping-unwanted-third-party-calls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stopping unwanted third-party calls
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1991,6 +2116,102 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-intercept-network-traffic-in-a-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why intercept network traffic in a test
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reading-requests-and-responses-pageon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading requests and responses: page.on
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wait_for_response-for-precise-synchronization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        wait_for_response for precise synchronization
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mocking-a-response-with-pageroute" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mocking a response with page.route
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#simulating-errors-and-slow-networks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Simulating errors and slow networks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modifying-a-real-response-instead-of-replacing-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modifying a real response instead of replacing it
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stopping-unwanted-third-party-calls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stopping unwanted third-party calls
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2010,8 +2231,156 @@
 
 
 <h1 id="04-network-interception-mocking">04 · Network Interception &amp; Mocking<a class="headerlink" href="#04-network-interception-mocking" title="Permanent link">&para;</a></h1>
-<p>This module is part of Level 2 · Intermediate.</p>
-<p>More lessons are on the way — check back soon.</p>
+<h2 id="why-intercept-network-traffic-in-a-test">Why intercept network traffic in a test<a class="headerlink" href="#why-intercept-network-traffic-in-a-test" title="Permanent link">&para;</a></h2>
+<p>Real end-to-end tests should hit a real backend most of the time — that's
+the point of E2E. But some scenarios are impractical to trigger honestly:
+a 500 error from a payment provider, a slow/flaky third-party API, a
+response with data that doesn't exist yet in your test environment.
+Playwright can intercept, inspect, modify, or fully replace any network
+request the page makes, at the browser level, with no proxy setup needed.</p>
+<h2 id="reading-requests-and-responses-pageon">Reading requests and responses: <code>page.on</code><a class="headerlink" href="#reading-requests-and-responses-pageon" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">playwright.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">Page</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_search_calls_expected_api</span><span class="p">(</span><span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">):</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n">requests</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">page</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="s2">"request"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">req</span><span class="p">:</span> <span class="n">requests</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">req</span><span class="o">.</span><span class="n">url</span><span class="p">))</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"https://example.com/search"</span><span class="p">)</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="n">page</span><span class="o">.</span><span class="n">get_by_placeholder</span><span class="p">(</span><span class="s2">"Search"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"laptop"</span><span class="p">)</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="n">page</span><span class="o">.</span><span class="n">get_by_placeholder</span><span class="p">(</span><span class="s2">"Search"</span><span class="p">)</span><span class="o">.</span><span class="n">press</span><span class="p">(</span><span class="s2">"Enter"</span><span class="p">)</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="n">page</span><span class="o">.</span><span class="n">wait_for_response</span><span class="p">(</span><span class="k">lambda</span> <span class="n">r</span><span class="p">:</span> <span class="s2">"/api/search"</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="k">assert</span> <span class="nb">any</span><span class="p">(</span><span class="s2">"/api/search?q=laptop"</span> <span class="ow">in</span> <span class="n">url</span> <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">requests</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>1 passed in 1.12s
+</code></pre></div>
+<p><code>page.on("request", ...)</code> and <code>page.on("response", ...)</code> are passive
+observers — good for asserting <em>that</em> a call happened, with what
+parameters, without changing anything about how the app behaves.</p>
+<h2 id="wait_for_response-for-precise-synchronization"><code>wait_for_response</code> for precise synchronization<a class="headerlink" href="#wait_for_response-for-precise-synchronization" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">with</span> <span class="n">page</span><span class="o">.</span><span class="n">expect_response</span><span class="p">(</span><span class="k">lambda</span> <span class="n">r</span><span class="p">:</span> <span class="s2">"/api/search"</span> <span class="ow">in</span> <span class="n">r</span><span class="o">.</span><span class="n">url</span> <span class="ow">and</span> <span class="n">r</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="mi">200</span><span class="p">)</span> <span class="k">as</span> <span class="n">resp_info</span><span class="p">:</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="n">page</span><span class="o">.</span><span class="n">get_by_placeholder</span><span class="p">(</span><span class="s2">"Search"</span><span class="p">)</span><span class="o">.</span><span class="n">press</span><span class="p">(</span><span class="s2">"Enter"</span><span class="p">)</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">response</span> <span class="o">=</span> <span class="n">resp_info</span><span class="o">.</span><span class="n">value</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">"results"</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a># no output on success — response.json() parses the body,
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a># and the assertion passes silently
+</code></pre></div>
+<p>This is more reliable than an arbitrary <code>page.wait_for_timeout(1000)</code> after
+pressing Enter: the test waits for the <em>specific</em> network event that
+proves the search actually completed, not an arbitrary clock duration that
+either wastes time or isn't long enough on a slow CI runner.</p>
+<h2 id="mocking-a-response-with-pageroute">Mocking a response with <code>page.route</code><a class="headerlink" href="#mocking-a-response-with-pageroute" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">playwright.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">Page</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_search_with_no_results</span><span class="p">(</span><span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">):</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">handle_search</span><span class="p">(</span><span class="n">route</span><span class="p">):</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>        <span class="n">route</span><span class="o">.</span><span class="n">fulfill</span><span class="p">(</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>            <span class="n">status</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>            <span class="n">content_type</span><span class="o">=</span><span class="s2">"application/json"</span><span class="p">,</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>            <span class="n">body</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s2">"results"</span><span class="p">:</span> <span class="p">[]}),</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>        <span class="p">)</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>    <span class="n">page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">"**/api/search**"</span><span class="p">,</span> <span class="n">handle_search</span><span class="p">)</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"https://example.com/search"</span><span class="p">)</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>    <span class="n">page</span><span class="o">.</span><span class="n">get_by_placeholder</span><span class="p">(</span><span class="s2">"Search"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"nonexistent-item-xyz"</span><span class="p">)</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>    <span class="n">page</span><span class="o">.</span><span class="n">get_by_placeholder</span><span class="p">(</span><span class="s2">"Search"</span><span class="p">)</span><span class="o">.</span><span class="n">press</span><span class="p">(</span><span class="s2">"Enter"</span><span class="p">)</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>
+<a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">playwright.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>    <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_text</span><span class="p">(</span><span class="s2">"No results found"</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_visible</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>1 passed in 0.94s
+</code></pre></div>
+<p><code>page.route(pattern, handler)</code> intercepts every request matching the glob
+pattern <em>before</em> it reaches the network. Calling <code>route.fulfill(...)</code>
+short-circuits it entirely — the real backend is never called — letting
+you deterministically test the empty-state UI without needing a backend
+that actually returns zero results for some magic query string.</p>
+<h2 id="simulating-errors-and-slow-networks">Simulating errors and slow networks<a class="headerlink" href="#simulating-errors-and-slow-networks" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_search_shows_error_banner_on_500</span><span class="p">(</span><span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">):</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="n">page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>        <span class="s2">"**/api/search**"</span><span class="p">,</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>        <span class="k">lambda</span> <span class="n">route</span><span class="p">:</span> <span class="n">route</span><span class="o">.</span><span class="n">fulfill</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="s2">"Internal Server Error"</span><span class="p">),</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    <span class="p">)</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"https://example.com/search"</span><span class="p">)</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>    <span class="n">page</span><span class="o">.</span><span class="n">get_by_placeholder</span><span class="p">(</span><span class="s2">"Search"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"laptop"</span><span class="p">)</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>    <span class="n">page</span><span class="o">.</span><span class="n">get_by_placeholder</span><span class="p">(</span><span class="s2">"Search"</span><span class="p">)</span><span class="o">.</span><span class="n">press</span><span class="p">(</span><span class="s2">"Enter"</span><span class="p">)</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">playwright.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>    <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_text</span><span class="p">(</span><span class="s2">"Something went wrong. Try again."</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_visible</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>1 passed in 0.88s
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_shows_loading_spinner_while_search_pending</span><span class="p">(</span><span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">):</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">slow_response</span><span class="p">(</span><span class="n">route</span><span class="p">):</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># simulate backend latency</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>        <span class="n">route</span><span class="o">.</span><span class="n">continue_</span><span class="p">()</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>    <span class="n">page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">"**/api/search**"</span><span class="p">,</span> <span class="n">slow_response</span><span class="p">)</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"https://example.com/search"</span><span class="p">)</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>    <span class="n">page</span><span class="o">.</span><span class="n">get_by_placeholder</span><span class="p">(</span><span class="s2">"Search"</span><span class="p">)</span><span class="o">.</span><span class="n">press</span><span class="p">(</span><span class="s2">"Enter"</span><span class="p">)</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">playwright.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>    <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"status"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Loading"</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_visible</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>1 passed in 2.31s
+</code></pre></div>
+<p>This is the only realistic way to test a 500-error banner or a loading
+spinner deterministically — you cannot reliably make a real backend fail
+or lag on demand, but you can always make the browser <em>believe</em> it did.</p>
+<h2 id="modifying-a-real-response-instead-of-replacing-it">Modifying a real response instead of replacing it<a class="headerlink" href="#modifying-a-real-response-instead-of-replacing-it" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_feature_flag_forced_on</span><span class="p">(</span><span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">):</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">add_feature_flag</span><span class="p">(</span><span class="n">route</span><span class="p">):</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>        <span class="n">response</span> <span class="o">=</span> <span class="n">route</span><span class="o">.</span><span class="n">fetch</span><span class="p">()</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>        <span class="n">body</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>        <span class="n">body</span><span class="p">[</span><span class="s2">"features"</span><span class="p">][</span><span class="s2">"new_checkout"</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>        <span class="n">route</span><span class="o">.</span><span class="n">fulfill</span><span class="p">(</span><span class="n">response</span><span class="o">=</span><span class="n">response</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">body</span><span class="p">)</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>    <span class="n">page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">"**/api/config"</span><span class="p">,</span> <span class="n">add_feature_flag</span><span class="p">)</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"https://example.com"</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a># no output — route.fetch() performs the real network request,
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a># then fulfill(response=..., json=...) replays it with one field
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a># patched, leaving everything else (headers, other fields) intact
+</code></pre></div>
+<p><code>route.fetch()</code> followed by <code>route.fulfill(response=...)</code> is the pattern
+for "mostly real, one field different" — safer than hand-writing a full
+mock body that will silently drift out of sync with the real API shape.</p>
+<h2 id="stopping-unwanted-third-party-calls">Stopping unwanted third-party calls<a class="headerlink" href="#stopping-unwanted-third-party-calls" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>    <span class="s2">"**/*.{google-analytics,doubleclick,facebook}*/**"</span><span class="p">,</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>    <span class="k">lambda</span> <span class="n">route</span><span class="p">:</span> <span class="n">route</span><span class="o">.</span><span class="n">abort</span><span class="p">(),</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a># no output — route.abort() fails the request outright; useful
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a># to keep tests fast and to avoid polluting real analytics with
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a># test traffic every CI run generates
+</code></pre></div>
+<h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
+<p>Using <code>https://httpbin.org</code> as a stand-in backend and any simple page you
+control (or <code>https://the-internet.herokuapp.com/</code>):</p>
+<ol>
+<li>Write a test that navigates to a page making an XHR/fetch call, use
+   <code>page.on("request", ...)</code> to log every request URL, and assert the page
+   makes at least one request containing <code>/get</code> or <code>/api</code>.</li>
+<li>Use <code>page.route</code> to intercept a request to <code>**/get**</code> and
+   <code>route.fulfill()</code> a fixed JSON body of your choosing; reload the page
+   and assert the mocked data renders instead of the real response.</li>
+<li>Use <code>route.abort()</code> to block a specific request pattern and assert the
+   page shows a fallback/error state instead of hanging.</li>
+<li>Combine <code>page.expect_response(...)</code> with an action to assert a specific
+   request fires with the correct query string when a filter/search input
+   is used — without mocking anything, just observing.</li>
+<li>Write <code>route.fetch()</code> + <code>route.fulfill(response=..., json=patched_body)</code>
+   against a real <code>httpbin.org/get</code> call, patching one key in the returned
+   JSON, and assert the patched value appears in the page (e.g. by writing
+   a tiny HTML page that fetches and renders it, or by asserting via
+   <code>response.json()</code> directly in the test).</li>
+</ol>
 
 
 

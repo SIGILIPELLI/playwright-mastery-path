@@ -1512,6 +1512,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08 · Performance & Tracing
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1528,6 +1546,91 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#navigation-timing-via-pageevaluate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Navigation timing via page.evaluate
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-web-vitals-lcp-cls-and-friends" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Web Vitals: LCP, CLS, and friends
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cdp-session-network-and-cpu-throttling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CDP session: network and CPU throttling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tracing-for-performance-not-just-failures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tracing for performance, not just failures
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#full-worked-example-a-performance-budget-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Full worked example: a performance budget test
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1991,6 +2094,80 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#navigation-timing-via-pageevaluate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Navigation timing via page.evaluate
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-web-vitals-lcp-cls-and-friends" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Web Vitals: LCP, CLS, and friends
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cdp-session-network-and-cpu-throttling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CDP session: network and CPU throttling
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tracing-for-performance-not-just-failures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tracing for performance, not just failures
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#full-worked-example-a-performance-budget-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Full worked example: a performance budget test
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2010,8 +2187,131 @@
 
 
 <h1 id="08-performance-tracing">08 · Performance &amp; Tracing<a class="headerlink" href="#08-performance-tracing" title="Permanent link">&para;</a></h1>
-<p>This module is part of Level 3 · Advanced.</p>
-<p>More lessons are on the way — check back soon.</p>
+<p>Playwright can capture real browser performance data — not just "did it
+load" but "how long did it take, and where did the time go" — using the
+Chrome DevTools Protocol (CDP) and the browser's own Performance/Navigation
+Timing APIs, no external tooling required.</p>
+<h2 id="navigation-timing-via-pageevaluate">Navigation timing via <code>page.evaluate</code><a class="headerlink" href="#navigation-timing-via-pageevaluate" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_homepage_load_performance</span><span class="p">(</span><span class="n">page</span><span class="p">):</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"/"</span><span class="p">)</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">timing</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="s2">"""() =&gt; {</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="s2">        const nav = performance.getEntriesByType('navigation')[0];</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="s2">        return {</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="s2">            domContentLoaded: nav.domContentLoadedEventEnd - nav.startTime,</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="s2">            loadComplete: nav.loadEventEnd - nav.startTime,</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="s2">            ttfb: nav.responseStart - nav.startTime,</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="s2">        };</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="s2">    }"""</span><span class="p">)</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    <span class="k">assert</span> <span class="n">timing</span><span class="p">[</span><span class="s2">"ttfb"</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">500</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"TTFB too slow: </span><span class="si">{</span><span class="n">timing</span><span class="p">[</span><span class="s1">'ttfb'</span><span class="p">]</span><span class="si">}</span><span class="s2">ms"</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="k">assert</span> <span class="n">timing</span><span class="p">[</span><span class="s2">"domContentLoaded"</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">2000</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"DCL too slow: </span><span class="si">{</span><span class="n">timing</span><span class="p">[</span><span class="s1">'domContentLoaded'</span><span class="p">]</span><span class="si">}</span><span class="s2">ms"</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a># performance.getEntriesByType('navigation') is a standard
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a># browser API returning precise timestamps for every phase of
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a># page load — running it through page.evaluate() gets real
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a># browser-measured numbers back into Python as plain data
+</code></pre></div>
+<h2 id="core-web-vitals-lcp-cls-and-friends">Core Web Vitals: LCP, CLS, and friends<a class="headerlink" href="#core-web-vitals-lcp-cls-and-friends" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_largest_contentful_paint</span><span class="p">(</span><span class="n">page</span><span class="p">):</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"/"</span><span class="p">)</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="n">lcp</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="s2">"""() =&gt; new Promise(resolve =&gt; {</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="s2">        new PerformanceObserver((list) =&gt; {</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="s2">            const entries = list.getEntries();</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="s2">            resolve(entries[entries.length - 1].startTime);</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="s2">        }).observe({ type: 'largest-contentful-paint', buffered: true });</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="s2">    })"""</span><span class="p">)</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="k">assert</span> <span class="n">lcp</span> <span class="o">&lt;</span> <span class="mi">2500</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"LCP too slow: </span><span class="si">{</span><span class="n">lcp</span><span class="si">}</span><span class="s2">ms"</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a># LCP only fires once, asynchronously, so this wraps a
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a># PerformanceObserver in a Promise and awaits it inside
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a># page.evaluate() — buffered: true lets it retrieve an entry
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a># that already happened before the observer was attached
+</code></pre></div>
+<h2 id="cdp-session-network-and-cpu-throttling">CDP session: network and CPU throttling<a class="headerlink" href="#cdp-session-network-and-cpu-throttling" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_page_usable_on_slow_network</span><span class="p">(</span><span class="n">page</span><span class="p">):</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="n">client</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">new_cdp_session</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="n">client</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">"Network.emulateNetworkConditions"</span><span class="p">,</span> <span class="p">{</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>        <span class="s2">"offline"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>        <span class="s2">"downloadThroughput"</span><span class="p">:</span> <span class="mi">400</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">/</span> <span class="mi">8</span><span class="p">,</span>   <span class="c1"># 400kbps</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>        <span class="s2">"uploadThroughput"</span><span class="p">:</span> <span class="mi">400</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">/</span> <span class="mi">8</span><span class="p">,</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>        <span class="s2">"latency"</span><span class="p">:</span> <span class="mi">400</span><span class="p">,</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    <span class="p">})</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"/"</span><span class="p">)</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>    <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"heading"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Dashboard"</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_visible</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">15000</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a># new_cdp_session() opens a raw Chrome DevTools Protocol
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a># channel — Network.emulateNetworkConditions throttles the
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a># actual network stack the browser uses, which is far more
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a># realistic than route-based delay injection because it
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a># affects every resource (JS, CSS, images) proportionally,
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a># not just the ones you've explicitly mocked
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_page_usable_on_throttled_cpu</span><span class="p">(</span><span class="n">page</span><span class="p">):</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="n">client</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">new_cdp_session</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="n">client</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">"Emulation.setCPUThrottlingRate"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"rate"</span><span class="p">:</span> <span class="mi">4</span><span class="p">})</span>  <span class="c1"># 4x slower CPU</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"/dashboard"</span><span class="p">)</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_text</span><span class="p">(</span><span class="s2">"Loading complete"</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_visible</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="tracing-for-performance-not-just-failures">Tracing for performance, not just failures<a class="headerlink" href="#tracing-for-performance-not-just-failures" title="Permanent link">&para;</a></h2>
+<p>Level 2 covered tracing for debugging failures; the same trace also records
+a full CPU/network timeline useful for spotting performance regressions:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_checkout_flow_traced</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    <span class="n">context</span><span class="o">.</span><span class="n">tracing</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="n">screenshots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">snapshots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sources</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"/checkout"</span><span class="p">)</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Place order"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_text</span><span class="p">(</span><span class="s2">"Order confirmed"</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_visible</span><span class="p">()</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    <span class="n">context</span><span class="o">.</span><span class="n">tracing</span><span class="o">.</span><span class="n">stop</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">"checkout-trace.zip"</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>playwright<span class="w"> </span>show-trace<span class="w"> </span>checkout-trace.zip
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a># the Trace Viewer's timeline includes a CPU/network graph
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a># alongside the action log — a long gap between two actions
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a># with no network activity underneath usually means expensive
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a># synchronous JS, which the "Call" and "Network" tabs at that
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a># timestamp can pinpoint
+</code></pre></div>
+<h2 id="full-worked-example-a-performance-budget-test">Full worked example: a performance budget test<a class="headerlink" href="#full-worked-example-a-performance-budget-test" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># tests/test_performance_budget.py</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="n">BUDGETS</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>    <span class="s2">"/"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"ttfb"</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span> <span class="s2">"dcl"</span><span class="p">:</span> <span class="mi">2000</span><span class="p">},</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>    <span class="s2">"/dashboard"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"ttfb"</span><span class="p">:</span> <span class="mi">700</span><span class="p">,</span> <span class="s2">"dcl"</span><span class="p">:</span> <span class="mi">3000</span><span class="p">},</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="p">}</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">"path"</span><span class="p">,</span> <span class="n">BUDGETS</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_page_meets_performance_budget</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>    <span class="n">timing</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="s2">"""() =&gt; {</span>
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="s2">        const nav = performance.getEntriesByType('navigation')[0];</span>
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="s2">        return {</span>
+<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="s2">            ttfb: nav.responseStart - nav.startTime,</span>
+<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a><span class="s2">            dcl: nav.domContentLoadedEventEnd - nav.startTime,</span>
+<a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a><span class="s2">        };</span>
+<a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a><span class="s2">    }"""</span><span class="p">)</span>
+<a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a>    <span class="n">budget</span> <span class="o">=</span> <span class="n">BUDGETS</span><span class="p">[</span><span class="n">path</span><span class="p">]</span>
+<a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a>    <span class="k">assert</span> <span class="n">timing</span><span class="p">[</span><span class="s2">"ttfb"</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">budget</span><span class="p">[</span><span class="s2">"ttfb"</span><span class="p">],</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2"> TTFB </span><span class="si">{</span><span class="n">timing</span><span class="p">[</span><span class="s1">'ttfb'</span><span class="p">]</span><span class="si">}</span><span class="s2">ms exceeds </span><span class="si">{</span><span class="n">budget</span><span class="p">[</span><span class="s1">'ttfb'</span><span class="p">]</span><span class="si">}</span><span class="s2">ms"</span>
+<a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a>    <span class="k">assert</span> <span class="n">timing</span><span class="p">[</span><span class="s2">"dcl"</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">budget</span><span class="p">[</span><span class="s2">"dcl"</span><span class="p">],</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2"> DCL </span><span class="si">{</span><span class="n">timing</span><span class="p">[</span><span class="s1">'dcl'</span><span class="p">]</span><span class="si">}</span><span class="s2">ms exceeds </span><span class="si">{</span><span class="n">budget</span><span class="p">[</span><span class="s1">'dcl'</span><span class="p">]</span><span class="si">}</span><span class="s2">ms"</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a># treating performance numbers as an explicit, parametrized
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a># budget per route turns "the site feels slower lately" into a
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a># CI failure with a specific route and specific metric attached,
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a># the same way a functional assertion turns a bug report into
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a># a specific failing line
+</code></pre></div>
+<h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Write a test that reads Navigation Timing data via <code>page.evaluate()</code> and
+   asserts a TTFB budget on a real page.</li>
+<li>Capture LCP with a <code>PerformanceObserver</code> wrapped in a <code>Promise</code> and assert
+   it's under 2500ms.</li>
+<li>Open a CDP session and throttle the network with
+   <code>Network.emulateNetworkConditions</code>; confirm a page that loads instantly
+   at full speed now visibly takes longer, and that your test's timeout
+   still accounts for that.</li>
+<li>Define a per-route performance budget dict like the one above for at
+   least two routes in your app, and parametrize a single test function
+   across both.</li>
+</ol>
 
 
 

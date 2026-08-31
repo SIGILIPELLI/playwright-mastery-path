@@ -1110,6 +1110,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07 · Test Configuration & Projects
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1126,6 +1144,91 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pytestini-pyprojecttoml-as-the-single-source-of-truth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pytest.ini / pyproject.toml as the single source of truth
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#browser_context_args-and-browser_type_launch_args-fixtures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        browser_context_args and browser_type_launch_args fixtures
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#base-url-so-tests-dont-hardcode-environments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Base URL, so tests don't hardcode environments
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#projects-running-one-suite-in-multiple-configurations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Projects: running one suite in multiple configurations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#per-test-overrides" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Per-test overrides
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1991,6 +2094,80 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pytestini-pyprojecttoml-as-the-single-source-of-truth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pytest.ini / pyproject.toml as the single source of truth
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#browser_context_args-and-browser_type_launch_args-fixtures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        browser_context_args and browser_type_launch_args fixtures
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#base-url-so-tests-dont-hardcode-environments" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Base URL, so tests don't hardcode environments
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#projects-running-one-suite-in-multiple-configurations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Projects: running one suite in multiple configurations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#per-test-overrides" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Per-test overrides
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2010,8 +2187,151 @@
 
 
 <h1 id="07-test-configuration-projects">07 · Test Configuration &amp; Projects<a class="headerlink" href="#07-test-configuration-projects" title="Permanent link">&para;</a></h1>
-<p>This module is part of Level 2 · Intermediate.</p>
-<p>More lessons are on the way — check back soon.</p>
+<h2 id="pytestini-pyprojecttoml-as-the-single-source-of-truth"><code>pytest.ini</code> / <code>pyproject.toml</code> as the single source of truth<a class="headerlink" href="#pytestini-pyprojecttoml-as-the-single-source-of-truth" title="Permanent link">&para;</a></h2>
+<p>Command-line flags typed by hand drift between developers and CI. Baking
+them into config means <code>pytest</code> alone reproduces the same run everywhere.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># pytest.ini</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">[pytest]</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="na">addopts</span><span class="w"> </span><span class="o">=</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="na">--browser chromium</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="na">--headed</span><span class="o">=</span><span class="s">false</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="na">--screenshot</span><span class="o">=</span><span class="s">only-on-failure</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="na">--video</span><span class="o">=</span><span class="s">retain-on-failure</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="na">--tracing</span><span class="o">=</span><span class="s">retain-on-failure</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="na">-n auto</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="na">testpaths</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">tests</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a># no output — every bare `pytest` invocation now implicitly
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a># includes all of these flags, so `pytest tests/test_login.py`
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a># still runs headless, traces on failure, etc.
+</code></pre></div>
+<p><code>--screenshot</code>, <code>--video</code>, and <code>--tracing</code> are <code>pytest-playwright</code> options
+(not stock pytest) — <code>only-on-failure</code>/<code>retain-on-failure</code> keep CI
+artifacts small by discarding the media for tests that passed, while still
+capturing full debugging evidence the moment something breaks.</p>
+<h2 id="browser_context_args-and-browser_type_launch_args-fixtures"><code>browser_context_args</code> and <code>browser_type_launch_args</code> fixtures<a class="headerlink" href="#browser_context_args-and-browser_type_launch_args-fixtures" title="Permanent link">&para;</a></h2>
+<p>These are the officially supported override points for how
+pytest-playwright constructs the browser/context for every test.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># conftest.py</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">"session"</span><span class="p">)</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">browser_type_launch_args</span><span class="p">(</span><span class="n">browser_type_launch_args</span><span class="p">):</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="k">return</span> <span class="p">{</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>        <span class="o">**</span><span class="n">browser_type_launch_args</span><span class="p">,</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>        <span class="s2">"slow_mo"</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span>       <span class="c1"># ms delay between actions, for local debugging</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="p">}</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">"session"</span><span class="p">)</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="k">def</span><span class="w"> </span><span class="nf">browser_context_args</span><span class="p">(</span><span class="n">browser_context_args</span><span class="p">):</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    <span class="k">return</span> <span class="p">{</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>        <span class="o">**</span><span class="n">browser_context_args</span><span class="p">,</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>        <span class="s2">"viewport"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"width"</span><span class="p">:</span> <span class="mi">1440</span><span class="p">,</span> <span class="s2">"height"</span><span class="p">:</span> <span class="mi">900</span><span class="p">},</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>        <span class="s2">"locale"</span><span class="p">:</span> <span class="s2">"en-GB"</span><span class="p">,</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>        <span class="s2">"timezone_id"</span><span class="p">:</span> <span class="s2">"Europe/London"</span><span class="p">,</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>        <span class="s2">"permissions"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"geolocation"</span><span class="p">],</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>        <span class="s2">"geolocation"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"latitude"</span><span class="p">:</span> <span class="mf">51.5072</span><span class="p">,</span> <span class="s2">"longitude"</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.1276</span><span class="p">},</span>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>    <span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a># no output — every test's context now launches at 1440x900,
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a># reports London as its locale/timezone/geolocation, and has
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a># geolocation permission pre-granted (skipping the native prompt)
+</code></pre></div>
+<p>Always spread the incoming fixture (<code>**browser_context_args</code>) rather than
+returning a fresh dict — this lets other fixtures/plugins layer their own
+overrides on top instead of one definition silently discarding another's.</p>
+<h2 id="base-url-so-tests-dont-hardcode-environments">Base URL, so tests don't hardcode environments<a class="headerlink" href="#base-url-so-tests-dont-hardcode-environments" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">"session"</span><span class="p">)</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">browser_context_args</span><span class="p">(</span><span class="n">browser_context_args</span><span class="p">):</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="k">return</span> <span class="p">{</span><span class="o">**</span><span class="n">browser_context_args</span><span class="p">,</span> <span class="s2">"base_url"</span><span class="p">:</span> <span class="s2">"https://staging.example.com"</span><span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_login</span><span class="p">(</span><span class="n">page</span><span class="p">):</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"/login"</span><span class="p">)</span>   <span class="c1"># resolves against base_url -&gt; staging.example.com/login</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>1 passed in 1.10s
+</code></pre></div>
+<p>With <code>base_url</code> set, <code>page.goto("/login")</code> and assertions like
+<code>expect(page).to_have_url("/dashboard")</code> work with relative paths — this
+is what makes the <em>same test file</em> runnable against staging, production,
+or a local dev server, controlled entirely by config, never by editing
+test code.</p>
+<h2 id="projects-running-one-suite-in-multiple-configurations">Projects: running one suite in multiple configurations<a class="headerlink" href="#projects-running-one-suite-in-multiple-configurations" title="Permanent link">&para;</a></h2>
+<p>The JS/TS Playwright test runner has a first-class <code>projects</code> array in
+<code>playwright.config.ts</code> for this; in Python, the equivalent is combining
+pytest markers with CLI-selectable fixture overrides, or running pytest
+multiple times with different <code>--base-url</code>/env vars.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># conftest.py</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">"session"</span><span class="p">)</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">browser_context_args</span><span class="p">(</span><span class="n">browser_context_args</span><span class="p">):</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>    <span class="n">base_url</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"BASE_URL"</span><span class="p">,</span> <span class="s2">"https://staging.example.com"</span><span class="p">)</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>    <span class="k">return</span> <span class="p">{</span><span class="o">**</span><span class="n">browser_context_args</span><span class="p">,</span> <span class="s2">"base_url"</span><span class="p">:</span> <span class="n">base_url</span><span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nv">BASE_URL</span><span class="o">=</span>https://staging.example.com<span class="w"> </span>pytest
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nv">BASE_URL</span><span class="o">=</span>https://example.com<span class="w"> </span>pytest<span class="w">              </span><span class="c1"># same suite, prod</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a># no output for either — identical test files, environment
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a># variable alone decides which environment gets exercised
+</code></pre></div>
+<h2 id="per-test-overrides">Per-test overrides<a class="headerlink" href="#per-test-overrides" title="Permanent link">&para;</a></h2>
+<p>A single test can still override context settings by requesting its own
+<code>context</code>/<code>page</code> via a locally-scoped fixture rather than the global one.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">mobile_page</span><span class="p">(</span><span class="n">browser</span><span class="p">):</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>    <span class="n">context</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">(</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>        <span class="n">viewport</span><span class="o">=</span><span class="p">{</span><span class="s2">"width"</span><span class="p">:</span> <span class="mi">390</span><span class="p">,</span> <span class="s2">"height"</span><span class="p">:</span> <span class="mi">844</span><span class="p">},</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>        <span class="n">user_agent</span><span class="o">=</span><span class="p">(</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>            <span class="s2">"Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) "</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>            <span class="s2">"AppleWebKit/605.1.15"</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>        <span class="p">),</span>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>        <span class="n">is_mobile</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>        <span class="n">has_touch</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>    <span class="p">)</span>
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>    <span class="n">page</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>    <span class="k">yield</span> <span class="n">page</span>
+<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>    <span class="n">context</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>
+<a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_mobile_nav_menu_is_hamburger</span><span class="p">(</span><span class="n">mobile_page</span><span class="p">):</span>
+<a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a>    <span class="n">mobile_page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"https://example.com"</span><span class="p">)</span>
+<a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">playwright.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span>
+<a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a>    <span class="n">expect</span><span class="p">(</span><span class="n">mobile_page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Menu"</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_visible</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>1 passed in 1.05s
+</code></pre></div>
+<p>Playwright ships <code>playwright.sync_api.playwright</code> device descriptors for
+exact real-device emulation instead of hand-typing viewport/UA:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">playwright.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">sync_playwright</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="k">with</span> <span class="n">sync_playwright</span><span class="p">()</span> <span class="k">as</span> <span class="n">p</span><span class="p">:</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>    <span class="n">iphone_13</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">devices</span><span class="p">[</span><span class="s2">"iPhone 13"</span><span class="p">]</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>    <span class="n">browser</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">chromium</span><span class="o">.</span><span class="n">launch</span><span class="p">()</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>    <span class="n">context</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">(</span><span class="o">**</span><span class="n">iphone_13</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a># no output — p.devices["iPhone 13"] expands to a full dict of
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a># viewport, user_agent, device_scale_factor, is_mobile, has_touch
+</code></pre></div>
+<h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Move any hardcoded <code>page.goto("https://...")</code> calls in an existing
+   suite into a <code>base_url</code> context fixture, switching each call to a
+   relative path.</li>
+<li>Add a <code>pytest.ini</code> with <code>addopts</code> enabling <code>--screenshot=only-on-failure</code>
+   and <code>--tracing=retain-on-failure</code>; deliberately break one test's
+   assertion, run the suite, and locate the generated trace/screenshot
+   artifact on disk.</li>
+<li>Write a <code>mobile_context</code> fixture using <code>p.devices["Pixel 7"]</code> (or any
+   device from <code>playwright.sync_api</code>'s device list) and duplicate one
+   existing test to run against it, asserting mobile-specific UI (a
+   hamburger menu, a bottom nav bar) appears.</li>
+<li>Parametrize <code>BASE_URL</code> via an environment variable and run the same
+   suite against two different public sites that share similar structure
+   (or two branches of your own app, if available) without touching test
+   code.</li>
+</ol>
 
 
 

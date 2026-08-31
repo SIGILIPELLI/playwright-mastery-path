@@ -1802,6 +1802,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 · Debugging with Trace Viewer
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1818,6 +1836,113 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#capturing-the-richest-possible-trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capturing the richest possible trace
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reading-the-actions-panel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading the Actions panel
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#network-tab-correlating-a-ui-stall-with-a-slow-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Network tab: correlating a UI stall with a slow request
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#console-tab-and-uncaught-exceptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Console tab and uncaught exceptions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-beforeafter-snapshot-toggle-for-a-single-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The "before/after" snapshot toggle for a single action
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparing-a-ci-trace-against-a-local-trace-for-the-same-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparing a CI trace against a local trace for the same test
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trace-groups-organizing-a-long-multi-page-object-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trace groups: organizing a long, multi-page-object test
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1991,6 +2116,102 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#capturing-the-richest-possible-trace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capturing the richest possible trace
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reading-the-actions-panel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading the Actions panel
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#network-tab-correlating-a-ui-stall-with-a-slow-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Network tab: correlating a UI stall with a slow request
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#console-tab-and-uncaught-exceptions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Console tab and uncaught exceptions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-beforeafter-snapshot-toggle-for-a-single-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The "before/after" snapshot toggle for a single action
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparing-a-ci-trace-against-a-local-trace-for-the-same-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparing a CI trace against a local trace for the same test
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trace-groups-organizing-a-long-multi-page-object-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trace groups: organizing a long, multi-page-object test
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2010,8 +2231,123 @@
 
 
 <h1 id="05-debugging-with-trace-viewer">05 · Debugging with Trace Viewer<a class="headerlink" href="#05-debugging-with-trace-viewer" title="Permanent link">&para;</a></h1>
-<p>This module is part of Level 4 · Master.</p>
-<p>More lessons are on the way — check back soon.</p>
+<p>Earlier levels used tracing to grab a post-mortem on failure. This module
+goes deeper into the Trace Viewer itself — the panels, how to read them
+precisely, and workflows for the hardest class of bug: something that only
+fails in CI and never reproduces locally.</p>
+<h2 id="capturing-the-richest-possible-trace">Capturing the richest possible trace<a class="headerlink" href="#capturing-the-richest-possible-trace" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">context</span><span class="o">.</span><span class="n">tracing</span><span class="o">.</span><span class="n">start</span><span class="p">(</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="n">screenshots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">snapshots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n">sources</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">title</span><span class="o">=</span><span class="s2">"checkout-flow"</span><span class="p">,</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="p">)</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"/checkout"</span><span class="p">)</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c1"># ... test steps ...</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">context</span><span class="o">.</span><span class="n">tracing</span><span class="o">.</span><span class="n">stop</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">"trace.zip"</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a># screenshots: a JPEG after every action, for a quick visual scrub
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a># snapshots: a full DOM + CSS snapshot per action, letting the
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>#   viewer render a pixel-faithful reconstruction you can
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>#   inspect/hover/right-click, not just a static image
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a># sources: embeds your test's source code, so the viewer can
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>#   highlight exactly which line produced each action
+</code></pre></div>
+<h2 id="reading-the-actions-panel">Reading the Actions panel<a class="headerlink" href="#reading-the-actions-panel" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>▼ page.goto("/checkout")           120ms
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>▼ locator.fill("Email")             45ms
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>▼ locator.click("Place order")     2.3s   ← unusually long
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  ▸ waiting for element to be visible, enabled and stable
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  ▸ scrolling into view if needed
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>  ▸ element is visible, enabled and stable
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>  ▸ performing click action
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a># each action's duration is the first thing to scan for — a
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a># click action taking 2.3s when everything before it took
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a># under 200ms means the click itself waited on something
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a># (an element not yet stable, or a re-render loop); expanding
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a># it shows the exact actionability checks Playwright ran and
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a># in what order, pinpointing which one took the time
+</code></pre></div>
+<h2 id="network-tab-correlating-a-ui-stall-with-a-slow-request">Network tab: correlating a UI stall with a slow request<a class="headerlink" href="#network-tab-correlating-a-ui-stall-with-a-slow-request" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Network
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>  GET  /api/cart               200   340ms
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>  POST /api/checkout/validate  200   1,850ms   ← the real bottleneck
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>  GET  /api/shipping-options   200   210ms
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a># clicking a network entry jumps the DOM snapshot to that exact
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a># moment, so you can confirm the UI genuinely was waiting on
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a># that specific response — this is often what an "unusually
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a># long click" in the Actions panel actually was waiting on
+</code></pre></div>
+<h2 id="console-tab-and-uncaught-exceptions">Console tab and uncaught exceptions<a class="headerlink" href="#console-tab-and-uncaught-exceptions" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Console
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>  [warning] React does not recognize the `isActive` prop on a DOM element
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>  [error]   Uncaught TypeError: Cannot read properties of undefined (reading 'total')
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>              at CartSummary.jsx:42
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a># a JS exception logged here, timestamped against the same
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a># timeline as the failing action, is often the actual root
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a># cause of a UI assertion failure that looked purely visual —
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a># check this before assuming your selector or assertion is wrong
+</code></pre></div>
+<h2 id="the-beforeafter-snapshot-toggle-for-a-single-action">The "before/after" snapshot toggle for a single action<a class="headerlink" href="#the-beforeafter-snapshot-toggle-for-a-single-action" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a># each action row has a small camera icon toggle between the
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a># DOM snapshot immediately BEFORE and immediately AFTER that
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a># action executed — for a click that "didn't seem to do
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a># anything," comparing before/after directly answers whether
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a># the DOM changed at all, versus changed but not in the way
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a># the test expected
+</code></pre></div>
+<h2 id="comparing-a-ci-trace-against-a-local-trace-for-the-same-test">Comparing a CI trace against a local trace for the same test<a class="headerlink" href="#comparing-a-ci-trace-against-a-local-trace-for-the-same-test" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># download the CI-uploaded trace artifact (Level 3's --tracing setup)</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>playwright<span class="w"> </span>show-trace<span class="w"> </span>ci-trace.zip
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1"># reproduce locally with an identical trace for comparison</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>pytest<span class="w"> </span>tests/test_checkout.py::test_apply_discount<span class="w"> </span>--tracing<span class="o">=</span>on
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>playwright<span class="w"> </span>show-trace<span class="w"> </span>test-results/.../trace.zip
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a># side-by-side, differences in viewport size, timing between
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a># actions, or a network response that differs (a feature flag
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a># on in CI but not locally, different seeded data) are usually
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a># visible directly in the two Network/DOM panels — this is the
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a># most reliable way to debug a "only fails in CI" report
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a># without adding print statements and re-running CI repeatedly
+</code></pre></div>
+<h2 id="trace-groups-organizing-a-long-multi-page-object-test">Trace groups: organizing a long, multi-page-object test<a class="headerlink" href="#trace-groups-organizing-a-long-multi-page-object-test" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">with</span> <span class="n">context</span><span class="o">.</span><span class="n">tracing</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">"Login"</span><span class="p">):</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"/login"</span><span class="p">)</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Email"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"user@example.com"</span><span class="p">)</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>    <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Sign in"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="k">with</span> <span class="n">context</span><span class="o">.</span><span class="n">tracing</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">"Add item to cart"</span><span class="p">):</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"/products/42"</span><span class="p">)</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>    <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Add to cart"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="k">with</span> <span class="n">context</span><span class="o">.</span><span class="n">tracing</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s2">"Checkout"</span><span class="p">):</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"/checkout"</span><span class="p">)</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>    <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Place order"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a># tracing.group() nests a labeled, collapsible section in the
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a># Actions panel — a 40-step end-to-end test becomes 3-4
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a># collapsible groups instead of a flat unreadable list,
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a># turning "which of these 40 actions is the failing one" into
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a># "which group failed" as the first filter
+</code></pre></div>
+<h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Capture a trace with <code>screenshots=True, snapshots=True, sources=True</code> for
+   a multi-step test and open it with <code>playwright show-trace</code>; identify the
+   single longest action and expand it to see why.</li>
+<li>Find a network request in the trace that correlates with a UI wait and
+   click it to jump the DOM snapshot to that moment.</li>
+<li>Wrap a multi-step test in 2-3 <code>tracing.group()</code> blocks and confirm the
+   Actions panel shows them as collapsible sections.</li>
+<li>Deliberately introduce a difference between a "local" and "CI-like" run
+   (a different viewport, a stubbed vs. real API response) that changes
+   test behavior, capture a trace of each, and describe in a comment
+   exactly which panel revealed the difference.</li>
+</ol>
 
 
 

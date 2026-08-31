@@ -1372,6 +1372,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 · API Testing with Request Context
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1388,6 +1406,102 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#a-pure-api-test-no-browser-at-all" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A pure API test, no browser at all
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#post-put-delete-with-json-bodies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST, PUT, DELETE with JSON bodies
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sharing-auth-between-api-calls-and-a-real-browser-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sharing auth between API calls and a real browser context
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mixing-api-setup-into-a-ui-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mixing API setup into a UI test
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#asserting-on-response-headers-and-timing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Asserting on response headers and timing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#full-worked-example-contract-test-for-a-paginated-endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Full worked example: contract test for a paginated endpoint
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1991,6 +2105,91 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#a-pure-api-test-no-browser-at-all" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A pure API test, no browser at all
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#post-put-delete-with-json-bodies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST, PUT, DELETE with JSON bodies
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sharing-auth-between-api-calls-and-a-real-browser-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sharing auth between API calls and a real browser context
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mixing-api-setup-into-a-ui-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mixing API setup into a UI test
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#asserting-on-response-headers-and-timing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Asserting on response headers and timing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#full-worked-example-contract-test-for-a-paginated-endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Full worked example: contract test for a paginated endpoint
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2010,8 +2209,141 @@
 
 
 <h1 id="03-api-testing-with-request-context">03 · API Testing with Request Context<a class="headerlink" href="#03-api-testing-with-request-context" title="Permanent link">&para;</a></h1>
-<p>This module is part of Level 3 · Advanced.</p>
-<p>More lessons are on the way — check back soon.</p>
+<p>Not every check needs a browser. Playwright ships a standalone HTTP client —
+<code>APIRequestContext</code> — that shares its cookie jar with a <code>BrowserContext</code>,
+which makes it uniquely useful for seeding data, asserting on backend
+responses directly, and mixing API calls into UI tests without spinning up
+<code>requests</code> or <code>httpx</code> as a separate dependency.</p>
+<h2 id="a-pure-api-test-no-browser-at-all">A pure API test, no browser at all<a class="headerlink" href="#a-pure-api-test-no-browser-at-all" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">playwright.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">APIRequestContext</span><span class="p">,</span> <span class="n">sync_playwright</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">"session"</span><span class="p">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">api_context</span><span class="p">(</span><span class="n">playwright</span><span class="p">):</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">context</span> <span class="o">=</span> <span class="n">playwright</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">new_context</span><span class="p">(</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>        <span class="n">base_url</span><span class="o">=</span><span class="s2">"https://api.example.com"</span><span class="p">,</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>        <span class="n">extra_http_headers</span><span class="o">=</span><span class="p">{</span><span class="s2">"Authorization"</span><span class="p">:</span> <span class="s2">"Bearer test-token"</span><span class="p">},</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="p">)</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="k">yield</span> <span class="n">context</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    <span class="n">context</span><span class="o">.</span><span class="n">dispose</span><span class="p">()</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_get_user</span><span class="p">(</span><span class="n">api_context</span><span class="p">:</span> <span class="n">APIRequestContext</span><span class="p">):</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">api_context</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/users/42"</span><span class="p">)</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    <span class="k">assert</span> <span class="n">response</span><span class="o">.</span><span class="n">ok</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    <span class="k">assert</span> <span class="n">response</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="mi">200</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    <span class="n">body</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>    <span class="k">assert</span> <span class="n">body</span><span class="p">[</span><span class="s2">"id"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">42</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>    <span class="k">assert</span> <span class="n">body</span><span class="p">[</span><span class="s2">"email"</span><span class="p">]</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">"@example.com"</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a># playwright.request.new_context() creates an APIRequestContext
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a># independent of any browser — no Chromium/Firefox process is
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a># launched, so these tests run much faster than UI tests and
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a># are a good fit for backend contract checks
+</code></pre></div>
+<h2 id="post-put-delete-with-json-bodies">POST, PUT, DELETE with JSON bodies<a class="headerlink" href="#post-put-delete-with-json-bodies" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_create_and_delete_todo</span><span class="p">(</span><span class="n">api_context</span><span class="p">):</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="n">create</span> <span class="o">=</span> <span class="n">api_context</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/todos"</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">"title"</span><span class="p">:</span> <span class="s2">"Buy milk"</span><span class="p">,</span> <span class="s2">"done"</span><span class="p">:</span> <span class="kc">False</span><span class="p">})</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="k">assert</span> <span class="n">create</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="mi">201</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="n">todo_id</span> <span class="o">=</span> <span class="n">create</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">"id"</span><span class="p">]</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">update</span> <span class="o">=</span> <span class="n">api_context</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="sa">f</span><span class="s2">"/todos/</span><span class="si">{</span><span class="n">todo_id</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">"done"</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="k">assert</span> <span class="n">update</span><span class="o">.</span><span class="n">ok</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="k">assert</span> <span class="n">update</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">"done"</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="n">delete</span> <span class="o">=</span> <span class="n">api_context</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="sa">f</span><span class="s2">"/todos/</span><span class="si">{</span><span class="n">todo_id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="k">assert</span> <span class="n">delete</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="mi">204</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    <span class="n">confirm</span> <span class="o">=</span> <span class="n">api_context</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s2">"/todos/</span><span class="si">{</span><span class="n">todo_id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>    <span class="k">assert</span> <span class="n">confirm</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="mi">404</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a># `data=` is JSON-encoded automatically when it's a dict; use
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a># `data=raw_bytes` or `multipart=` for other body types. The
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a># request/response cycle here never touches a browser, so this
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a># is a fast, reliable way to verify backend behavior in isolation
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a># from any frontend rendering bugs
+</code></pre></div>
+<h2 id="sharing-auth-between-api-calls-and-a-real-browser-context">Sharing auth between API calls and a real browser context<a class="headerlink" href="#sharing-auth-between-api-calls-and-a-real-browser-context" title="Permanent link">&para;</a></h2>
+<p>Because <code>APIRequestContext</code> and <code>BrowserContext</code> can share cookies, you can
+log in via the API and hand the resulting session to a real page — skipping
+a UI login entirely, even faster than the storage-state approach from the
+previous module:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_dashboard_after_api_login</span><span class="p">(</span><span class="n">playwright</span><span class="p">,</span> <span class="n">browser</span><span class="p">):</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="n">api_context</span> <span class="o">=</span> <span class="n">playwright</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">new_context</span><span class="p">(</span><span class="n">base_url</span><span class="o">=</span><span class="s2">"https://example.com"</span><span class="p">)</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="n">login</span> <span class="o">=</span> <span class="n">api_context</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/api/login"</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">"email"</span><span class="p">:</span> <span class="s2">"qa@example.com"</span><span class="p">,</span> <span class="s2">"password"</span><span class="p">:</span> <span class="s2">"secret"</span><span class="p">})</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="k">assert</span> <span class="n">login</span><span class="o">.</span><span class="n">ok</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="n">storage_state</span> <span class="o">=</span> <span class="n">api_context</span><span class="o">.</span><span class="n">storage_state</span><span class="p">()</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="n">browser_context</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">(</span><span class="n">storage_state</span><span class="o">=</span><span class="n">storage_state</span><span class="p">)</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    <span class="n">page</span> <span class="o">=</span> <span class="n">browser_context</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"/dashboard"</span><span class="p">)</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>    <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_text</span><span class="p">(</span><span class="s2">"Welcome"</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_visible</span><span class="p">()</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>    <span class="n">browser_context</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>    <span class="n">api_context</span><span class="o">.</span><span class="n">dispose</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a># api_context.storage_state() returns the same cookie/origin
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a># shape a BrowserContext produces, so it can be fed directly
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a># into new_context(storage_state=...) — logging in over HTTP
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a># is typically far faster than filling and submitting a form
+</code></pre></div>
+<h2 id="mixing-api-setup-into-a-ui-test">Mixing API setup into a UI test<a class="headerlink" href="#mixing-api-setup-into-a-ui-test" title="Permanent link">&para;</a></h2>
+<p>The most common real-world pattern: use the API to get the app into a
+specific state instantly, then use the browser only to test the UI behavior
+that actually needs rendering.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_edit_existing_order</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">api_context</span><span class="p">):</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="n">order</span> <span class="o">=</span> <span class="n">api_context</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/orders"</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">"item"</span><span class="p">:</span> <span class="s2">"Widget"</span><span class="p">,</span> <span class="s2">"qty"</span><span class="p">:</span> <span class="mi">3</span><span class="p">})</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="sa">f</span><span class="s2">"/orders/</span><span class="si">{</span><span class="n">order</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span><span class="si">}</span><span class="s2">/edit"</span><span class="p">)</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Quantity"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"5"</span><span class="p">)</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Save"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>    <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_text</span><span class="p">(</span><span class="s2">"Order updated"</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_visible</span><span class="p">()</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>    <span class="n">confirm</span> <span class="o">=</span> <span class="n">api_context</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s2">"/orders/</span><span class="si">{</span><span class="n">order</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>    <span class="k">assert</span> <span class="n">confirm</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">"qty"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">5</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a># the order is created via a single fast API call instead of
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a># clicking through a multi-step "create order" UI flow just to
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a># get to the screen under test, and the final assertion
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a># double-checks the backend directly rather than trusting the
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a># UI's own success message alone
+</code></pre></div>
+<h2 id="asserting-on-response-headers-and-timing">Asserting on response headers and timing<a class="headerlink" href="#asserting-on-response-headers-and-timing" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_api_response_has_cache_headers</span><span class="p">(</span><span class="n">api_context</span><span class="p">):</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">api_context</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/products/1"</span><span class="p">)</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    <span class="k">assert</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"cache-control"</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"max-age=300"</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    <span class="k">assert</span> <span class="s2">"etag"</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">headers</span>
+</code></pre></div>
+<h2 id="full-worked-example-contract-test-for-a-paginated-endpoint">Full worked example: contract test for a paginated endpoint<a class="headerlink" href="#full-worked-example-contract-test-for-a-paginated-endpoint" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># tests/test_api_pagination.py</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_products_pagination_contract</span><span class="p">(</span><span class="n">api_context</span><span class="p">):</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    <span class="n">page1</span> <span class="o">=</span> <span class="n">api_context</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/products?page=1&amp;limit=10"</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">page1</span><span class="p">[</span><span class="s2">"items"</span><span class="p">])</span> <span class="o">==</span> <span class="mi">10</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>    <span class="k">assert</span> <span class="n">page1</span><span class="p">[</span><span class="s2">"page"</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>    <span class="k">assert</span> <span class="n">page1</span><span class="p">[</span><span class="s2">"has_next"</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">True</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>    <span class="n">page2</span> <span class="o">=</span> <span class="n">api_context</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/products?page=2&amp;limit=10"</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>    <span class="n">ids_page1</span> <span class="o">=</span> <span class="p">{</span><span class="n">item</span><span class="p">[</span><span class="s2">"id"</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">page1</span><span class="p">[</span><span class="s2">"items"</span><span class="p">]}</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>    <span class="n">ids_page2</span> <span class="o">=</span> <span class="p">{</span><span class="n">item</span><span class="p">[</span><span class="s2">"id"</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">page2</span><span class="p">[</span><span class="s2">"items"</span><span class="p">]}</span>
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>    <span class="k">assert</span> <span class="n">ids_page1</span><span class="o">.</span><span class="n">isdisjoint</span><span class="p">(</span><span class="n">ids_page2</span><span class="p">)</span>  <span class="c1"># no duplicate items across pages</span>
+</code></pre></div>
+<h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Write a fixture that creates an <code>APIRequestContext</code> pointed at a real or
+   mock API and use it to <code>GET</code> a resource, asserting on both <code>status</code> and
+   the parsed JSON body.</li>
+<li>Write a test that <code>POST</code>s a resource, then <code>PUT</code>s an update, then
+   <code>DELETE</code>s it, asserting the expected status code at each step.</li>
+<li>Log in via an API call, extract <code>storage_state()</code>, and use it to open an
+   authenticated page in a real browser context — confirm no login form was
+   ever rendered.</li>
+<li>Rewrite one existing UI test so it uses the API to set up preconditions
+   (e.g. creating a record) instead of clicking through the UI to create it,
+   and note in a comment how much of the test's runtime that setup used to
+   take.</li>
+</ol>
 
 
 

@@ -998,6 +998,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 · Multiple Tabs, Frames & Popups
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1014,6 +1032,102 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#popups-a-new-page-not-a-new-browser" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Popups: a new page, not a new browser
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#working-with-the-popup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Working with the popup
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iframes-a-different-document-same-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Iframes: a different document, same page
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nested-iframes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nested iframes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multiple-regular-tabs-opened-deliberately" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multiple regular tabs opened deliberately
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#switching-context-contextpages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Switching context: context.pages
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1991,6 +2105,91 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#popups-a-new-page-not-a-new-browser" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Popups: a new page, not a new browser
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#working-with-the-popup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Working with the popup
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iframes-a-different-document-same-page" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Iframes: a different document, same page
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nested-iframes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nested iframes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multiple-regular-tabs-opened-deliberately" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multiple regular tabs opened deliberately
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#switching-context-contextpages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Switching context: context.pages
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2010,8 +2209,128 @@
 
 
 <h1 id="03-multiple-tabs-frames-popups">03 · Multiple Tabs, Frames &amp; Popups<a class="headerlink" href="#03-multiple-tabs-frames-popups" title="Permanent link">&para;</a></h1>
-<p>This module is part of Level 2 · Intermediate.</p>
-<p>More lessons are on the way — check back soon.</p>
+<h2 id="popups-a-new-page-not-a-new-browser">Popups: a new page, not a new browser<a class="headerlink" href="#popups-a-new-page-not-a-new-browser" title="Permanent link">&para;</a></h2>
+<p>Clicking a link with <code>target="_blank"</code>, or code calling <code>window.open()</code>,
+opens a new tab. In Playwright terms that's a new <code>Page</code> object inside the
+same <code>BrowserContext</code>. You catch it with the context's <code>expect_page</code>
+context manager, which waits for the popup event around the action that
+triggers it.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">playwright.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">Page</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_opens_pricing_in_new_tab</span><span class="p">(</span><span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">):</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"https://example.com"</span><span class="p">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="k">with</span> <span class="n">page</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">expect_page</span><span class="p">()</span> <span class="k">as</span> <span class="n">popup_info</span><span class="p">:</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"link"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"View pricing (opens in new tab)"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">popup</span> <span class="o">=</span> <span class="n">popup_info</span><span class="o">.</span><span class="n">value</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="n">popup</span><span class="o">.</span><span class="n">wait_for_load_state</span><span class="p">()</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="k">assert</span> <span class="s2">"pricing"</span> <span class="ow">in</span> <span class="n">popup</span><span class="o">.</span><span class="n">url</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="n">popup</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>1 passed in 1.31s
+</code></pre></div>
+<p>The <code>with ... as popup_info:</code> block is essential — <code>expect_page()</code> starts
+listening for a new page <em>before</em> the click happens, so it can't miss the
+event racing against the click. Calling <code>context.pages[-1]</code> after the fact
+would work sometimes and flake other times, depending on how fast the new
+tab opens relative to your next line of code.</p>
+<h2 id="working-with-the-popup">Working with the popup<a class="headerlink" href="#working-with-the-popup" title="Permanent link">&para;</a></h2>
+<p>Once you have the popup <code>Page</code>, it behaves exactly like any other page —
+its own locators, its own navigation, its own lifecycle.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">with</span> <span class="n">page</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">expect_page</span><span class="p">()</span> <span class="k">as</span> <span class="n">popup_info</span><span class="p">:</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Share"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">share_popup</span> <span class="o">=</span> <span class="n">popup_info</span><span class="o">.</span><span class="n">value</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">share_popup</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"textbox"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Recipient email"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"a@b.com"</span><span class="p">)</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">share_popup</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Send"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">share_popup</span><span class="o">.</span><span class="n">wait_for_event</span><span class="p">(</span><span class="s2">"close"</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a># no output — the original `page` is untouched; all three lines
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a># after popup_info.value act on the second, independent Page object
+</code></pre></div>
+<h2 id="iframes-a-different-document-same-page">Iframes: a different document, same page<a class="headerlink" href="#iframes-a-different-document-same-page" title="Permanent link">&para;</a></h2>
+<p>An <code>&lt;iframe&gt;</code> embeds a separate HTML document. Elements inside it are
+invisible to <code>page.locator()</code> directly — you must first get a
+<code>FrameLocator</code> for the iframe, then locate within that.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">playwright.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">Page</span><span class="p">,</span> <span class="n">expect</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_payment_iframe</span><span class="p">(</span><span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">):</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"https://example.com/checkout"</span><span class="p">)</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="n">payment_frame</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">frame_locator</span><span class="p">(</span><span class="s2">"iframe[title='Payment form']"</span><span class="p">)</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="n">payment_frame</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Card number"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"4242 4242 4242 4242"</span><span class="p">)</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="n">payment_frame</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Expiry"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"12/29"</span><span class="p">)</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    <span class="n">payment_frame</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"CVC"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"123"</span><span class="p">)</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Pay now"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>    <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_text</span><span class="p">(</span><span class="s2">"Payment successful"</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_visible</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>1 passed in 2.04s
+</code></pre></div>
+<p>This pattern is extremely common for payment providers (Stripe, Braintree)
+that deliberately isolate card fields in a cross-origin iframe for PCI
+compliance — your test code can't reach into it any other way, and
+<code>frame_locator</code> is the only supported approach (older <code>page.frame(...)</code>
+APIs that return a <code>Frame</code> object still exist but <code>frame_locator</code> is
+preferred since it re-resolves the frame automatically, same as any other
+locator, instead of grabbing a snapshot reference).</p>
+<h2 id="nested-iframes">Nested iframes<a class="headerlink" href="#nested-iframes" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">outer</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">frame_locator</span><span class="p">(</span><span class="s2">"#outer-frame"</span><span class="p">)</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">inner</span> <span class="o">=</span> <span class="n">outer</span><span class="o">.</span><span class="n">frame_locator</span><span class="p">(</span><span class="s2">"#inner-frame"</span><span class="p">)</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">inner</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Confirm"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a># no output — chaining frame_locator() drills through nested
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a># iframes exactly like chaining .locator() drills through elements
+</code></pre></div>
+<h2 id="multiple-regular-tabs-opened-deliberately">Multiple regular tabs opened deliberately<a class="headerlink" href="#multiple-regular-tabs-opened-deliberately" title="Permanent link">&para;</a></h2>
+<p>Sometimes a test needs two tabs open at once on purpose — e.g. verifying
+that an action in one tab (marking a notification read) reflects in
+another tab open to the same account.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_notification_syncs_across_tabs</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">):</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"https://example.com/inbox"</span><span class="p">)</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    <span class="n">second_page</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    <span class="n">second_page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"https://example.com/inbox"</span><span class="p">)</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Mark all read"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>    <span class="n">second_page</span><span class="o">.</span><span class="n">reload</span><span class="p">()</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">playwright.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>    <span class="n">expect</span><span class="p">(</span><span class="n">second_page</span><span class="o">.</span><span class="n">get_by_text</span><span class="p">(</span><span class="s2">"0 unread"</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_visible</span><span class="p">()</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>    <span class="n">second_page</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>1 passed in 1.77s
+</code></pre></div>
+<p>Both pages share the same <code>BrowserContext</code>, so cookies and localStorage
+are shared between them automatically — this is what makes the
+cross-tab-sync scenario realistic, mirroring how a real user's two browser
+tabs behave.</p>
+<h2 id="switching-context-contextpages">Switching context: <code>context.pages</code><a class="headerlink" href="#switching-context-contextpages" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">pages</span><span class="p">))</span>     <span class="c1"># 2, after opening second_page</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">page</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">pages</span><span class="p">:</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>2
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>https://example.com/inbox
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>https://example.com/inbox
+</code></pre></div>
+<p><code>context.pages</code> gives you every open page/tab in that context if you ever
+lose track of a reference — useful when a flow opens several popups in
+sequence and you need the <em>last</em> one, or need to iterate and find the one
+matching a URL pattern.</p>
+<h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
+<p>Using <code>https://the-internet.herokuapp.com/windows</code> (opens a new tab) and
+<code>https://the-internet.herokuapp.com/iframe</code> (a WYSIWYG editor in an
+iframe):</p>
+<ol>
+<li>On the windows page, click "Click Here" inside an <code>expect_page()</code> block,
+   capture the popup, and assert its text contains "New Window" via
+   <code>expect(popup.locator("h3")).to_have_text("New Window")</code>.</li>
+<li>On the iframe page, use <code>page.frame_locator("#mce_0_ifr")</code> to get the
+   editor body (<code>.locator("body#tinymce")</code>), clear it, and type a sentence
+   with <code>.fill(...)</code>; assert the content with <code>.inner_text()</code>.</li>
+<li>Open the iframe page in two separate <code>page</code>s from the same <code>context</code>,
+   type different text in each, and confirm each frame body only reflects
+   its own page's edit (frames are per-page, not shared across tabs).</li>
+<li>Deliberately call <code>page.locator("body#tinymce")</code> (no <code>frame_locator</code>)
+   and observe the timeout error — note in your own words why Playwright
+   can't find an element that genuinely exists in the DOM tree the browser
+   renders, connecting it back to "different document."</li>
+</ol>
 
 
 

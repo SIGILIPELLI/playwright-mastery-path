@@ -970,6 +970,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 · Fixtures & Test Hooks
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -986,6 +1004,91 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-problem-fixtures-solve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The problem fixtures solve
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fixture-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixture scope
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hooks-autouse-and-conftestpy-reach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hooks: autouse and conftest.py reach
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fixture-composition-and-parametrization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixture composition and parametrization
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pytestini-marker-based-hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pytest.ini / marker-based hooks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1991,6 +2094,80 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-problem-fixtures-solve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The problem fixtures solve
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fixture-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixture scope
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hooks-autouse-and-conftestpy-reach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hooks: autouse and conftest.py reach
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fixture-composition-and-parametrization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixture composition and parametrization
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pytestini-marker-based-hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        pytest.ini / marker-based hooks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2010,8 +2187,171 @@
 
 
 <h1 id="02-fixtures-test-hooks">02 · Fixtures &amp; Test Hooks<a class="headerlink" href="#02-fixtures-test-hooks" title="Permanent link">&para;</a></h1>
-<p>This module is part of Level 2 · Intermediate.</p>
-<p>More lessons are on the way — check back soon.</p>
+<h2 id="the-problem-fixtures-solve">The problem fixtures solve<a class="headerlink" href="#the-problem-fixtures-solve" title="Permanent link">&para;</a></h2>
+<p>Every test in Module 1's suite repeated <code>LoginPage(page)</code> and often
+<code>login.goto()</code>. Multiply that by fifty tests across ten page objects, and
+setup code dominates the file. Pytest fixtures let you declare "here is
+something this test needs" as a function parameter, and pytest builds it,
+hands it to the test, and tears it down afterward — without the test ever
+calling a constructor itself.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># conftest.py</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">playwright.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">Page</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">pages.login_page</span><span class="w"> </span><span class="kn">import</span> <span class="n">LoginPage</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="k">def</span><span class="w"> </span><span class="nf">login_page</span><span class="p">(</span><span class="n">page</span><span class="p">:</span> <span class="n">Page</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LoginPage</span><span class="p">:</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="n">lp</span> <span class="o">=</span> <span class="n">LoginPage</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    <span class="n">lp</span><span class="o">.</span><span class="n">goto</span><span class="p">()</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="k">return</span> <span class="n">lp</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># tests/test_login.py</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_invalid_login_shows_error</span><span class="p">(</span><span class="n">login_page</span><span class="p">):</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">login_page</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="s2">"user@example.com"</span><span class="p">,</span> <span class="s2">"wrong-password"</span><span class="p">)</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">playwright.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="n">expect</span><span class="p">(</span><span class="n">login_page</span><span class="o">.</span><span class="n">error</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_visible</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>1 passed in 1.02s
+</code></pre></div>
+<p><code>page</code> here is itself a fixture — it comes from <code>pytest-playwright</code>, the
+official plugin, which is why <code>pip install pytest-playwright</code> plus
+<code>playwright install</code> gives you <code>page</code>, <code>browser</code>, <code>context</code>, and
+<code>browser_name</code> for free in every test without writing any of them yourself.</p>
+<h2 id="fixture-scope">Fixture scope<a class="headerlink" href="#fixture-scope" title="Permanent link">&para;</a></h2>
+<p>By default a fixture runs fresh for every test (<code>function</code> scope, the
+default). Some setup is expensive enough that you want to do it once per
+test file, or once per whole run — a database seed, a browser instance
+you don't want to relaunch fifty times.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">playwright.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">sync_playwright</span><span class="p">,</span> <span class="n">Browser</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">"session"</span><span class="p">)</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">browser</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Browser</span><span class="p">:</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="k">with</span> <span class="n">sync_playwright</span><span class="p">()</span> <span class="k">as</span> <span class="n">p</span><span class="p">:</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>        <span class="n">browser</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">chromium</span><span class="o">.</span><span class="n">launch</span><span class="p">(</span><span class="n">headless</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>        <span class="k">yield</span> <span class="n">browser</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>        <span class="n">browser</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">"function"</span><span class="p">)</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="k">def</span><span class="w"> </span><span class="nf">context</span><span class="p">(</span><span class="n">browser</span><span class="p">:</span> <span class="n">Browser</span><span class="p">):</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>    <span class="n">ctx</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">()</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    <span class="k">yield</span> <span class="n">ctx</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>    <span class="n">ctx</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">"function"</span><span class="p">)</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="k">def</span><span class="w"> </span><span class="nf">page</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>    <span class="n">pg</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>    <span class="k">yield</span> <span class="n">pg</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>    <span class="n">pg</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a># no output — this is effectively what pytest-playwright provides
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a># out of the box; shown here so the scoping is visible, not opaque
+</code></pre></div>
+<p>The <code>yield</code> splits the fixture into setup (before <code>yield</code>) and teardown
+(after) — pytest runs the code after <code>yield</code> once the test using it is
+done, guaranteeing cleanup even if the test fails, because pytest wraps it
+in the equivalent of a <code>try/finally</code>.</p>
+<p>Scoping <code>browser</code> to <code>session</code> but <code>context</code> to <code>function</code> is the standard
+Playwright pattern: launching a browser process is slow (hundreds of ms to
+seconds) and safe to reuse; a <code>BrowserContext</code> is cheap to create and gives
+each test an isolated cookie jar/storage, so tests never leak session state
+into each other.</p>
+<h2 id="hooks-autouse-and-conftestpy-reach">Hooks: <code>autouse</code> and <code>conftest.py</code> reach<a class="headerlink" href="#hooks-autouse-and-conftestpy-reach" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># conftest.py</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">autouse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">slow_test_warning</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    <span class="k">yield</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    <span class="c1"># runs after every test in this directory and subdirectories, no</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>    <span class="c1"># test needs to request it by name</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>    <span class="n">duration</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">rep_call</span><span class="o">.</span><span class="n">duration</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">node</span><span class="p">,</span> <span class="s2">"rep_call"</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">autouse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">reset_test_data</span><span class="p">(</span><span class="n">page</span><span class="p">):</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="sd">"""Runs before AND after every test automatically."""</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"seeding fresh test data"</span><span class="p">)</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    <span class="k">yield</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"cleaning up test data"</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>seeding fresh test data
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>.
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>cleaning up test data
+</code></pre></div>
+<p><code>autouse=True</code> fixtures apply to every test in the file (or, if placed in
+<code>conftest.py</code>, every test in that directory and below) without being named
+as a parameter. Use them sparingly — for genuinely universal setup like
+resetting a database or clearing localStorage — because a test's fixture
+list is otherwise your best documentation of what it actually depends on;
+hidden autouse magic can make failures harder to diagnose.</p>
+<h2 id="fixture-composition-and-parametrization">Fixture composition and parametrization<a class="headerlink" href="#fixture-composition-and-parametrization" title="Permanent link">&para;</a></h2>
+<p>Fixtures can depend on other fixtures, and can be parametrized so the same
+test runs multiple times with different fixture values.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="p">[</span><span class="s2">"chromium"</span><span class="p">,</span> <span class="s2">"firefox"</span><span class="p">,</span> <span class="s2">"webkit"</span><span class="p">])</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">browser_type_name</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">param</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">page_in_browser</span><span class="p">(</span><span class="n">playwright</span><span class="p">,</span> <span class="n">browser_type_name</span><span class="p">):</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>    <span class="n">browser</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">playwright</span><span class="p">,</span> <span class="n">browser_type_name</span><span class="p">)</span><span class="o">.</span><span class="n">launch</span><span class="p">()</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>    <span class="n">context</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">()</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>    <span class="n">page</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>    <span class="k">yield</span> <span class="n">page</span>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>    <span class="n">context</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>    <span class="n">browser</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_homepage_loads</span><span class="p">(</span><span class="n">page_in_browser</span><span class="p">):</span>
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>    <span class="n">page_in_browser</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"https://example.com"</span><span class="p">)</span>
+<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>    <span class="k">assert</span> <span class="n">page_in_browser</span><span class="o">.</span><span class="n">title</span><span class="p">()</span> <span class="o">!=</span> <span class="s2">""</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>test_homepage_loads[chromium] PASSED
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>test_homepage_loads[firefox] PASSED
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>test_homepage_loads[webkit] PASSED
+</code></pre></div>
+<p>pytest runs <code>test_homepage_loads</code> three times, once per <code>params</code> value,
+labeling each in the output — a cleaner way to achieve cross-browser
+coverage than duplicating test functions (Level 4 covers the built-in,
+more idiomatic <code>--browser</code> CLI flag pytest-playwright provides for this
+exact purpose).</p>
+<h2 id="pytestini-marker-based-hooks"><code>pytest.ini</code> / marker-based hooks<a class="headerlink" href="#pytestini-marker-based-hooks" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># pytest.ini</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="k">[pytest]</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="na">markers</span><span class="w"> </span><span class="o">=</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span><span class="na">smoke</span><span class="o">:</span><span class="w"> </span><span class="s">quick tests run on every commit</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">    </span><span class="na">slow</span><span class="o">:</span><span class="w"> </span><span class="s">full regression suite</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">smoke</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_homepage_loads</span><span class="p">(</span><span class="n">page</span><span class="p">):</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"https://example.com"</span><span class="p">)</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>    <span class="k">assert</span> <span class="n">page</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>pytest<span class="w"> </span>-m<span class="w"> </span>smoke
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>1 passed in 0.91s
+</code></pre></div>
+<p>Registering markers in <code>pytest.ini</code> avoids <code>PytestUnknownMarkWarning</code> and
+documents, in one place, every category of test your suite recognizes —
+useful once you have hundreds of tests and want to run only a subset in a
+pre-commit hook versus nightly CI.</p>
+<h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
+<ol>
+<li>In <code>conftest.py</code>, write a <code>session</code>-scoped fixture <code>api_base_url</code> that
+   returns a string constant, and a <code>function</code>-scoped fixture <code>authed_page</code>
+   that depends on <code>page</code>, navigates to a login page, logs in with a
+   hardcoded test account, and yields the now-authenticated <code>page</code>.</li>
+<li>Write a test that uses <code>authed_page</code> and asserts a dashboard-only
+   element is visible — notice the test never mentions the login flow.</li>
+<li>Add an <code>autouse=True</code> fixture that takes a screenshot named after the
+   test (<code>request.node.name</code>) into a <code>screenshots/</code> folder after every
+   test, whether it passes or fails, using <code>page.screenshot(path=...)</code>.</li>
+<li>Convert one existing test into a parametrized fixture-driven test that
+   runs against two different demo accounts (<code>params=["free_user",
+   "pro_user"]</code>), asserting each account sees the pricing tier it should.</li>
+</ol>
 
 
 

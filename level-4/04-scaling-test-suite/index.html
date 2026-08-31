@@ -1774,6 +1774,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 · Scaling a Test Suite
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1790,6 +1808,91 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#diagnosing-where-time-actually-goes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagnosing where time actually goes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sharding-by-duration-not-by-count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sharding by duration, not by count
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test-isolation-at-scale-why-shared-fixtures-become-a-liability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test isolation at scale: why shared fixtures become a liability
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#splitting-the-suite-by-ownership-not-just-by-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Splitting the suite by ownership, not just by file
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enforcing-suite-health-with-a-budget" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enforcing suite health with a budget
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1991,6 +2094,80 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#diagnosing-where-time-actually-goes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diagnosing where time actually goes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sharding-by-duration-not-by-count" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sharding by duration, not by count
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test-isolation-at-scale-why-shared-fixtures-become-a-liability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test isolation at scale: why shared fixtures become a liability
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#splitting-the-suite-by-ownership-not-just-by-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Splitting the suite by ownership, not just by file
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enforcing-suite-health-with-a-budget" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enforcing suite health with a budget
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2010,8 +2187,141 @@
 
 
 <h1 id="04-scaling-a-test-suite">04 · Scaling a Test Suite<a class="headerlink" href="#04-scaling-a-test-suite" title="Permanent link">&para;</a></h1>
-<p>This module is part of Level 4 · Master.</p>
-<p>More lessons are on the way — check back soon.</p>
+<p>A suite that takes 5 minutes at 50 tests can take an hour at 2,000 if nobody
+actively manages its shape. This module covers the structural decisions that
+keep a large E2E suite fast and maintainable rather than something the team
+learns to dread.</p>
+<h2 id="diagnosing-where-time-actually-goes">Diagnosing where time actually goes<a class="headerlink" href="#diagnosing-where-time-actually-goes" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pytest<span class="w"> </span>tests/<span class="w"> </span>--durations<span class="o">=</span><span class="m">20</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>======================== slowest 20 durations =========================
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>14.32s call     tests/test_reports.py::test_export_large_csv
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>9.87s  call     tests/test_checkout.py::test_full_purchase_flow
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>8.21s  setup    tests/test_dashboard.py::test_widget_layout
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>...
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a># --durations surfaces the actual bottlenecks instead of
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a># guessing — a slow `setup` phase usually means an expensive
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a># fixture (a UI login, a large seed) that could be scoped
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a># wider (session instead of function) or replaced with an
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a># API-based equivalent
+</code></pre></div>
+<h2 id="sharding-by-duration-not-by-count">Sharding by duration, not by count<a class="headerlink" href="#sharding-by-duration-not-by-count" title="Permanent link">&para;</a></h2>
+<p>Splitting tests into equal-sized <em>groups</em> doesn't mean equal <em>runtime</em> if a
+few tests are much slower than the rest. Balance shards by measured
+duration:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># scripts/balance_shards.py</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">balance_shards</span><span class="p">(</span><span class="n">durations</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">num_shards</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">shards</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_shards</span><span class="p">)]</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="n">shard_totals</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="n">num_shards</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="k">for</span> <span class="n">test_id</span><span class="p">,</span> <span class="n">duration</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">durations</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>        <span class="n">target</span> <span class="o">=</span> <span class="n">shard_totals</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">shard_totals</span><span class="p">))</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>        <span class="n">shards</span><span class="p">[</span><span class="n">target</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">test_id</span><span class="p">)</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>        <span class="n">shard_totals</span><span class="p">[</span><span class="n">target</span><span class="p">]</span> <span class="o">+=</span> <span class="n">duration</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>    <span class="k">return</span> <span class="n">shards</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a># a greedy "assign the next-slowest test to the currently
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a># least-loaded shard" approach approximates optimal balancing
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a># without needing to solve bin-packing exactly — durations come
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a># from a previous run's --durations or JSON reporter output
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a># (Level 4 module 03), refreshed periodically as the suite changes
+</code></pre></div>
+<h2 id="test-isolation-at-scale-why-shared-fixtures-become-a-liability">Test isolation at scale: why shared fixtures become a liability<a class="headerlink" href="#test-isolation-at-scale-why-shared-fixtures-become-a-liability" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># risky at scale — a module-scoped browser context shared</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="c1"># across many tests accumulates state (cookies, localStorage,</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="c1"># open tabs) between them</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">"module"</span><span class="p">)</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">shared_page</span><span class="p">(</span><span class="n">browser</span><span class="p">):</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    <span class="n">context</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">()</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    <span class="n">page</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>    <span class="k">yield</span> <span class="n">page</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>    <span class="n">context</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="c1"># safer at scale — function-scoped by default; pay the context</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="c1"># creation cost, but eliminate an entire class of "only fails</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="c1"># when run after test X" bugs</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="k">def</span><span class="w"> </span><span class="nf">page</span><span class="p">(</span><span class="n">browser</span><span class="p">):</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>    <span class="n">context</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">()</span>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>    <span class="n">pg</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>    <span class="k">yield</span> <span class="n">pg</span>
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>    <span class="n">context</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a># module/session-scoped page fixtures are a common shortcut to
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a># "make the suite faster," but at scale the debugging cost of
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a># occasional order-dependent failures usually exceeds the time
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a># saved — reserve wider scopes for read-only, side-effect-free
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a># setup (like the auth state file from Level 3), not for the
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a># page object itself
+</code></pre></div>
+<h2 id="splitting-the-suite-by-ownership-not-just-by-file">Splitting the suite by ownership, not just by file<a class="headerlink" href="#splitting-the-suite-by-ownership-not-just-by-file" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>tests/
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>├── checkout/        # owned by Checkout team
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>├── search/          # owned by Search team
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>├── account/         # owned by Account team
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>└── shared/          # cross-cutting smoke tests, owned by QA/platform
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># CI can then run only the affected directory on a PR that</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="c1"># only touched that service, falling back to the full suite</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="c1"># on main or on changes to shared code</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="nt">jobs</span><span class="p">:</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">  </span><span class="nt">detect-changes</span><span class="p">:</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">    </span><span class="nt">outputs</span><span class="p">:</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">      </span><span class="nt">checkout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ steps.filter.outputs.checkout }}</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dorny/paths-filter@v3</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">filter</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="w">        </span><span class="nt">with</span><span class="p">:</span>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="w">          </span><span class="nt">filters</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="w">            </span><span class="no">checkout:</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="w">              </span><span class="no">- 'services/checkout/**'</span>
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="w">              </span><span class="no">- 'tests/checkout/**'</span>
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="w">  </span><span class="nt">checkout-tests</span><span class="p">:</span>
+<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a><span class="w">    </span><span class="nt">needs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">detect-changes</span>
+<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a><span class="w">    </span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">needs.detect-changes.outputs.checkout == 'true'</span>
+<a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+<a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a><span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pytest tests/checkout tests/shared</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a># path-based test selection means a PR touching only the
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a># search service doesn't wait on the full checkout suite —
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a># this only works safely once ownership boundaries in tests/
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a># actually match the codebase's real service boundaries
+</code></pre></div>
+<h2 id="enforcing-suite-health-with-a-budget">Enforcing suite health with a budget<a class="headerlink" href="#enforcing-suite-health-with-a-budget" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># conftest.py — fail the CI run itself if total suite duration regresses</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="n">MAX_TOTAL_DURATION_SECONDS</span> <span class="o">=</span> <span class="mi">600</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">pytest_sessionfinish</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">exitstatus</span><span class="p">):</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>    <span class="n">total</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s2">"_duration"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">session</span><span class="o">.</span><span class="n">items</span><span class="p">)</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>    <span class="k">if</span> <span class="n">total</span> <span class="o">&gt;</span> <span class="n">MAX_TOTAL_DURATION_SECONDS</span><span class="p">:</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"::warning::Suite duration </span><span class="si">{</span><span class="n">total</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">s exceeds budget </span><span class="si">{</span><span class="n">MAX_TOTAL_DURATION_SECONDS</span><span class="si">}</span><span class="s2">s"</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a># treating suite runtime itself as a tracked, budgeted metric —
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a># not just individual test correctness — is what prevents slow
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a># growth from becoming a boiled-frog problem nobody notices
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a># until the suite takes 45 minutes
+</code></pre></div>
+<h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Run <code>pytest --durations=20</code> on a real suite and identify the top 3
+   slowest tests; for each, note whether the time is in <code>setup</code> or <code>call</code>
+   and what that implies about the fix.</li>
+<li>Change one function-scoped fixture doing an expensive one-time UI login
+   to session-scoped (reusing Level 3's storage-state pattern) and measure
+   the total suite time before/after.</li>
+<li>Implement the greedy <code>balance_shards</code> function above against a real or
+   synthetic durations dict and confirm the resulting shard totals are more
+   even than a naive alphabetical split.</li>
+<li>Propose (in a comment or short doc) an ownership-based directory split
+   for your own suite, and sketch the path-filter CI config that would let
+   a PR only run the affected team's tests.</li>
+</ol>
 
 
 

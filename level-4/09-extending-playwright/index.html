@@ -1914,6 +1914,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09 · Extending Playwright (Custom Fixtures/Plugins)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1930,6 +1948,91 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#packaging-shared-fixtures-as-an-installable-pytest-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Packaging shared fixtures as an installable pytest plugin
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-expect-style-assertions-via-expectextend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Custom expect()-style assertions via expect.extend
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-domain-specific-fixture-multi-tenant-context-switching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A domain-specific fixture: multi-tenant context switching
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-a-custom-pytest-cli-option-for-environment-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Writing a custom pytest CLI option for environment selection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#full-worked-example-a-small-internal-plugin-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Full worked example: a small internal plugin package
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1991,6 +2094,80 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#packaging-shared-fixtures-as-an-installable-pytest-plugin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Packaging shared fixtures as an installable pytest plugin
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#custom-expect-style-assertions-via-expectextend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Custom expect()-style assertions via expect.extend
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-domain-specific-fixture-multi-tenant-context-switching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A domain-specific fixture: multi-tenant context switching
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-a-custom-pytest-cli-option-for-environment-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Writing a custom pytest CLI option for environment selection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#full-worked-example-a-small-internal-plugin-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Full worked example: a small internal plugin package
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2010,8 +2187,167 @@
 
 
 <h1 id="09-extending-playwright-custom-fixturesplugins">09 · Extending Playwright (Custom Fixtures/Plugins)<a class="headerlink" href="#09-extending-playwright-custom-fixturesplugins" title="Permanent link">&para;</a></h1>
-<p>This module is part of Level 4 · Master.</p>
-<p>More lessons are on the way — check back soon.</p>
+<p>Once a team's suite has grown past a handful of files, repeated fixture
+boilerplate across projects becomes worth packaging. This module covers
+building reusable pytest plugins on top of <code>pytest-playwright</code>, and writing
+your own custom assertions in the same idiom as Playwright's built-in
+<code>expect()</code>.</p>
+<h2 id="packaging-shared-fixtures-as-an-installable-pytest-plugin">Packaging shared fixtures as an installable pytest plugin<a class="headerlink" href="#packaging-shared-fixtures-as-an-installable-pytest-plugin" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>my_company_playwright_fixtures/
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├── pyproject.toml
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├── my_company_playwright_fixtures/
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│   ├── __init__.py
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│   └── plugin.py
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># my_company_playwright_fixtures/plugin.py</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">"session"</span><span class="p">)</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">api_context</span><span class="p">(</span><span class="n">playwright</span><span class="p">):</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">ctx</span> <span class="o">=</span> <span class="n">playwright</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">new_context</span><span class="p">(</span><span class="n">base_url</span><span class="o">=</span><span class="s2">"https://staging.example.com"</span><span class="p">)</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="k">yield</span> <span class="n">ctx</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="n">ctx</span><span class="o">.</span><span class="n">dispose</span><span class="p">()</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="k">def</span><span class="w"> </span><span class="nf">authenticated_page</span><span class="p">(</span><span class="n">browser</span><span class="p">,</span> <span class="n">storage_state_path</span><span class="p">):</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    <span class="n">context</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">(</span><span class="n">storage_state</span><span class="o">=</span><span class="n">storage_state_path</span><span class="p">)</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>    <span class="n">page</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>    <span class="k">yield</span> <span class="n">page</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    <span class="n">context</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># pyproject.toml</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="k">[project.entry-points.pytest11]</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">my_company_fixtures</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"my_company_playwright_fixtures.plugin"</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a># the pytest11 entry point is what makes `pip install
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a># my-company-playwright-fixtures` alone enough for any team's
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a># conftest.py to use `authenticated_page` with zero extra
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a># wiring — pytest auto-discovers and loads registered plugins
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a># at startup, the same mechanism pytest-playwright itself uses
+</code></pre></div>
+<h2 id="custom-expect-style-assertions-via-expectextend">Custom <code>expect()</code>-style assertions via <code>expect.extend</code><a class="headerlink" href="#custom-expect-style-assertions-via-expectextend" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># assertions/custom_matchers.py</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">playwright.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span><span class="p">,</span> <span class="n">Locator</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">to_have_valid_email_format</span><span class="p">(</span><span class="n">locator</span><span class="p">:</span> <span class="n">Locator</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="n">text</span> <span class="o">=</span> <span class="n">locator</span><span class="o">.</span><span class="n">inner_text</span><span class="p">()</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="n">matches</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">"^[^@\s]+@[^@\s]+\.[^@\s]+$"</span><span class="p">,</span> <span class="n">text</span><span class="p">))</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    <span class="k">return</span> <span class="p">{</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>        <span class="s2">"matches"</span><span class="p">:</span> <span class="n">matches</span><span class="p">,</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>        <span class="s2">"message"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"expected element text to be a valid email, got '</span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s2">'"</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">matches</span> <span class="k">else</span> <span class="s2">""</span><span class="p">,</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>    <span class="p">}</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="n">expect</span><span class="o">.</span><span class="n">extend</span><span class="p">({</span><span class="s2">"to_have_valid_email_format"</span><span class="p">:</span> <span class="n">to_have_valid_email_format</span><span class="p">})</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_profile_shows_valid_email</span><span class="p">(</span><span class="n">page</span><span class="p">):</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"/profile"</span><span class="p">)</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"user-email"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_valid_email_format</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a># expect.extend registers a new assertion in the SAME
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a># auto-retrying, timeout-aware machinery every built-in
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a># to_have_text/to_be_visible uses — this is different from just
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a># writing a plain `assert` helper function, because it retries
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a># until the timeout elapses rather than checking once instantly,
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a># which matters for anything checking a value that fills in
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a># asynchronously
+</code></pre></div>
+<h2 id="a-domain-specific-fixture-multi-tenant-context-switching">A domain-specific fixture: multi-tenant context switching<a class="headerlink" href="#a-domain-specific-fixture-multi-tenant-context-switching" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># plugin.py</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">tenant_page</span><span class="p">(</span><span class="n">browser</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    <span class="n">tenant</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">param</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>    <span class="n">context</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">(</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>        <span class="n">base_url</span><span class="o">=</span><span class="sa">f</span><span class="s2">"https://</span><span class="si">{</span><span class="n">tenant</span><span class="si">}</span><span class="s2">.example.com"</span><span class="p">,</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>        <span class="n">storage_state</span><span class="o">=</span><span class="sa">f</span><span class="s2">"auth/</span><span class="si">{</span><span class="n">tenant</span><span class="si">}</span><span class="s2">.json"</span><span class="p">,</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>    <span class="p">)</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>    <span class="n">page</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>    <span class="k">yield</span> <span class="n">page</span>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>    <span class="n">context</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">"tenant_page"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"acme-corp"</span><span class="p">,</span> <span class="s2">"globex"</span><span class="p">],</span> <span class="n">indirect</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_dashboard_per_tenant</span><span class="p">(</span><span class="n">tenant_page</span><span class="p">):</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    <span class="n">tenant_page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"/dashboard"</span><span class="p">)</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    <span class="n">expect</span><span class="p">(</span><span class="n">tenant_page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"heading"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Dashboard"</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_visible</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a># indirect=True routes the parametrize value through the
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a># fixture (as request.param) instead of directly into the test
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a># function — this is the standard pytest pattern for a fixture
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a># whose setup itself needs to vary per parametrized case, not
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a># just its return value
+</code></pre></div>
+<h2 id="writing-a-custom-pytest-cli-option-for-environment-selection">Writing a custom pytest CLI option for environment selection<a class="headerlink" href="#writing-a-custom-pytest-cli-option-for-environment-selection" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># plugin.py</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">pytest_addoption</span><span class="p">(</span><span class="n">parser</span><span class="p">):</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>    <span class="n">parser</span><span class="o">.</span><span class="n">addoption</span><span class="p">(</span><span class="s2">"--target-env"</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">"store"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">"staging"</span><span class="p">,</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>                      <span class="n">help</span><span class="o">=</span><span class="s2">"staging | production-readonly | local"</span><span class="p">)</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">"session"</span><span class="p">)</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="k">def</span><span class="w"> </span><span class="nf">base_url</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>    <span class="n">env</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">getoption</span><span class="p">(</span><span class="s2">"--target-env"</span><span class="p">)</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>    <span class="n">urls</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>        <span class="s2">"staging"</span><span class="p">:</span> <span class="s2">"https://staging.example.com"</span><span class="p">,</span>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>        <span class="s2">"production-readonly"</span><span class="p">:</span> <span class="s2">"https://example.com"</span><span class="p">,</span>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>        <span class="s2">"local"</span><span class="p">:</span> <span class="s2">"http://localhost:3000"</span><span class="p">,</span>
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>    <span class="p">}</span>
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>    <span class="k">return</span> <span class="n">urls</span><span class="p">[</span><span class="n">env</span><span class="p">]</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>pytest<span class="w"> </span>tests/<span class="w"> </span>--target-env<span class="o">=</span>production-readonly
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a># a first-class CLI flag (rather than an environment variable
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a># nobody remembers to set) makes environment targeting
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a># discoverable via `pytest --help`, and keeps it under pytest's
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a># normal config precedence rules (CLI &gt; ini file &gt; default)
+</code></pre></div>
+<h2 id="full-worked-example-a-small-internal-plugin-package">Full worked example: a small internal plugin package<a class="headerlink" href="#full-worked-example-a-small-internal-plugin-package" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># my_company_playwright_fixtures/plugin.py</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">playwright.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">pytest_addoption</span><span class="p">(</span><span class="n">parser</span><span class="p">):</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>    <span class="n">parser</span><span class="o">.</span><span class="n">addoption</span><span class="p">(</span><span class="s2">"--target-env"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">"staging"</span><span class="p">)</span>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">"session"</span><span class="p">)</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="k">def</span><span class="w"> </span><span class="nf">base_url</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>    <span class="k">return</span> <span class="p">{</span>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>        <span class="s2">"staging"</span><span class="p">:</span> <span class="s2">"https://staging.example.com"</span><span class="p">,</span>
+<a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>        <span class="s2">"production-readonly"</span><span class="p">:</span> <span class="s2">"https://example.com"</span><span class="p">,</span>
+<a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>    <span class="p">}[</span><span class="n">request</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">getoption</span><span class="p">(</span><span class="s2">"--target-env"</span><span class="p">)]</span>
+<a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>
+<a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a><span class="k">def</span><span class="w"> </span><span class="nf">page</span><span class="p">(</span><span class="n">browser</span><span class="p">,</span> <span class="n">base_url</span><span class="p">):</span>
+<a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a>    <span class="n">context</span> <span class="o">=</span> <span class="n">browser</span><span class="o">.</span><span class="n">new_context</span><span class="p">(</span><span class="n">base_url</span><span class="o">=</span><span class="n">base_url</span><span class="p">)</span>
+<a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a>    <span class="n">pg</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">new_page</span><span class="p">()</span>
+<a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a>    <span class="k">yield</span> <span class="n">pg</span>
+<a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a>    <span class="n">context</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a>
+<a id="__codelineno-13-22" name="__codelineno-13-22" href="#__codelineno-13-22"></a><span class="k">def</span><span class="w"> </span><span class="nf">to_have_valid_email_format</span><span class="p">(</span><span class="n">locator</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<a id="__codelineno-13-23" name="__codelineno-13-23" href="#__codelineno-13-23"></a>    <span class="n">text</span> <span class="o">=</span> <span class="n">locator</span><span class="o">.</span><span class="n">inner_text</span><span class="p">()</span>
+<a id="__codelineno-13-24" name="__codelineno-13-24" href="#__codelineno-13-24"></a>    <span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<a id="__codelineno-13-25" name="__codelineno-13-25" href="#__codelineno-13-25"></a>    <span class="n">matches</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sa">r</span><span class="s2">"^[^@\s]+@[^@\s]+\.[^@\s]+$"</span><span class="p">,</span> <span class="n">text</span><span class="p">))</span>
+<a id="__codelineno-13-26" name="__codelineno-13-26" href="#__codelineno-13-26"></a>    <span class="k">return</span> <span class="p">{</span><span class="s2">"matches"</span><span class="p">:</span> <span class="n">matches</span><span class="p">,</span> <span class="s2">"message"</span><span class="p">:</span> <span class="s2">""</span> <span class="k">if</span> <span class="n">matches</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">"'</span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s2">' is not a valid email"</span><span class="p">}</span>
+<a id="__codelineno-13-27" name="__codelineno-13-27" href="#__codelineno-13-27"></a>
+<a id="__codelineno-13-28" name="__codelineno-13-28" href="#__codelineno-13-28"></a><span class="n">expect</span><span class="o">.</span><span class="n">extend</span><span class="p">({</span><span class="s2">"to_have_valid_email_format"</span><span class="p">:</span> <span class="n">to_have_valid_email_format</span><span class="p">})</span>
+</code></pre></div>
+<h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Package a fixture your team reuses across multiple test files into a
+   minimal installable pytest plugin with a <code>pytest11</code> entry point, and
+   confirm a separate throwaway project can use it after <code>pip install -e</code>.</li>
+<li>Write one custom assertion via <code>expect.extend</code> for a domain-specific
+   check (a valid email, a currency format, a date range) and confirm it
+   retries rather than checking once (test this by having the value appear
+   after a short delay).</li>
+<li>Build a <code>tenant_page</code>-style fixture using <code>indirect=True</code> parametrization
+   and write a test that runs against two different simulated tenants.</li>
+<li>Add a custom <code>--target-env</code> CLI option and a <code>base_url</code> fixture that
+   reads it, and confirm running with two different <code>--target-env</code> values
+   actually points the suite at two different base URLs.</li>
+</ol>
 
 
 

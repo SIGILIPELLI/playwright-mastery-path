@@ -1138,6 +1138,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08 · Environment & Test Data Management
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1154,6 +1172,102 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-problem-secrets-and-environment-drift" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The problem: secrets and environment drift
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#never-hardcode-credentials-in-test-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Never hardcode credentials in test files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ci-secrets-injection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CI secrets injection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test-data-fixtures-vs-factories-vs-api-seeding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test data: fixtures vs. factories vs. API seeding
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seeding-data-via-api-instead-of-the-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Seeding data via API instead of the UI
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cleaning-up-after-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cleaning up after tests
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1991,6 +2105,91 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-problem-secrets-and-environment-drift" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The problem: secrets and environment drift
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#never-hardcode-credentials-in-test-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Never hardcode credentials in test files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ci-secrets-injection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CI secrets injection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#test-data-fixtures-vs-factories-vs-api-seeding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test data: fixtures vs. factories vs. API seeding
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seeding-data-via-api-instead-of-the-ui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Seeding data via API instead of the UI
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cleaning-up-after-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cleaning up after tests
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2010,8 +2209,170 @@
 
 
 <h1 id="08-environment-test-data-management">08 · Environment &amp; Test Data Management<a class="headerlink" href="#08-environment-test-data-management" title="Permanent link">&para;</a></h1>
-<p>This module is part of Level 2 · Intermediate.</p>
-<p>More lessons are on the way — check back soon.</p>
+<h2 id="the-problem-secrets-and-environment-drift">The problem: secrets and environment drift<a class="headerlink" href="#the-problem-secrets-and-environment-drift" title="Permanent link">&para;</a></h2>
+<p>Tests need URLs, credentials, and API keys that differ between local,
+staging, and CI — and must never contain real secrets committed to git.
+<code>.env</code> files plus a loader, read once at session start, is the standard
+Python answer.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># .env (gitignored — never committed)</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nv">BASE_URL</span><span class="o">=</span>https://staging.example.com
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nv">TEST_USER_EMAIL</span><span class="o">=</span>qa+staging@example.com
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nv">TEST_USER_PASSWORD</span><span class="o">=</span>correct-horse-battery-staple
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nv">API_KEY</span><span class="o">=</span>sk_test_abc123
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># .gitignore</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="na">.env</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="na">.env.*</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="na">!.env.example</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># conftest.py</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">load_dotenv</span><span class="p">()</span>  <span class="c1"># populates os.environ from .env if present</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">"session"</span><span class="p">)</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="k">def</span><span class="w"> </span><span class="nf">config</span><span class="p">():</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="k">return</span> <span class="p">{</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>        <span class="s2">"base_url"</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"BASE_URL"</span><span class="p">],</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>        <span class="s2">"user_email"</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"TEST_USER_EMAIL"</span><span class="p">],</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>        <span class="s2">"user_password"</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"TEST_USER_PASSWORD"</span><span class="p">],</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>    <span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a># no output — load_dotenv() is a no-op if .env is absent (e.g. in
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a># CI, where real env vars are injected by the pipeline directly
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a># instead of a file), so the same code path works both places
+</code></pre></div>
+<p>Commit a <code>.env.example</code> with the <em>keys</em> but placeholder values, so a new
+teammate knows exactly what to fill in without ever seeing a real secret.</p>
+<h2 id="never-hardcode-credentials-in-test-files">Never hardcode credentials in test files<a class="headerlink" href="#never-hardcode-credentials-in-test-files" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># BAD</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_login</span><span class="p">(</span><span class="n">page</span><span class="p">):</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Email"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"real.person@company.com"</span><span class="p">)</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Password"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"hunter2"</span><span class="p">)</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="c1"># GOOD</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_login</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>    <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Email"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">"user_email"</span><span class="p">])</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Password"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">"user_password"</span><span class="p">])</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a># no output — the good version reads no different in CI vs. local,
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a># and rotating the real password only means updating one secret,
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a># not grepping test files for where it was pasted
+</code></pre></div>
+<h2 id="ci-secrets-injection">CI secrets injection<a class="headerlink" href="#ci-secrets-injection" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># .github/workflows/e2e.yml (excerpt)</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nt">env</span><span class="p">:</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span><span class="nt">BASE_URL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://staging.example.com</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">  </span><span class="nt">TEST_USER_EMAIL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.TEST_USER_EMAIL }}</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">  </span><span class="nt">TEST_USER_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.TEST_USER_PASSWORD }}</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="nt">steps</span><span class="p">:</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pytest</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a># no output — GitHub Actions injects secrets as environment
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a># variables at run time; os.environ["TEST_USER_PASSWORD"] in
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a># conftest.py sees the real value without it ever appearing in
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a># the workflow file or logs (Actions also auto-masks secret values
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a># that happen to be printed, replacing them with ***)
+</code></pre></div>
+<h2 id="test-data-fixtures-vs-factories-vs-api-seeding">Test data: fixtures vs. factories vs. API seeding<a class="headerlink" href="#test-data-fixtures-vs-factories-vs-api-seeding" title="Permanent link">&para;</a></h2>
+<p>Static JSON fixtures are simplest for stable reference data.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># fixtures/products.json</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="p">[</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>  <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Wireless Mouse"</span><span class="p">,</span> <span class="s2">"price"</span><span class="p">:</span> <span class="mf">24.99</span><span class="p">,</span> <span class="s2">"sku"</span><span class="p">:</span> <span class="s2">"WM-100"</span><span class="p">},</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>  <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Mechanical Keyboard"</span><span class="p">,</span> <span class="s2">"price"</span><span class="p">:</span> <span class="mf">89.00</span><span class="p">,</span> <span class="s2">"sku"</span><span class="p">:</span> <span class="s2">"MK-200"</span><span class="p">}</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="p">]</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">sample_products</span><span class="p">():</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"fixtures/products.json"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a># no output — sample_products() returns a plain list of dicts
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a># any test can iterate over without hitting a database
+</code></pre></div>
+<p>Dynamic data that must be unique per test run (an email, an order ID)
+should be generated, not fixed, so parallel/repeated runs never collide.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">uuid</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">faker</span><span class="w"> </span><span class="kn">import</span> <span class="n">Faker</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="n">fake</span> <span class="o">=</span> <span class="n">Faker</span><span class="p">()</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">new_user_data</span><span class="p">():</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>    <span class="k">return</span> <span class="p">{</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>        <span class="s2">"email"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"qa+</span><span class="si">{</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">[:</span><span class="mi">8</span><span class="p">]</span><span class="si">}</span><span class="s2">@example.com"</span><span class="p">,</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>        <span class="s2">"name"</span><span class="p">:</span> <span class="n">fake</span><span class="o">.</span><span class="n">name</span><span class="p">(),</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>        <span class="s2">"company"</span><span class="p">:</span> <span class="n">fake</span><span class="o">.</span><span class="n">company</span><span class="p">(),</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>    <span class="p">}</span>
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_signup_creates_account</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">new_user_data</span><span class="p">):</span>
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a>    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"/signup"</span><span class="p">)</span>
+<a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>    <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Full name"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">new_user_data</span><span class="p">[</span><span class="s2">"name"</span><span class="p">])</span>
+<a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a>    <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Email"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">new_user_data</span><span class="p">[</span><span class="s2">"email"</span><span class="p">])</span>
+<a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a>    <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Create account"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>1 passed in 1.63s
+</code></pre></div>
+<p><code>Faker</code> (the <code>faker</code> package) generates realistic-looking but fake names,
+addresses, and companies — better test coverage than "Test User 1" for
+catching UI truncation/formatting bugs, and the <code>uuid</code> suffix on the email
+guarantees no two test runs (or two parallel workers) ever collide on a
+uniqueness constraint the real backend enforces.</p>
+<h2 id="seeding-data-via-api-instead-of-the-ui">Seeding data via API instead of the UI<a class="headerlink" href="#seeding-data-via-api-instead-of-the-ui" title="Permanent link">&para;</a></h2>
+<p>For anything a test needs to <em>exist</em> before it starts (an order to
+cancel, a document to delete), creating it through the UI wastes time and
+couples an unrelated test to the signup flow's stability. Seed via the
+backend's own API instead (Level 3 covers this with Playwright's
+<code>APIRequestContext</code> in depth).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_cancel_existing_order</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">api_context</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>    <span class="n">order</span> <span class="o">=</span> <span class="n">api_context</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>        <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">config</span><span class="p">[</span><span class="s1">'base_url'</span><span class="p">]</span><span class="si">}</span><span class="s2">/api/orders"</span><span class="p">,</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>        <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">"item"</span><span class="p">:</span> <span class="s2">"Wireless Mouse"</span><span class="p">,</span> <span class="s2">"qty"</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>    <span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="sa">f</span><span class="s2">"/orders/</span><span class="si">{</span><span class="n">order</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>    <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Cancel order"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>
+<a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>    <span class="kn">from</span><span class="w"> </span><span class="nn">playwright.sync_api</span><span class="w"> </span><span class="kn">import</span> <span class="n">expect</span>
+<a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>    <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_text</span><span class="p">(</span><span class="s2">"Order cancelled"</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_visible</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>1 passed in 0.97s
+</code></pre></div>
+<h2 id="cleaning-up-after-tests">Cleaning up after tests<a class="headerlink" href="#cleaning-up-after-tests" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">temp_order</span><span class="p">(</span><span class="n">api_context</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>    <span class="n">order</span> <span class="o">=</span> <span class="n">api_context</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">config</span><span class="p">[</span><span class="s1">'base_url'</span><span class="p">]</span><span class="si">}</span><span class="s2">/api/orders"</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{})</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>    <span class="k">yield</span> <span class="n">order</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>    <span class="n">api_context</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">config</span><span class="p">[</span><span class="s1">'base_url'</span><span class="p">]</span><span class="si">}</span><span class="s2">/api/orders/</span><span class="si">{</span><span class="n">order</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a># no output — the delete call after yield runs even if the test
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a># body fails an assertion, keeping the environment from
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a># accumulating orphaned test data across thousands of CI runs
+</code></pre></div>
+<h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Add <code>python-dotenv</code> and <code>faker</code> to your project, create a <code>.env</code> with a
+   <code>BASE_URL</code> and dummy credentials, and a matching <code>.env.example</code> with
+   placeholders; confirm <code>.env</code> is gitignored.</li>
+<li>Write a <code>config</code> session fixture reading from <code>os.environ</code>, and refactor
+   one existing test to use it instead of a hardcoded URL/credential.</li>
+<li>Write a <code>new_user_data</code> fixture using <code>faker</code> and <code>uuid</code> producing a
+   unique name/email each call; use it in a signup test, running the test
+   twice in a row to confirm it doesn't collide on a "email already
+   registered" error.</li>
+<li>Write a <code>temp_resource</code> fixture that creates something via a public
+   API (e.g. <code>https://jsonplaceholder.typicode.com/posts</code>), yields the
+   created object's id, and deletes it in teardown; add a print statement
+   in the teardown so you can see it actually running after the test body.</li>
+</ol>
 
 
 

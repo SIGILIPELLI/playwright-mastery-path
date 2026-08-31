@@ -1540,6 +1540,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09 · Test Data Seeding via API
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -1556,6 +1574,91 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#a-seeding-fixture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A seeding fixture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-a-fixture-factory-for-related-records" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Building a fixture factory for related records
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seeding-via-direct-database-access-when-theres-no-api-for-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Seeding via direct database access (when there's no API for it)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#factory-pattern-with-realistic-fake-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Factory pattern with realistic fake data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resetting-to-a-known-state-instead-of-accumulating-fixtures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resetting to a known state instead of accumulating fixtures
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1991,6 +2094,80 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#a-seeding-fixture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A seeding fixture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#building-a-fixture-factory-for-related-records" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Building a fixture factory for related records
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#seeding-via-direct-database-access-when-theres-no-api-for-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Seeding via direct database access (when there's no API for it)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#factory-pattern-with-realistic-fake-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Factory pattern with realistic fake data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resetting-to-a-known-state-instead-of-accumulating-fixtures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resetting to a known state instead of accumulating fixtures
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exercise
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2010,8 +2187,149 @@
 
 
 <h1 id="09-test-data-seeding-via-api">09 · Test Data Seeding via API<a class="headerlink" href="#09-test-data-seeding-via-api" title="Permanent link">&para;</a></h1>
-<p>This module is part of Level 3 · Advanced.</p>
-<p>More lessons are on the way — check back soon.</p>
+<p>Clicking through the UI to create the preconditions for a test ("create a
+customer, add three orders, mark one refunded") is slow and makes the test
+fragile to unrelated UI changes. Seed that state directly through the
+backend API instead, and reserve the UI for the behavior actually under
+test.</p>
+<h2 id="a-seeding-fixture">A seeding fixture<a class="headerlink" href="#a-seeding-fixture" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># conftest.py</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">uuid</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">seeded_customer</span><span class="p">(</span><span class="n">api_context</span><span class="p">):</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">email</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"test-</span><span class="si">{</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">[:</span><span class="mi">8</span><span class="p">]</span><span class="si">}</span><span class="s2">@example.com"</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="n">customer</span> <span class="o">=</span> <span class="n">api_context</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/api/customers"</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>        <span class="s2">"email"</span><span class="p">:</span> <span class="n">email</span><span class="p">,</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>        <span class="s2">"name"</span><span class="p">:</span> <span class="s2">"Test Customer"</span><span class="p">,</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    <span class="p">})</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="k">yield</span> <span class="n">customer</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    <span class="n">api_context</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="sa">f</span><span class="s2">"/api/customers/</span><span class="si">{</span><span class="n">customer</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>  <span class="c1"># cleanup</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_customer_profile_page</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">seeded_customer</span><span class="p">):</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="sa">f</span><span class="s2">"/customers/</span><span class="si">{</span><span class="n">seeded_customer</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_text</span><span class="p">(</span><span class="n">seeded_customer</span><span class="p">[</span><span class="s2">"email"</span><span class="p">]))</span><span class="o">.</span><span class="n">to_be_visible</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a># the fixture both creates the precondition data AND tears it
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a># down afterward (the code after `yield` always runs, even if
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a># the test fails) — so tests stay independent and don't
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a># accumulate junk records across runs
+</code></pre></div>
+<h2 id="building-a-fixture-factory-for-related-records">Building a fixture factory for related records<a class="headerlink" href="#building-a-fixture-factory-for-related-records" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">make_order</span><span class="p">(</span><span class="n">api_context</span><span class="p">,</span> <span class="n">seeded_customer</span><span class="p">):</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">created_ids</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_make</span><span class="p">(</span><span class="n">item</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">qty</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">status</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"pending"</span><span class="p">):</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>        <span class="n">order</span> <span class="o">=</span> <span class="n">api_context</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/api/orders"</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>            <span class="s2">"customer_id"</span><span class="p">:</span> <span class="n">seeded_customer</span><span class="p">[</span><span class="s2">"id"</span><span class="p">],</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>            <span class="s2">"item"</span><span class="p">:</span> <span class="n">item</span><span class="p">,</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>            <span class="s2">"qty"</span><span class="p">:</span> <span class="n">qty</span><span class="p">,</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>            <span class="s2">"status"</span><span class="p">:</span> <span class="n">status</span><span class="p">,</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>        <span class="p">})</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>        <span class="n">created_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">order</span><span class="p">[</span><span class="s2">"id"</span><span class="p">])</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>        <span class="k">return</span> <span class="n">order</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>    <span class="k">yield</span> <span class="n">_make</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    <span class="k">for</span> <span class="n">order_id</span> <span class="ow">in</span> <span class="n">created_ids</span><span class="p">:</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>        <span class="n">api_context</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="sa">f</span><span class="s2">"/api/orders/</span><span class="si">{</span><span class="n">order_id</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">test_order_history_shows_all_orders</span><span class="p">(</span><span class="n">page</span><span class="p">,</span> <span class="n">seeded_customer</span><span class="p">,</span> <span class="n">make_order</span><span class="p">):</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="n">make_order</span><span class="p">(</span><span class="s2">"Widget"</span><span class="p">,</span> <span class="n">qty</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="n">make_order</span><span class="p">(</span><span class="s2">"Gadget"</span><span class="p">,</span> <span class="n">qty</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="s2">"shipped"</span><span class="p">)</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="sa">f</span><span class="s2">"/customers/</span><span class="si">{</span><span class="n">seeded_customer</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span><span class="si">}</span><span class="s2">/orders"</span><span class="p">)</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"row"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_count</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>  <span class="c1"># 2 orders + header row</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a># a factory fixture (a function the test calls, rather than a
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a># single fixed value) lets each test create exactly the records
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a># it needs, with whatever combination of fields matters for
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a># that specific scenario — while cleanup still happens
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a># automatically in one place
+</code></pre></div>
+<h2 id="seeding-via-direct-database-access-when-theres-no-api-for-it">Seeding via direct database access (when there's no API for it)<a class="headerlink" href="#seeding-via-direct-database-access-when-theres-no-api-for-it" title="Permanent link">&para;</a></h2>
+<p>Some states (a user whose email is unverified after N days, a soft-deleted
+record) have no API endpoint by design. A direct DB connection, scoped
+tightly to test setup only, covers that gap:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">psycopg</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">db_connection</span><span class="p">():</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    <span class="n">conn</span> <span class="o">=</span> <span class="n">psycopg</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">"postgresql://test_user:test_pass@localhost/app_test"</span><span class="p">)</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>    <span class="k">yield</span> <span class="n">conn</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>    <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="k">def</span><span class="w"> </span><span class="nf">unverified_user</span><span class="p">(</span><span class="n">db_connection</span><span class="p">,</span> <span class="n">api_context</span><span class="p">):</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>    <span class="n">email</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"unverified-</span><span class="si">{</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">[:</span><span class="mi">8</span><span class="p">]</span><span class="si">}</span><span class="s2">@example.com"</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>    <span class="n">user</span> <span class="o">=</span> <span class="n">api_context</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/api/users"</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="s2">"email"</span><span class="p">:</span> <span class="n">email</span><span class="p">,</span> <span class="s2">"password"</span><span class="p">:</span> <span class="s2">"Test1234!"</span><span class="p">})</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>    <span class="k">with</span> <span class="n">db_connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cur</span><span class="p">:</span>
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>        <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">"UPDATE users SET email_verified_at = NULL WHERE id = </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="p">(</span><span class="n">user</span><span class="p">[</span><span class="s2">"id"</span><span class="p">],))</span>
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>        <span class="n">db_connection</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>    <span class="k">yield</span> <span class="n">user</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a># this must only ever point at a dedicated test database, never
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a># a shared staging or production instance — direct writes bypass
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a># every application-level validation and audit trail the API
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a># would normally enforce
+</code></pre></div>
+<h2 id="factory-pattern-with-realistic-fake-data">Factory pattern with realistic fake data<a class="headerlink" href="#factory-pattern-with-realistic-fake-data" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">faker</span><span class="w"> </span><span class="kn">import</span> <span class="n">Faker</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">fake</span> <span class="o">=</span> <span class="n">Faker</span><span class="p">()</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">make_customer</span><span class="p">(</span><span class="n">api_context</span><span class="p">):</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    <span class="n">created</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_make</span><span class="p">(</span><span class="o">**</span><span class="n">overrides</span><span class="p">):</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>            <span class="s2">"email"</span><span class="p">:</span> <span class="n">fake</span><span class="o">.</span><span class="n">unique</span><span class="o">.</span><span class="n">email</span><span class="p">(),</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>            <span class="s2">"name"</span><span class="p">:</span> <span class="n">fake</span><span class="o">.</span><span class="n">name</span><span class="p">(),</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>            <span class="s2">"phone"</span><span class="p">:</span> <span class="n">fake</span><span class="o">.</span><span class="n">phone_number</span><span class="p">(),</span>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>            <span class="o">**</span><span class="n">overrides</span><span class="p">,</span>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>        <span class="p">}</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>        <span class="n">customer</span> <span class="o">=</span> <span class="n">api_context</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/api/customers"</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">payload</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>        <span class="n">created</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">customer</span><span class="p">[</span><span class="s2">"id"</span><span class="p">])</span>
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>        <span class="k">return</span> <span class="n">customer</span>
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>    <span class="k">yield</span> <span class="n">_make</span>
+<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>    <span class="k">for</span> <span class="n">cid</span> <span class="ow">in</span> <span class="n">created</span><span class="p">:</span>
+<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>        <span class="n">api_context</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="sa">f</span><span class="s2">"/api/customers/</span><span class="si">{</span><span class="n">cid</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a># `Faker` generates realistic-looking data by default, and
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a># **overrides lets a specific test pin down only the field it
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a># actually cares about (e.g. make_customer(email="specific@x.com"))
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a># while everything else stays randomized and non-colliding
+</code></pre></div>
+<h2 id="resetting-to-a-known-state-instead-of-accumulating-fixtures">Resetting to a known state instead of accumulating fixtures<a class="headerlink" href="#resetting-to-a-known-state-instead-of-accumulating-fixtures" title="Permanent link">&para;</a></h2>
+<p>For read-heavy tests against a large dataset (reports, search, filters),
+seeding one record per test doesn't scale — reset to a fixed snapshot
+instead:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s2">"session"</span><span class="p">,</span> <span class="n">autouse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">reset_test_database</span><span class="p">(</span><span class="n">api_context</span><span class="p">):</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>    <span class="n">api_context</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">"/internal/test-only/reset-fixtures"</span><span class="p">)</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>    <span class="k">yield</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a># a backend endpoint that ONLY exists in the test environment
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a># (never deployed to production) restores a known fixture
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a># dataset once per test session — combined with per-test
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a># fixtures above for anything a specific test needs beyond
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a># the shared baseline
+</code></pre></div>
+<h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Write a fixture that creates a record via the API, yields it to the
+   test, and deletes it afterward — confirm via a follow-up API call that
+   the record is really gone once the test finishes.</li>
+<li>Turn that fixture into a factory (a function the test calls, potentially
+   multiple times) so a single test can create several related records with
+   different field values.</li>
+<li>Write a test using <code>Faker</code> (or hand-written realistic values) to seed a
+   customer with a randomized but valid email, and assert the profile page
+   shows it correctly.</li>
+<li>Identify one piece of app state your API can't create directly (an
+   expired token, a soft-deleted row) and write a fixture that reaches the
+   database directly to set it up — with a comment explaining why this must
+   never point at a shared or production database.</li>
+</ol>
 
 
 
