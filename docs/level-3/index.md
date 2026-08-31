@@ -13,4 +13,9 @@
 9. Test Data Seeding via API
 10. Project — Full CI E2E Pipeline
 
-More lessons are on the way — check back soon.
+Level 3 assumes you're comfortable with everything in Level 1 and 2: locators,
+fixtures, the Page Object Model, network interception, and parallel runs.
+Here the focus shifts from "write a correct test" to "run a trustworthy test
+suite" — the practices that keep hundreds of E2E tests fast, stable, and
+useful in a real CI pipeline instead of a source of noise the team learns to
+ignore.

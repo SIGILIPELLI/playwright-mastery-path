@@ -13,4 +13,10 @@
 9. Extending Playwright (Custom Fixtures/Plugins)
 10. Capstone — Production-Grade E2E Framework
 
-More lessons are on the way — check back soon.
+Level 4 is about owning Playwright at organization scale: choosing what to
+test where (E2E vs. component vs. unit), understanding enough of Playwright's
+own architecture to debug it instead of guessing, building internal tooling
+(custom fixtures, reporters, plugins) on top of it, and making the
+people-and-process decisions — ownership, review standards, migration paths —
+that determine whether a test suite stays an asset or turns into a liability
+as the team and codebase grow.
