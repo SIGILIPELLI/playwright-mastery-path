@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://sigilipelli.github.io/playwright-mastery-path/sitemap.xml
+Sitemap: https://sigilipelli.github.io/playwright-skillmastery/sitemap.xml
