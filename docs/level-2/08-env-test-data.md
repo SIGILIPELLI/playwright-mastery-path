@@ -194,6 +194,31 @@ def temp_order(api_context, config):
 # accumulating orphaned test data across thousands of CI runs
 ```
 
+## How It Actually Works
+
+None of `.env` loading, `Faker`, or API seeding touch Playwright's
+automation layer at all — they operate purely in your Python process, one
+level above the browser. What's worth understanding mechanically is *why*
+API seeding (rather than UI seeding) is the better default once a suite
+grows: `api_context.post(...)` uses Playwright's `APIRequestContext`
+(Level 3 covers it fully), which sends a plain HTTP request directly from
+the Node driver process — no browser, no page, no CDP navigation or
+rendering involved at all. It shares the same cookie jar as a
+`BrowserContext` you create it from, though, which is why an
+API-authenticated session and a UI-driven `page` in the same context see
+each other's login state without any extra wiring: the session cookie set
+by the API call is visible to subsequent `page.goto()` calls in that
+context, and vice versa, because both are reading and writing the same
+underlying context-scoped cookie store the browser process maintains.
+
+The `yield`-based teardown pattern for `temp_order` relies on the exact same
+pytest guarantee discussed in Module 2: the code after `yield` runs in a
+`finally`-equivalent block pytest manages, independent of whether the test
+body passed, failed an assertion, or raised — which is what makes it safe
+to rely on for cleaning up real backend state (an order, a seeded resource)
+rather than a plain `return` plus a manual cleanup call a developer could
+forget to add to every test.
+
 ## Exercise
 
 1. Add `python-dotenv` and `faker` to your project, create a `.env` with a

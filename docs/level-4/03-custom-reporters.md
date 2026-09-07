@@ -160,6 +160,32 @@ def pytest_configure(config):
 # reusable across projects and CI jobs
 ```
 
+## How It Actually Works
+
+None of this module touches Playwright's own protocol layer at all — it's
+entirely pytest's plugin/hook architecture, which is worth being precise
+about since it's easy to conflate "test reporting" with "browser
+automation." `pytest_runtest_logreport` fires because pytest's core test
+runner wraps every phase (setup, call, teardown) in its own internal
+try/except and calls every registered hook implementation with the
+resulting `TestReport` object — `config.pluginmanager.register(instance,
+name)` is what turns a plain Python object into something pytest's hook
+dispatcher will call alongside every other registered plugin (including
+`pytest-playwright` itself, which is implemented as exactly this kind of
+plugin). The order and timing of `report.when` values reflect pytest's own
+execution model, not anything about what happened inside a browser during
+that test.
+
+Where this does connect back to Playwright specifically: a
+`TraceLinkingReporter` printing a path like
+`test-results/<nodeid>/trace.zip` is relying on `pytest-playwright`'s own
+convention for where it writes trace files when `--tracing=retain-on-
+failure` is set — that path is populated by the driver's `context.tracing.
+stop(path=...)` call (Level 2/3), invoked automatically by the plugin's own
+fixture teardown when a test fails, before your reporter hook even runs;
+the reporter is just constructing the well-known path string, not creating
+or reading the trace file itself.
+
 ## Exercise
 
 1. Write a `pytest_runtest_logreport` hook in `conftest.py` that prints a

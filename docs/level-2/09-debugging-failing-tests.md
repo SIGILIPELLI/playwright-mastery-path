@@ -151,6 +151,35 @@ would pass today and click the wrong row the moment the list re-orders.
    acting, or `page.wait_for_response(...)`) once you know exactly what
    condition you're waiting for — never a blind `wait_for_timeout`.
 
+## How It Actually Works
+
+The call log shown on a timeout isn't Python-side guesswork — it's a live
+transcript of the actionability retry loop described in Level 1 Module 7,
+streamed back from the Node driver as it happens. Each line
+("locator resolved to 2 elements," "element is not visible") corresponds to
+one CDP query and one condition evaluation the driver just performed; the
+log is simply that internal loop's state made visible to you instead of
+discarded after the fact.
+
+`PWDEBUG=1` and `page.pause()` both work by injecting a **debugger
+controller** into the driver process that intercepts the next outgoing CDP
+command and holds it, while opening a separate Inspector window connected
+to the same browser via its own CDP session — the Inspector's "pick locator"
+feature works exactly like `codegen` (Level 1 Module 2) in reverse: it
+listens for `Input.dispatchMouseEvent`-level clicks you make directly in
+the paused browser window, resolves the clicked node against the
+accessibility tree, and computes a locator expression for it.
+
+Trace Viewer's recording is the most involved piece: with tracing on, the
+driver subscribes to a wide set of CDP events for the entire test —
+`Page.screencastFrame` (or full DOM snapshots), `Network.*` events, console
+API calls, and every action Playwright itself performs — and serializes
+them all, timestamped, into the `trace.zip` archive. `show-trace` doesn't
+re-run anything against a live browser at all; it loads that recorded event
+stream into a static timeline UI, which is exactly why it works fully
+offline and can reconstruct the DOM at any point in the trace without ever
+reconnecting to the (long since closed) browser that generated it.
+
 ## Exercise
 
 1. Take a test that currently passes and deliberately rename a locator's

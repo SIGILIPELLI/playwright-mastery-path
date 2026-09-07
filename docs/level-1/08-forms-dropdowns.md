@@ -169,6 +169,38 @@ it — if a dialog appears with no handler registered, Playwright
 auto-dismisses it after a short delay and logs a warning, which usually
 isn't the behavior your test wants.
 
+## How It Actually Works
+
+`select_option()` on a native `<select>` doesn't simulate opening the
+dropdown UI and clicking an option at all — browsers don't expose a
+consistent, cross-platform way to drive their native `<select>` popup
+through remote-control protocols (it's OS-rendered chrome, not page
+content). Instead, Playwright sets the `<select>` element's `value`/selected
+`<option>` directly via the DOM and then dispatches synthetic `input` and
+`change` events, matching what the browser fires after a real selection.
+This is why it works identically headless and headed even though a headless
+browser never renders an actual dropdown popup.
+
+Custom `role="combobox"` dropdowns get none of that special handling — your
+`.click()` on the trigger and `.click()` on the `role="option"` element are
+both real `Input.dispatchMouseEvent` clicks, actionability-checked like any
+other click, which is exactly why they only work correctly when the widget
+truly renders visible, stable, unobstructed elements for each step; a
+custom dropdown that keeps its options in the DOM but visually hidden until
+JS toggles a class will fail the "visible" actionability check until that
+class actually changes.
+
+Native dialogs (`alert`/`confirm`/`prompt`) are handled through a separate
+CDP domain, `Page.javascriptDialogOpening`/`Page.handleJavaScriptDialog`.
+These dialogs are rendered by the browser chrome itself, outside the page's
+DOM entirely, and they **block the renderer's main thread** the instant they
+appear — which is precisely why Playwright requires you to register the
+`dialog` listener *before* triggering the action: the driver needs a
+handler already wired to `Page.javascriptDialogOpening` so it can call
+`Page.handleJavaScriptDialog` the instant the event fires, rather than
+leaving the page frozen waiting for a human to click a button that will
+never come.
+
 ## Exercise
 
 1. On `https://www.saucedemo.com/`, submit the login form with an empty

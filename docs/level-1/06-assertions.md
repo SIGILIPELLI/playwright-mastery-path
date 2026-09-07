@@ -156,6 +156,31 @@ expect(page.get_by_text("Report generated")).to_be_visible(timeout=15000)
 # the default for every other assertion in the suite
 ```
 
+## How It Actually Works
+
+`expect(locator).to_be_visible()` isn't a single check — it's a **poll loop**
+Playwright runs internally: re-resolve the locator against the live DOM,
+evaluate the condition, and if it fails, wait a short backoff interval and
+try again, up to the timeout. Each retry is a fresh round trip over CDP
+(re-querying the accessibility tree or DOM, re-checking bounding boxes for
+visibility), not a cached comparison — which is why the call log you see on
+failure can show the *actual value changing* across retries: you're watching
+real snapshots of the page at each poll, not one static check repeated.
+
+This retry behavior is implemented on the **Node driver side**, not by
+Python looping and re-calling into the driver each time — Python sends one
+`expect` command describing the condition and timeout, and the driver itself
+owns the poll loop, which keeps the retry cadence tight (tens of
+milliseconds) without round-tripping through the Python/driver stdio pipe on
+every single poll.
+
+`to_have_text()` normalizes whitespace before comparing (collapsing runs of
+spaces/newlines the way a browser renders them visually), which is why it
+tolerates source-formatting differences in the HTML that `to_have_text()`'s
+plain-string cousin in a naive scraper would not — the comparison happens
+against the *rendered* text content the accessibility layer reports, not the
+raw markup.
+
 ## Exercise
 
 Using `https://www.saucedemo.com/` (`standard_user` / `secret_sauce`):

@@ -155,6 +155,29 @@ Python package expects updated browser binaries, and running mismatched
 versions is a common source of confusing failures that have nothing to do
 with your test code.
 
+## How It Actually Works
+
+`playwright install` isn't just a convenience download — it's what makes the
+protocol handshake in Module 1 possible at all. Each cached binary in
+`~/.cache/ms-playwright` is a browser build that Playwright's maintainers
+compiled (or patched, for Firefox and WebKit) against a specific revision of
+that browser's remote-control interface, and pinned to a matching revision
+of the Node.js **driver** bundled inside the `playwright` package. When
+`sync_playwright().start()` runs, Python spawns that driver as a child
+process over stdio and asks it to launch a browser binary from the cache
+with a `--remote-debugging-port` (Chromium) or equivalent flag; the browser
+opens a WebSocket server on that port, the driver connects to it, and every
+Python call after that is proxied: Python → stdio → Node driver → WebSocket
+→ browser, with events flowing back the same path in reverse.
+
+`playwright codegen` runs that same connection in the other direction: it
+launches a browser with CDP's `Input.dispatchMouseEvent` /
+`DOM.getDocument` domains active, listens for the raw DOM events your clicks
+and keystrokes generate, walks the DOM tree CDP hands back to compute a
+locator for whatever you interacted with, and prints the resulting Python
+statement in the Inspector window in real time — it's watching the same
+protocol traffic your own scripts will later drive programmatically.
+
 ## Exercise
 
 1. Create the `playwright-practice` project exactly as shown above, with a

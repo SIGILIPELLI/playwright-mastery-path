@@ -184,6 +184,35 @@ jobs:
 # together rather than left as separate one-off examples
 ```
 
+## How It Actually Works
+
+Every piece of this capstone is a composition of mechanisms this site has
+already gone underneath: `storage_state_path` performs one HTTP login via
+the driver's plain network client and captures cookies/origin storage as
+JSON (Level 3 Module 2); `page` replays that state via `Network.setCookie`
+and deferred `DOMStorage.setDOMStorageItem` writes at context creation
+(Level 3 Module 2's mechanism, reused here at framework scale); `make_order`
+seeds backend state over the same driver-side HTTP channel with no browser
+involvement (Level 3 Modules 3 and 9); `to_show_currency` plugs into the
+Node driver's matcher-retry loop exactly like any built-in `expect()` call
+(Module 9, this level); and the tiered CI matrix fans the whole suite out
+across independent driver/browser process pairs, each with its own isolated
+`BrowserContext`s (Level 2 Module 6, Level 4 Module 4).
+
+The one genuinely new thing happening at this scale is *ordering*: `page`
+depends on `storage_state_path`, which depends on `api_context`, which
+depends on `base_url` — a real fixture dependency graph that pytest resolves
+once per test by building each fixture in dependency order and caching
+anything scoped wider than `function` for reuse. Because `api_context` and
+`storage_state_path` are `session`-scoped, that entire chain of "read CLI
+env flag → open HTTP client → log in once → capture state" happens exactly
+once per pytest process regardless of how many hundreds of tests import
+`page` — every individual test only ever pays the cost of its own
+`function`-scoped `Target.createBrowserContext`/`Target.createTarget` CDP
+calls, which is the concrete reason this architecture is what lets a
+suite scale into the hundreds of files without login cost scaling
+linearly alongside it.
+
 ## Exercise
 
 1. Assemble this structure (or an adapted version) in a real repository:

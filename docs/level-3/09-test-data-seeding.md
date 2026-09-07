@@ -159,6 +159,29 @@ def reset_test_database(api_context):
 # the shared baseline
 ```
 
+## How It Actually Works
+
+Every `api_context.post(...)`/`.delete(...)` call in this module uses the
+same driver-side HTTP client covered in Module 3 — no browser process is
+involved in creating or tearing down seeded records, which is precisely why
+seeding-heavy suites with dozens of `make_order`/`make_customer` calls per
+test stay fast even though a UI-driven equivalent (clicking through
+"create order" forms repeatedly) would be dominated by CDP round trips and
+actionability-check waits for every single field and button.
+
+The factory-fixture cleanup pattern (`created_ids = []`, then a loop after
+`yield`) relies on ordinary Python closures, not anything Playwright- or
+pytest-specific — `_make()` appends to a list the enclosing fixture function
+still has a reference to, and the teardown code after `yield` runs inside
+that same closure's scope. What *is* worth connecting back to earlier
+modules: because `api_context` in a full pipeline (Module 10) is typically
+built from the same session as an authenticated `BrowserContext`, the
+records these fixtures create are visible to the UI the instant the API
+call returns — there's no propagation delay or cache to worry about,
+because both the API client and the browser are ultimately just two
+different consumers of the same backend, not two systems that need to be
+kept in sync.
+
 ## Exercise
 
 1. Write a fixture that creates a record via the API, yields it to the

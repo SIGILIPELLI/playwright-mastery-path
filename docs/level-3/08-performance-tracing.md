@@ -142,6 +142,34 @@ def test_page_meets_performance_budget(page, path):
 # a specific failing line
 ```
 
+## How It Actually Works
+
+`page.context.new_cdp_session(page)` is the module's most direct exposure
+of what every other API in this site abstracts away: it hands you a raw CDP
+session object, letting you call CDP domains/methods (`Network.
+emulateNetworkConditions`, `Emulation.setCPUThrottlingRate`) that have no
+higher-level Playwright wrapper at all. `Network.emulateNetworkConditions`
+works by throttling traffic inside the browser's own network stack — the
+same layer real requests flow through — rather than delaying route handlers
+in Playwright's own process (Level 2 Module 4's `page.route` approach),
+which is exactly why it affects every resource (subresources, fonts,
+images fetched by the browser directly) proportionally instead of only the
+specific patterns you've written `route()` handlers for.
+
+The `PerformanceObserver`/`performance.getEntriesByType('navigation')` calls
+run as plain JavaScript inside the page via `Runtime.evaluate` — Playwright
+isn't measuring anything itself here; it's retrieving numbers the browser's
+own Navigation Timing and Performance Observer APIs already computed
+internally as part of normal page-load instrumentation, then marshaling the
+JSON-serializable result back to Python. `context.tracing.start(...)`
+overlaps with this: the trace's CPU/network graph is built from the same
+underlying `Tracing.start` CDP domain Chrome DevTools itself uses for its
+Performance panel, recording detailed timeline events (paint, script
+execution, network) continuously rather than sampling discrete metrics on
+demand — which is why a trace can show *where* time went between two
+actions, while a single `performance.getEntriesByType()` call only gives
+you the endpoint numbers.
+
 ## Exercise
 
 1. Write a test that reads Navigation Timing data via `page.evaluate()` and

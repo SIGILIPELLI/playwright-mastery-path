@@ -131,6 +131,32 @@ def test_can_add_item_to_cart(page: Page, api_context):
 # pattern moves on
 ```
 
+## How It Actually Works
+
+This module is process, not protocol — but two of its mechanisms are worth
+being precise about since they're easy to get subtly wrong. `CODEOWNERS`
+matching is handled entirely by GitHub itself at PR-creation/push time: it
+walks the file line by line from the *bottom up looking for the last
+matching pattern* for each changed file (not the first, and not a merge of
+every matching line), using the same gitignore-style glob semantics as
+`.gitignore` — which is why ordering entries from general to specific
+matters, and why a broad `/tests/` catch-all placed *after* more specific
+team entries would silently override them for every file, since GitHub
+takes the last match, not the most specific one.
+
+`@pytest.mark.skip(reason=...)` and `@pytest.mark.xfail(...)` are handled
+inside pytest's own collection phase, before any Playwright fixture ever
+runs: a `skip`-marked test's body — and critically, its fixtures, including
+`page`/`browser_context_args` — never executes at all, so a skipped E2E
+test costs zero browser/CDP overhead, unlike a test that runs and then
+fails an assertion. `xfail(strict=False)` (used for flaky quarantine, Level
+3 Module 5) does still fully execute the test, browser and all — it only
+changes how pytest *classifies* the outcome afterward, which is why
+quarantining a flaky test this way still costs full CI time even though it
+no longer blocks a merge; a genuinely resource-heavy known-flaky test is
+sometimes better served by `skip` with a tracking issue than by `xfail`
+alone.
+
 ## Exercise
 
 1. Add a `CODEOWNERS` entry mapping at least two test directories to

@@ -170,6 +170,36 @@ page.route(
 # test traffic every CI run generates
 ```
 
+## How It Actually Works
+
+`page.route()` is built on CDP's **Fetch domain**, not a browser-external
+proxy. Registering a route sends `Fetch.enable` with a URL pattern filter to
+the browser; from that point on, the browser itself *pauses* any matching
+request at the network layer and emits a `Fetch.requestPaused` event to the
+driver instead of letting the request continue — the actual HTTP request
+hasn't even left the browser process yet at this point. Your Python handler
+runs, and depending on what it calls, the driver sends back one of three
+different Fetch-domain commands: `route.continue_()` maps to
+`Fetch.continueRequest` (let it proceed, optionally with modified
+headers/method/body), `route.fulfill()` maps to `Fetch.fulfillRequest`
+(never let the request reach the network at all — hand back a fabricated
+response directly), and `route.abort()` maps to `Fetch.failRequest` (fail it
+with a specific network error code).
+
+This is why mocking works with zero proxy setup and zero app code changes:
+the interception happens inside the browser process itself, at the same
+layer CDP's network domain observes real traffic, so it's indistinguishable
+to the page's JavaScript from a real network response arriving. `route.fetch()`
+followed by `route.fulfill(response=...)` is the one path that does perform
+a real network round trip — `fetch()` here issues an actual HTTP request
+(outside the paused one) to get a genuine response object your handler can
+then mutate before finally resolving the paused request with
+`Fetch.fulfillRequest` using your edited body. `page.on("request"/"response")`
+listeners are simpler — they subscribe to `Network.requestWillBeSent` /
+`Network.responseReceived` events, which fire for observation only and
+carry no ability to pause or alter anything, which is exactly why they're
+positioned as passive/read-only in contrast to `route()`.
+
 ## Exercise
 
 Using `https://httpbin.org` as a stand-in backend and any simple page you

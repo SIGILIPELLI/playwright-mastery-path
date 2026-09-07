@@ -128,6 +128,34 @@ Running one specific test (`::test_name`) headed with `--slowmo` is usually
 faster than adding print statements — you watch exactly where the flow
 diverges from what you expected, in real time.
 
+## How It Actually Works
+
+Headed and headless launch the identical browser binary with one difference
+in the command line Playwright constructs: headless mode adds
+`--headless=new` (Chromium's modern headless flag) plus flags that disable
+GPU compositing to a real display surface. The rendering engine — layout,
+CSS, JavaScript execution, the accessibility tree — runs exactly the same
+code path either way; what's actually skipped is compositing pixels to an
+on-screen window surface and the OS-level windowing system. This is also
+why headless still supports `page.screenshot()`: Chromium renders a
+complete pixel buffer internally regardless of whether a window ever
+displays it, and CDP's `Page.captureScreenshot` command just reads that
+buffer directly.
+
+The older classic headless mode (pre-"new") used a genuinely different code
+path for parts of rendering, which is why old Playwright/Puppeteer-era
+advice about headless/headed rendering differences existed; modern Chromium's
+`--headless=new` mode reuses the same rendering pipeline as headed Chrome
+far more closely, which is why the parity gap Module 9 describes has
+narrowed substantially in current Playwright versions.
+
+`--slowmo` doesn't change how the browser behaves at all — it's purely a
+driver-side delay Playwright inserts *between* dispatching successive CDP
+input commands, giving a human observer time to see each step. It has zero
+effect on actionability-check retry timing or the browser's own event
+processing, which is why a `slow_mo` script and its instant equivalent
+produce identical assertions — only the wall-clock pacing differs.
+
 ## Exercise
 
 1. Write a small script (not a pytest test yet) that launches headed with

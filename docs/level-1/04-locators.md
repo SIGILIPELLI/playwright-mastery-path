@@ -175,6 +175,35 @@ on `page`) scopes the search to inside that element — the single most
 effective technique for disambiguating a page with repeated text or
 structure, like a navbar and footer that both link to "Pricing."
 
+## How It Actually Works
+
+A `Locator` object is intentionally inert until you act on it — it stores
+only a **selector string** (e.g. `internal:role=button[name="Sign in"]` for
+`get_by_role`) and a reference to its parent frame. Nothing is queried yet.
+The moment you call `.click()`, `.fill()`, or read `.text_content()`,
+Playwright sends a fresh `DOM.querySelector`/accessibility-tree query over
+CDP at that exact instant, gets back the current matching node(s), and
+throws them away again once the action finishes. This is what makes locators
+resilient to re-renders where a captured `WebElement` reference would go
+stale: there is no cached node to go stale, only a query re-run live every
+time.
+
+`get_by_role` in particular doesn't search the raw DOM tree at all — it asks
+the browser to compute its **accessibility tree** (the same structure exposed
+via CDP's `Accessibility.getFullAXTree`), which each engine builds from DOM
+semantics, ARIA attributes, and computed styles combined. That's why
+`get_by_role("button", name="Sign in")` matches a `<div role="button">` a
+CSS selector would never associate with "button" — Playwright is reading the
+browser's own interpretation of what the element means to assistive
+technology, not the tag name.
+
+`filter(has_text=...)` and `filter(has=...)` compile down to an internal
+selector engine step (`internal:has-text=`, `internal:has=`) evaluated
+entirely inside the query — Playwright doesn't fetch the unfiltered list into
+Python and filter it there; the filtering happens as part of the single
+protocol round trip, which is why chained locators stay fast even against
+pages with hundreds of matching elements.
+
 ## Exercise
 
 Using `https://books.toscrape.com/`:

@@ -141,6 +141,37 @@ def test_component_visual(page: Page, component_id: str):
 # spinner mid-animation never causes a false-positive diff
 ```
 
+## How It Actually Works
+
+`expect(page).to_have_screenshot()` doesn't ask the OS to capture the
+screen — it sends CDP's `Page.captureScreenshot`, which asks the browser's
+own compositor to render its current internal pixel buffer directly into a
+PNG, entirely independent of whether a window is actually visible on any
+display (which is why it works identically headless, as covered in Level 1
+Module 9). For a full-page screenshot, Playwright first resizes the
+viewport (`Emulation.setDeviceMetricsOverride`) to the page's full scroll
+height so the compositor renders content that would otherwise require
+scrolling, all in one capture rather than stitching multiple screenshots
+together.
+
+`mask=[...]` works by injecting a temporary CSS override — effectively
+`Runtime.evaluate`-ing a style rule that paints each masked locator's
+resolved bounding box a solid color — immediately before the
+`captureScreenshot` call, then removing it after. This happens entirely
+inside the render pipeline before pixels are captured, which is why masked
+regions never show their real content in the diff at all, rather than being
+excluded from the comparison after the fact (which would still leak a
+partially-composited frame into version control if timed wrong).
+
+The pixel diff itself runs through `pixelmatch`, comparing the new capture
+against the baseline PNG pixel-by-pixel in an anti-aliasing-aware mode
+(`threshold` controls how different a single pixel's RGB values must be to
+count as changed at all, `max_diff_pixel_ratio` controls what fraction of
+the total image can differ before the whole comparison fails) — this is a
+pure post-processing step over two already-captured images, with no browser
+involvement, which is why you can re-run a diff against saved artifacts
+without ever relaunching Chromium.
+
 ## Exercise
 
 1. Add `expect(page).to_have_screenshot()` to a page in your own project and

@@ -149,6 +149,35 @@ def test_no_new_a11y_violations(page):
     )
 ```
 
+## How It Actually Works
+
+`axe.run(page)` doesn't run inside Playwright's own process at all — it
+takes the bundled `axe-core` JavaScript library and injects it into the
+page via `Page.addScriptToEvaluateOnNewDocument`/`Runtime.evaluate` (the
+same CDP mechanism `page.evaluate()` uses), so the entire accessibility
+audit executes as real JavaScript inside the page's own execution context,
+walking the live DOM and the browser's actual computed accessibility tree —
+the identical data source `get_by_role()` reads from (Level 1 Module 4).
+This is why axe can catch things a human visual check misses entirely
+(a `color-contrast` failure is computed from real computed CSS values via
+`getComputedStyle`, not a screenshot heuristic) and why results are only as
+current as the DOM state at the moment `axe.run()` executes — a violation
+introduced by a state change after the scan runs won't be caught until you
+scan again.
+
+`to_be_focused()` reads `document.activeElement` via the same
+`Runtime.evaluate`/accessibility-tree channel every other assertion uses,
+comparing it against the resolved node for your locator — which is
+precisely why it's a meaningful check for keyboard-trap bugs: it verifies
+the actual OS/browser-level focus target, the same state a real screen
+reader or keyboard user's Tab key would be constrained by, not merely
+whether an element exists in the DOM. `page.keyboard.press("Tab")` in turn
+dispatches a real `Input.dispatchKeyEvent`, letting the browser's own
+native focus-management logic (not Playwright) decide where focus lands
+next — so this test only passes if the app's actual focus-trap
+implementation is correct, not because Playwright is simulating tab order
+itself.
+
 ## Exercise
 
 1. Run `Axe().run(page)` against a real page in your app and read through

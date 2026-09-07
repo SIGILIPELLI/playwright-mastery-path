@@ -192,6 +192,30 @@ documents, in one place, every category of test your suite recognizes —
 useful once you have hundreds of tests and want to run only a subset in a
 pre-commit hook versus nightly CI.
 
+## How It Actually Works
+
+The `browser`/`context`/`page` fixture chain `pytest-playwright` provides
+mirrors the real CDP object hierarchy one-to-one, and the scoping choices
+matter for *why* it's fast: `browser` at `session` scope means exactly one
+`Browser.launch` (one OS process, one CDP WebSocket connection to the Node
+driver) exists for the entire test run. Every `context` fixture at
+`function` scope issues one cheap `Target.createBrowserContext` CDP command
+against that already-running process — no new process, no new WebSocket
+connection, just an isolated cookie/storage partition inside the existing
+browser. Teardown (`ctx.close()`) sends `Target.disposeBrowserContext`,
+which the browser handles by discarding that partition's state entirely,
+guaranteeing the next test's `context` fixture starts from zero regardless
+of what the previous test did.
+
+This is also why `autouse=True` fixtures and `yield`-based teardown compose
+safely with the underlying protocol: pytest guarantees the code after
+`yield` runs even on test failure (via its own exception-handling, not
+anything Playwright-specific), so a `context.close()` call always fires and
+its `Target.disposeBrowserContext` command always gets sent — a crashed
+assertion mid-test doesn't leak a browser context the way a raw,
+non-fixture `p.chromium.launch()` script easily can if you forget a
+`try/finally`.
+
 ## Exercise
 
 1. In `conftest.py`, write a `session`-scoped fixture `api_base_url` that

@@ -180,6 +180,34 @@ def to_have_valid_email_format(locator, **kwargs):
 expect.extend({"to_have_valid_email_format": to_have_valid_email_format})
 ```
 
+## How It Actually Works
+
+Registering a plugin via `[project.entry-points.pytest11]` relies on
+Python's standard packaging **entry point** mechanism, not anything
+Playwright-specific: when `pip install`s your package, it writes that
+mapping into the installed distribution's metadata, and at startup pytest's
+own plugin manager (`pluggy`, the library pytest's hook system is built on)
+enumerates every installed package's `pytest11` entry points and imports
+each named module automatically — this is the exact same discovery
+mechanism that makes `pip install pytest-playwright` alone enough to give
+every project `page`/`browser`/`context` fixtures with zero manual
+registration; your own plugin package now participates in that same
+auto-discovery pass, indistinguishable to pytest from a third-party plugin.
+
+`expect.extend()` works by registering your function into the same
+matcher registry Playwright's own `to_have_text`/`to_be_visible` live in
+inside the Node driver — calling `expect(locator).to_have_valid_email_format()`
+sends a generic "run this named custom matcher" command to the driver,
+which then re-invokes your Python function repeatedly (via a callback
+channel back across the stdio pipe) on a poll loop timed exactly like every
+built-in assertion's retry loop (Level 1 Module 6), re-reading
+`locator.inner_text()` — and therefore re-resolving the locator against the
+live DOM — on every attempt. This is the mechanical reason a custom matcher
+genuinely retries rather than merely wrapping a one-shot `assert`: it's
+plugged into the identical timeout/backoff loop the driver runs for every
+other `expect()` call, not a separate implementation you'd have to build
+polling into yourself.
+
 ## Exercise
 
 1. Package a fixture your team reuses across multiple test files into a

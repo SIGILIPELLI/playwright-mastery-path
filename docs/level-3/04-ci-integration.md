@@ -184,6 +184,31 @@ jobs:
           path: test-results/
 ```
 
+## How It Actually Works
+
+`playwright install --with-deps` is really two independent operations
+happening back to back: `playwright install` downloads the pinned browser
+build (Level 1 Module 2) into `~/.cache/ms-playwright`, while `--with-deps`
+additionally shells out to the runner's package manager (`apt-get` on
+Ubuntu images) to install the shared libraries — font rendering libraries,
+GTK/NSS/audio codecs — that a *headless Linux Chromium process* needs just
+to start up and produce correct output, since a bare CI container image
+typically ships none of them. Caching `~/.cache/ms-playwright` skips the
+download but not the `apt-get` step, which is exactly why the workflow
+still runs `install-deps` separately on a cache hit — the OS package
+manager state isn't part of what gets cached.
+
+`--shard=N/M` doesn't change how any individual test runs — it operates
+purely at pytest's collection phase, partitioning the already-collected
+list of test items into M disjoint groups (typically by simple index modulo,
+similar to the hand-rolled sharder in Level 2 Module 6) before any browser
+is launched. Each shard then runs its own completely independent
+Playwright session — separate driver process, separate browser process —
+which is why `fail-fast: false` matters for sharded CI: one shard's browser
+crashing or one shard's assertion failing has zero effect on the CDP
+sessions running in the other matrix jobs, since they share nothing beyond
+the git checkout.
+
 ## Exercise
 
 1. Add a GitHub Actions workflow to a real (or sample) repository that

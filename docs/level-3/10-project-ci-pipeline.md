@@ -190,6 +190,35 @@ jobs:
 # it outgrows "one file of tests that all log in every time"
 ```
 
+## How It Actually Works
+
+Tracing every mechanism this pipeline depends on back to the protocol layer:
+the session-scoped `storage_state_path` fixture performs one API login
+(driver-process HTTP call, no CDP at all) and captures cookies/origin
+storage as plain JSON (Module 2's `Network.getCookies` /
+`DOMStorage.getDOMStorageItems` shape); every test's `page` fixture then
+spins up a fresh `BrowserContext` and replays that state via
+`Network.setCookie` and deferred `DOMStorage.setDOMStorageItem` writes
+before the first navigation — meaning every one of this suite's tests pays
+the cost of one HTTP login (amortized once per session) plus one cheap
+`Target.createBrowserContext`, never a UI login flow's full actionability-
+checked click sequence.
+
+The visual and accessibility tests layer CDP's screenshot pipeline
+(`Page.captureScreenshot`, with pre-capture CSS masking) and an injected
+`axe-core` JS run (`Runtime.evaluate` against the live accessibility tree)
+on top of that same authenticated context — both are read-only inspections
+of whatever DOM state the seeded, authenticated page currently shows, which
+is why they compose cleanly with API seeding: the seeded record already
+exists in the backend and is already reflected in cookies/DOM by the time
+either check runs, with no extra synchronization needed. Sharding
+(`--shard=N/M`) then partitions this already-independent-per-test setup
+across N completely separate driver/browser process pairs, which is why
+tests seeded and authenticated this way are safe to run concurrently across
+shards: each shard's `BrowserContext`s are isolated from every other
+shard's by construction, and any two tests are only coupled by shared
+*backend* records, not by anything in Playwright's own object model.
+
 ## Exercise
 
 1. Build out this structure (or adapt it to your own app) with a real

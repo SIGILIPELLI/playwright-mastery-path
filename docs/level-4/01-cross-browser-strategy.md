@@ -146,6 +146,31 @@ jobs:
       - run: pytest --browser ${{ matrix.browser }} --device "${{ matrix.device }}"
 ```
 
+## How It Actually Works
+
+Passing `--browser` multiple times doesn't run one browser process
+juggling three engines — `pytest-playwright` re-parametrizes the entire
+collected test set once per named engine, and each engine gets its own
+completely independent driver conversation: Chromium over its native CDP,
+Firefox over Playwright's patched-Firefox remote protocol, WebKit over its
+own remote-inspector-derived protocol (Level 1 Module 1). This is precisely
+why "browser-specific" bugs exist at all and are worth budgeting real tier-3
+coverage for — the three engines are genuinely different rendering and
+layout implementations behind a unified Playwright API, so a CSS grid quirk
+or a native `<input type="date">` rendering difference is a real engine
+behavior difference the automation layer faithfully exposes, not a bug in
+Playwright's abstraction leaking through.
+
+Device emulation (`playwright.devices["iPhone 13"]`) only ever runs on the
+Chromium engine underneath, even though it's applied via ordinary context
+options — Chromium's `Emulation` CDP domain is what actually implements
+touch-event translation, device-pixel-ratio rendering, and user-agent
+overriding; Firefox and WebKit builds don't expose an equivalent set of
+emulation primitives through Playwright, which is a good practical reason
+the "full matrix" tier commonly emulates real devices only on Chromium and
+relies on WebKit itself (rather than emulated "iPhone Safari") for genuine
+Safari-engine coverage.
+
 ## Exercise
 
 1. Configure `--browser` to run one test file against chromium, firefox,

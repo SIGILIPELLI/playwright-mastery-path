@@ -141,6 +141,36 @@ def find_overdue_rows(page):
     return page.locator("xpath=//td[contains(text(),'Overdue')]/ancestor::tr")
 ```
 
+## How It Actually Works
+
+Every locator method covered here — `.filter()`, `.and_()`, `.or_()`,
+chained `.locator()` calls — compiles to Playwright's own internal selector
+engine syntax rather than to plain CSS or XPath under the hood, even when
+you write it as fluent Python method calls. `row.get_by_role("button",
+name="Delete")` becomes a single combined selector string internally, of
+the shape `internal:role=row >> internal:role=button[name="Delete"]`, and
+that entire chain is evaluated as **one query** sent to the browser (via the
+accessibility-tree lookups CDP exposes), not as two separate round trips
+where Python fetches the row first and then queries within it locally. This
+is why chaining stays fast even on large pages: the narrowing happens
+inside the browser's own query evaluation, in one pass.
+
+`.filter(has=...)` and `.and_()`/`.or_()` are implemented as the selector
+engine's own combinator operators (`internal:has=`, `internal:and=`,
+`internal:or=`), evaluated against the live accessibility/DOM tree exactly
+like any primitive selector — which is why they retain the same
+re-resolve-on-every-action behavior as a plain locator: a `.filter(has_text=
+"Out of stock")` locator isn't a cached list of elements captured once, it's
+a compound query re-run fully, filter included, at the moment you finally
+act on it.
+
+`set_test_id_attribute()` doesn't touch application code at all — it
+changes a setting inside the Playwright client library itself, so that
+every subsequent `get_by_test_id()` call constructs its `internal:testid=`
+selector against the new attribute name. The attribute lookup itself still
+happens via the browser's own DOM query engine on whatever attribute name
+you configured, not a Playwright-specific mechanism.
+
 ## Exercise
 
 1. Build a locator using `.filter(has_text=...)` that finds a specific row

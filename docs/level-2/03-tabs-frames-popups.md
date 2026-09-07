@@ -141,6 +141,32 @@ lose track of a reference — useful when a flow opens several popups in
 sequence and you need the *last* one, or need to iterate and find the one
 matching a URL pattern.
 
+## How It Actually Works
+
+A "new tab" at the protocol level is CDP creating a new **target** of type
+`page` inside the same browser context — Chromium fires
+`Target.targetCreated` the instant `window.open()` or a `target="_blank"`
+link runs, before that tab has loaded anything. `context.expect_page()`
+works by registering a listener for that event *before* your action runs,
+which is exactly why the `with` block ordering is non-negotiable: if you
+clicked first and asked for the popup after, the `targetCreated` event
+could already have fired and been missed, since Playwright doesn't buffer
+target-creation events indefinitely waiting for someone to ask.
+
+Iframes are a fundamentally different case: an `<iframe>` doesn't create a
+new CDP target (in most cases) — it creates a new **frame** within the same
+page target, with its own execution context and DOM document, tracked via
+CDP's `Page.frameAttached` / `Page.frameNavigated` events carrying a
+distinct frame ID. `page.locator()` queries are scoped to the page's main
+frame's DOM by default, which is mechanically why they can never see into
+an iframe's document — it's not a permissions restriction, it's that the
+query is issued against a different execution context entirely.
+`frame_locator()` explicitly targets that child frame's context for its DOM
+queries, and — like every other locator — re-resolves the frame reference
+itself on each call, so it survives the iframe's `src` changing or the
+frame reloading, rather than holding a stale `Frame` object the way the
+older `page.frame(name=...)` API effectively does.
+
 ## Exercise
 
 Using `https://the-internet.herokuapp.com/windows` (opens a new tab) and

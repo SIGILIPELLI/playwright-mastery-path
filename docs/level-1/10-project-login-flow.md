@@ -154,6 +154,29 @@ tests/test_login_flow.py::test_logout_returns_to_login_page PASSED       [100%]
 - Run the whole file with `--browser firefox` and `--browser webkit` and
   confirm all five tests still pass identically across engines.
 
+## How It Actually Works
+
+Nothing in this file introduces new API surface — its value for
+understanding internals is in seeing the CDP round trips *stack up* across
+one realistic flow. `login()` alone triggers: a `Page.navigate` +
+lifecycle-event wait for `goto`, two `fill()` calls that each resolve a
+locator via an accessibility-tree query and dispatch `input`/`change`
+events directly, and a `click()` that runs the full actionability retry
+loop before dispatching real `Input.dispatchMouseEvent` mouse-down/up
+events on the Login button — after which the driver watches for the
+resulting `Page.frameNavigated` to know the SPA/page transition occurred,
+which is exactly what the subsequent `expect(page).to_have_url(...)` is
+polling for.
+
+The `pytest-playwright` `page` fixture used throughout this file (formalized
+in Level 2 Module 2) is what actually owns the `Browser`/`BrowserContext`
+lifecycle: it launches one browser process per test session (reused across
+tests for speed) but creates a **fresh `BrowserContext` per test function**,
+which is why five independent tests in this file never leak cookies,
+localStorage, or the saucedemo session between each other — each gets a
+brand-new isolated CDP browser context with an empty cookie jar, torn down
+with `Target.disposeBrowserContext` after the test completes.
+
 ## Exercise
 
 1. Build the project exactly as shown and get all 5 tests passing headless.

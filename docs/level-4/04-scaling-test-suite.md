@@ -151,6 +151,33 @@ def pytest_sessionfinish(session, exitstatus):
 # until the suite takes 45 minutes
 ```
 
+## How It Actually Works
+
+`--durations=20`'s `setup` vs. `call` split maps directly onto real,
+separable costs in the Playwright object model: a slow `setup` phase for a
+test using a `function`-scoped `page` fixture is almost always the
+`Target.createBrowserContext` + `Target.createTarget` CDP round trips plus
+whatever a fixture does before `yield` (a UI login's full actionability-
+checked action sequence, for instance) — costs Level 2/3 already showed how
+to shrink (session-scoped `browser`, `storage_state` reuse). A slow `call`
+phase, by contrast, is time spent inside the test body itself — real
+navigation waits, `expect()` retry loops genuinely needing several seconds
+to converge, or the app itself being slow — and no amount of fixture-scope
+tuning touches it, which is precisely why `--durations` reporting the split
+matters: it tells you which category of fix (protocol-object reuse vs.
+actual app/test logic) is worth pursuing.
+
+The caution against wide-scoped `page`/`context` fixtures at scale is a
+direct consequence of how CDP context isolation works (Level 2 Module 2):
+a `BrowserContext` is only as isolated as the objects it's told to hold —
+sharing one `Page` across many tests means every cookie, every
+`localStorage` write, and every open tab from test N is still present when
+test N+1 runs, because nothing issued the `Target.disposeBrowserContext`
+call that would have reset it. The "only fails when run after test X" bugs
+this produces are a symptom of state genuinely persisting in the browser
+process, not test-runner ordering flakiness — which is why the fix is
+narrowing the fixture scope back to `function`, not adding a retry.
+
 ## Exercise
 
 1. Run `pytest --durations=20` on a real suite and identify the top 3

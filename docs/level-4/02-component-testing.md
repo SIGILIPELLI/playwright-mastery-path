@@ -149,6 +149,31 @@ test("calls onSubmit with form values when valid", async ({ mount }) => {
 });
 ```
 
+## How It Actually Works
+
+`mount()` isn't a JavaScript simulation like jsdom — it works by starting a
+tiny purpose-built dev server (a Vite build under the hood for the React/
+Vue/Svelte CT runners) that compiles your component and a small test
+harness page around it, then has Playwright navigate a real Chromium page
+to that served harness via ordinary `Page.navigate`, exactly like navigating
+to any other URL. The `component` handle returned from `mount()` is a
+regular `Locator` scoped to the mounted root element — every method on it
+(`.click()`, `.getByRole()`, `to_be_visible`) goes through the identical CDP
+actionability-check and accessibility-tree pipeline covered throughout this
+site, which is exactly why `component.click({force: true})` behaves
+identically to a page-level forced click: it's the same underlying
+mechanism, just scoped to a component mounted in isolation rather than a
+full app route.
+
+This is also why component tests catch real rendering/CSS/event bugs that a
+jsdom-based unit test structurally cannot: jsdom never runs an actual layout
+or paint engine, so it can't observe genuine CSS cascade effects, real
+`getBoundingClientRect()` values, or true browser event dispatch order —
+whereas a Playwright component test's `mount()` produces a real DOM inside a
+real rendering engine, subject to the exact same actionability and
+accessibility-tree machinery as a full E2E page, just with the surrounding
+application (routing, global state, real API calls) deliberately absent.
+
 ## Exercise
 
 1. Scaffold `@playwright/experimental-ct-react` (or the Vue/Svelte

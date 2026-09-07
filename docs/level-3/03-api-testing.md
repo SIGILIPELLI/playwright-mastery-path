@@ -149,6 +149,30 @@ def test_products_pagination_contract(api_context):
     assert ids_page1.isdisjoint(ids_page2)  # no duplicate items across pages
 ```
 
+## How It Actually Works
+
+`playwright.request.new_context()` does not launch a browser process at
+all — it asks the Node driver to open a plain HTTP client directly, using
+Node's own networking stack rather than routing traffic through a browser's
+CDP `Fetch`/`Network` domains. This is the actual source of the speed
+difference the module calls out: a UI test's every request goes
+browser-process → renderer → network stack → back through CDP events to the
+driver, while an `APIRequestContext` call is just driver-process → network
+stack → response, with no browser in the loop whatsoever.
+
+The cookie-sharing between `APIRequestContext` and `BrowserContext` is real
+shared state, not a translation layer: when you create an
+`APIRequestContext` from a `BrowserContext` (or hand its `storage_state()`
+to `browser.new_context(storage_state=...)`), you're working with the exact
+same cookie-jar representation described in Module 2 — a plain list of
+cookie dicts with domain/path/expiry — so a `Set-Cookie` header returned by
+`api_context.post("/api/login", ...)` becomes, after `storage_state()` and
+`new_context(storage_state=...)`, a `Network.setCookie` call on the browser
+context precisely as if a real login form's response had set it. There's no
+special-casing for "API-originated" cookies; the format is identical
+because both paths ultimately produce the same storage-state JSON shape
+covered in Module 2.
+
 ## Exercise
 
 1. Write a fixture that creates an `APIRequestContext` pointed at a real or

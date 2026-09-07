@@ -128,6 +128,39 @@ differences inline where they matter.
     and an `async_api` for use inside `asyncio` code; `sync_api` is the
     default choice unless your project is already async.
 
+## How It Actually Works
+
+"Driving three engines with one API" is not one library reimplemented three
+times — Playwright talks to each browser through that browser's own native
+remote-control interface, translated into a common Python/JS surface:
+
+- **Chromium** is controlled over the **Chrome DevTools Protocol (CDP)**, a
+  JSON-RPC-over-WebSocket protocol Chrome itself exposes for exactly this
+  purpose (DevTools uses the same protocol internally). When you call
+  `page.goto(...)`, Playwright sends a `Page.navigate` command over that
+  WebSocket and listens for `Page.loadEventFired` / `Page.frameStoppedLoading`
+  events before resolving.
+- **Firefox** doesn't speak CDP natively, so Playwright ships a **patched
+  build of Firefox** with an added remote-debugging protocol modeled closely
+  on CDP's shape — this is why `playwright install` downloads browser
+  binaries instead of using whatever Firefox is already on your system.
+- **WebKit** is driven through a similar custom protocol layered over
+  WebKit's own remote inspector primitives, again against a Playwright-built
+  WebKit binary rather than your OS's Safari (Safari itself can't be
+  automated this way on non-macOS hosts, which is precisely the gap this
+  fills).
+
+`sync_playwright()` starts a Node.js-based driver process in the background
+the first time you use it — the Python bindings actually talk to a small
+Node process over stdio, which in turn holds the WebSocket connections to
+the browsers. That's why `pip install playwright` alone isn't enough: the
+separate `playwright install` step downloads the actual browser binaries
+(and, on Linux, `playwright install-deps` pulls system shared libraries) that
+this driver process launches and connects to. Every `page.` method call you
+write is, underneath, a message serialized to that driver, forwarded as a
+protocol command to the right browser, with the response deserialized back
+into the Python object you get.
+
 ## Exercise
 
 1. Install Python 3.9+ if you don't already have it, and confirm with

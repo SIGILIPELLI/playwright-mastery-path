@@ -137,6 +137,35 @@ with context.tracing.group("Checkout"):
 # "which group failed" as the first filter
 ```
 
+## How It Actually Works
+
+`context.tracing.start(...)` doesn't add a new capability to the browser —
+it tells the driver to start recording a structured log of protocol traffic
+it's already generating. `snapshots=True` specifically triggers a DOM+CSSOM
+serialization (via CDP's `DOMSnapshot.captureSnapshot`, plus resource
+capture for stylesheets/fonts referenced) after every action, saved as a
+self-contained frame in the trace archive; this is why the viewer can
+render a fully interactive, pixel-faithful reconstruction of the page at
+any point you scrub to — you're not looking at a flat screenshot image but
+a real serialized DOM the viewer's own bundled renderer reconstructs,
+which is why you can hover elements and inspect computed values inside a
+trace exactly as if the page were live. `screenshots=True` additionally
+records lightweight JPEG frames via `Page.captureScreenshot` for fast
+visual scrubbing without paying the cost of re-rendering a full DOM
+snapshot for every frame of the timeline.
+
+The Network tab in the trace is populated straight from the
+`Network.requestWillBeSent`/`Network.responseReceived` CDP events (Level 2
+Module 4) that were flowing during the recorded run — nothing is
+re-fetched or re-observed after the fact. This is precisely why comparing a
+CI trace against a local one is such an effective debugging technique for
+CI-only failures: both traces are honest, complete recordings of the actual
+protocol traffic each environment produced, so a differing response body, a
+differing viewport size (`Emulation.setDeviceMetricsOverride` value baked
+into the trace), or a differing sequence of network calls is not a guess —
+it's directly visible, timestamped, in the two independently recorded event
+streams.
+
 ## Exercise
 
 1. Capture a trace with `screenshots=True, snapshots=True, sources=True` for

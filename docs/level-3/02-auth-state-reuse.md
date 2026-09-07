@@ -180,6 +180,31 @@ def is_state_fresh(path: str, max_age_seconds: int = 3600) -> bool:
 # missing or older than the app's actual token lifetime
 ```
 
+## How It Actually Works
+
+`context.storage_state()` works by querying two separate CDP surfaces and
+combining them into one JSON document: cookies come from
+`Network.getCookies` (or `Storage.getCookies`, scoped to the whole browser
+context rather than one page), while `localStorage`/`sessionStorage` per
+origin come from `DOMStorage.getDOMStorageItems`, called once for every
+origin the context has ever navigated to. Because both are captured at the
+`BrowserContext` level rather than per-page, a multi-tab login flow's state
+is captured completely in one call.
+
+Feeding that file back in via `browser.new_context(storage_state=...)`
+replays it in the opposite direction *before any page exists in the new
+context*: cookies are set via `Network.setCookie` calls issued against the
+freshly created context, and each origin's storage entries are written
+through `DOMStorage.setDOMStorageItem` calls scheduled to run the instant
+that origin is first navigated to — Chromium doesn't let you write
+`localStorage` for an origin with no document loaded yet, so Playwright
+defers those writes and injects them via an init script that runs before
+the page's own JavaScript on first load. This ordering is exactly why the
+app "believes a real login already happened" the moment `page.goto()`
+resolves: by the time any of your test's own JavaScript or React code runs,
+both the cookie jar and the storage entries a real login would have
+produced are already in place.
+
 ## Exercise
 
 1. Write a script that logs in through your app's real login form and saves

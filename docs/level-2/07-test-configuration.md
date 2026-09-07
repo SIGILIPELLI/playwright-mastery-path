@@ -168,6 +168,32 @@ with sync_playwright() as p:
 # viewport, user_agent, device_scale_factor, is_mobile, has_touch
 ```
 
+## How It Actually Works
+
+`browser_context_args` and `browser_type_launch_args` aren't just Python
+dict merging tricks — the resulting dict is passed almost verbatim into the
+underlying CDP-level calls that create the browser and context.
+`browser_type_launch_args`'s keys become command-line flags and options on
+the actual `chromium.exe`/`firefox`/`webkit` process launch (e.g.
+`headless` toggles `--headless=new`; `slow_mo` is a driver-side delay
+inserted between dispatched CDP commands, as covered in Level 1 Module 9).
+`browser_context_args`'s keys map onto the `Target.createBrowserContext` and
+subsequent per-context CDP setup calls: `viewport` issues
+`Emulation.setDeviceMetricsOverride`, `geolocation` +
+`permissions: ["geolocation"]` calls `Browser.grantPermissions` followed by
+`Emulation.setGeolocationOverride`, and `locale`/`timezone_id` set
+`Emulation.setLocaleOverride` / `Emulation.setTimezoneOverride` — all
+executed once when the context is created, which is why every page opened
+from that context inherits them automatically with no per-page setup.
+
+`p.devices["iPhone 13"]` is a static dictionary Playwright ships (mirroring
+Chrome DevTools' own device-emulation presets) bundling a matching
+`viewport`, `user_agent`, `device_scale_factor`, `is_mobile`, and
+`has_touch` — spreading it into `new_context(**iphone_13)` is functionally
+identical to setting each of those emulation calls by hand, just
+pre-tuned to match a real device's reported characteristics rather than a
+guess.
+
 ## Exercise
 
 1. Move any hardcoded `page.goto("https://...")` calls in an existing

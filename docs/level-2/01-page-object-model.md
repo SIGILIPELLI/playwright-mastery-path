@@ -156,6 +156,29 @@ belong in a higher-level "flow" or in the test itself composing multiple
 page objects. Page objects that grow into 500-line god classes doing
 assertions, waiting, *and* orchestration are a sign the boundaries slipped.
 
+## How It Actually Works
+
+Storing locators as `__init__` attributes works only because of the lazy,
+descriptive nature of a `Locator` covered in Level 1 Module 4 — each
+attribute is nothing but a stored selector string (e.g. an
+`internal:role=` or `internal:has-text=` expression) plus a frame reference.
+No CDP query happens at construction time; the query is deferred entirely
+to whichever method call finally acts on it. This is precisely why `login()`
+can be called minutes, or several DOM re-renders, after `LoginPage.__init__`
+ran and still finds the right element: it re-resolves against the live
+accessibility tree at call time, not against whatever existed when the
+object was built.
+
+`ProductCard`'s constructor taking a `Locator` (`root`) rather than a `Page`
+is deliberately narrowing scope: `root.locator("h3")` and
+`root.get_by_role(...)` compile to a selector chain like
+`internal:has-text=...` >> `h3`, evaluated as one nested query against only
+the descendants of whatever element `root` currently resolves to. The
+resolution still happens fresh on every call — if the card at index 2 gets
+removed and a new one shifts into that DOM position, `cards.nth(2)`'s
+`ProductCard` wrapper transparently now describes the *new* card there,
+because nothing about a `Locator` pins it to a specific DOM node identity.
+
 ## Exercise
 
 Using `https://demoqa.com/login` (a public demo site with a real, if flaky,

@@ -153,6 +153,33 @@ addopts = --reruns 1
 # tolerating real bugs instead of surfacing them
 ```
 
+## How It Actually Works
+
+`pytest-rerunfailures` operates entirely at the pytest level — it catches
+the `AssertionError`/`TimeoutError` a test raises, discards the result, and
+re-invokes the same test function again from scratch. Because
+`pytest-playwright`'s `page` fixture is function-scoped, a rerun gets a
+**brand-new `BrowserContext`** (fresh `Target.createBrowserContext`) just
+like a completely separate test would — so a rerun genuinely re-executes
+every action from zero DOM/network state, not a resume of wherever the
+previous attempt left off. This is exactly why retries paper over real race
+conditions rather than fixing them: if the underlying timing problem is
+non-deterministic, a fresh attempt has some independent probability of
+avoiding it, but the actual actionability-check retry loop and CDP timing
+that caused the original flake are completely unaffected by the rerun
+wrapper sitting outside them.
+
+The most common root causes the module lists map directly onto Playwright
+internals: a "race condition" test is one where the assertion runs before
+the DOM query behind an `expect()` retry loop would have converged — using
+`expect()` instead of a plain check lets the same underlying poll-until-
+timeout machinery from Level 1 Module 7 absorb the timing variance instead
+of a human guessing a sleep duration. "Animation/transition timing"
+flakiness is specifically the actionability "stable" check (two bounding-box
+samples an animation frame apart) catching an element genuinely still
+moving — `expect(dialog).to_be_visible()` first gives the CSS transition
+time to finish before the click's own stability check ever has to fight it.
+
 ## Exercise
 
 1. Write a test with a deliberate race condition (act immediately after

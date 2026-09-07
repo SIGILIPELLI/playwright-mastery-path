@@ -144,6 +144,36 @@ as accumulating zombie Chromium processes on a CI runner. Always pair every
 is exactly what `pytest-playwright`'s `page` fixture does starting next
 module.
 
+## How It Actually Works
+
+The `Browser → BrowserContext → Page` hierarchy maps directly onto real OS
+and CDP concepts, not just an API convenience layer:
+
+- **`Browser`** corresponds to one actual browser process launched with
+  `--remote-debugging-port=0` (an ephemeral port Playwright picks and reads
+  back). The Node driver holds the single WebSocket connection to that
+  process's browser-level CDP endpoint.
+- **`BrowserContext`** maps to a CDP `Target.createBrowserContext` call —
+  Chromium supports multiple independent, ephemeral "profiles" inside one
+  running process, each with separate cookie jars, storage partitions, and
+  cache, without spawning a second OS process. This is *why* contexts are
+  cheap: creating one is a single CDP command, not a new process fork, which
+  is what makes running dozens of isolated, parallel-safe tests against one
+  browser process practical.
+- **`Page`** maps to a CDP *target* of type `page` — effectively one tab.
+  `context.new_page()` sends `Target.createTarget`, and Playwright then opens
+  a dedicated CDP **session** attached to that target ID so subsequent
+  commands (`Page.navigate`, `Runtime.evaluate`, `Input.dispatchMouseEvent`)
+  are routed to the right tab specifically, not broadcast to every tab in the
+  context.
+
+`goto()`'s `wait_until` options are literal CDP lifecycle events:
+`Page.navigate` returns immediately with a frame ID, and Playwright then
+listens for `Page.lifecycleEvent` messages carrying `"load"`,
+`"DOMContentLoaded"`, or `"networkIdle"` names before resolving your await —
+so choosing `wait_until="domcontentloaded"` is choosing exactly which of
+those events unblocks your script, nothing more.
+
 ## Exercise
 
 1. Write a script `first_script.py` that launches Chromium headed with

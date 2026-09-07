@@ -121,6 +121,34 @@ client.send("Network.emulateNetworkConditions", {...})
 # in the test
 ```
 
+## How It Actually Works
+
+Going one layer deeper than the diagram above: the "Python process" box is
+itself two processes, not one. `sync_playwright()` spawns a bundled Node.js
+executable (shipped inside the `playwright` pip package) as a subprocess
+and communicates with it over **stdio pipes**, using a lightweight
+length-prefixed JSON-RPC-style framing Playwright defines for itself — this
+inner channel is Playwright's own protocol, separate from CDP. That Node
+process is the actual CDP client: it owns the WebSocket connection(s) to
+the browser process(es) and does the real protocol translation. Every
+Python call you make is serialized once (Python → Node, over stdio) and
+then a second time if it results in a browser command (Node → browser, over
+the CDP WebSocket) — two hops, not one, which is why the driver process
+shows up in your OS process list alongside the browser whenever a
+Playwright script is running.
+
+This two-hop design is also why `new_cdp_session` is such a clean escape
+hatch rather than a hack: the Node driver already maintains the CDP
+WebSocket and already multiplexes commands from multiple logical callers
+onto it (one for each page/context Playwright itself is managing) — asking
+for a raw CDP session just registers your commands on that same already-
+open connection with their own session ID, rather than opening a
+competing, separate connection to the browser. The browser-side CDP server
+itself has no concept of "Playwright's official API" versus "a raw CDP
+call you made yourself" — both are ordinary commands on the same protocol,
+which is exactly what "you're using the same transport it already relies
+on" means concretely.
+
 ## Exercise
 
 1. Explain in your own words (a short comment block is fine) why

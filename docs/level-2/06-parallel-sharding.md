@@ -151,6 +151,27 @@ pytest --splits 4 --group ${{ matrix.shard }} -n auto
 # subset of tests first, then pytest-xdist parallelizes that subset
 ```
 
+## How It Actually Works
+
+Each `pytest-xdist` worker (`gw0`, `gw1`, ...) is a fully separate **Python
+interpreter process**, not a thread — this matters because it's also a
+separate Playwright driver connection: each worker's `browser` fixture opens
+its own Node driver subprocess and its own launched browser process with
+its own CDP WebSocket, entirely independent of every other worker. That
+process-level isolation is exactly what makes parallel Playwright safe at
+the protocol layer — there's no shared CDP connection two workers could
+race on, so any flakiness under `-n auto` has to come from the *application*
+under test (a shared database row, a shared login) rather than from
+Playwright's own automation channel colliding with itself.
+
+Within one worker, `session`-scoped `browser` plus `function`-scoped
+`context` is what keeps N tests in that worker fast: reusing one already-
+launched browser process for all of that worker's tests means only
+`Target.createBrowserContext`/`Target.disposeBrowserContext` CDP round trips
+happen between tests, not a full `Browser.launch` and OS process spawn each
+time — the latter is the dominant cost `pytest-xdist`'s process-per-worker
+model deliberately avoids paying per test.
+
 ## Exercise
 
 1. Take an existing small suite (5-10 tests) and time a serial run with

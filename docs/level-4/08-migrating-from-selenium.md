@@ -135,6 +135,37 @@ def test_login_playwright():
 # translating By.ID("email") into page.locator("#email")
 ```
 
+## How It Actually Works
+
+The concept mapping in this module reflects a genuine architectural
+difference, not just an API rename. Selenium's WebDriver protocol is a
+**stateless HTTP REST API**: every command (`find_element`, `click`,
+`send_keys`) is its own independent HTTP request/response round trip to a
+separate driver executable (chromedriver, geckodriver), which then issues
+its own commands to the browser — two network hops per action, with no
+persistent connection and no built-in mechanism for the driver to push
+events back to your test code. This is precisely why Selenium needs
+`WebDriverWait`/`expected_conditions` as an explicit, separate polling
+construct: nothing in the underlying request/response model waits for you,
+so every wait has to be hand-built by re-issuing HTTP requests in a loop
+until a condition holds.
+
+Playwright's CDP-based model (Level 4 Module 6) keeps one persistent
+WebSocket connection over which the browser can push events
+(`Page.lifecycleEvent`, `DOM.attributeModified`, and the accessibility-tree
+state actionability checks read) proactively, and the actionability retry
+loop is built into the client library itself rather than left to test
+authors — this is the structural reason "explicit waits become unnecessary"
+during migration isn't a style preference, it's that the retry mechanism
+Selenium requires you to hand-roll per test is something Playwright's
+architecture makes redundant by construction. `element.send_keys(text)`
+mapping to `locator.fill(text)` carries a similar architectural note: `fill`
+sets the DOM value directly and fires one `input`/`change` event pair
+(Level 1 Module 5), while Selenium's `send_keys` dispatches real per-
+character key events — the closer Playwright equivalent of that specific
+behavior is `press_sequentially()`, not `fill()`, which matters for any
+migrated test relying on keystroke-reactive JavaScript.
+
 ## Exercise
 
 1. Take one real Selenium test from an existing suite and port it to

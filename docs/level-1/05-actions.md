@@ -160,6 +160,37 @@ bypasses actionability checks and real event dispatch entirely, so prefer a
 real action method whenever one exists. A test that only ever manipulates
 the page through `evaluate()` isn't really testing what a user experiences.
 
+## How It Actually Works
+
+Every action method runs the same pipeline before doing anything to the
+page: resolve the locator to a single element, run the **actionability
+checks** against it (attached, visible, stable, receiving events, and
+enabled where relevant), and only then dispatch the actual input. "Stable"
+specifically means Playwright takes two bounding-box readings a animation
+frame apart via CDP and confirms the element hasn't moved — this is how it
+avoids clicking a button mid-slide-in-animation and landing on the wrong
+coordinates.
+
+Once an element passes those checks, `click()` doesn't call a JavaScript
+`.click()` method on the DOM node — it dispatches **real, trusted input
+events** through CDP's `Input.dispatchMouseEvent`, computing the element's
+center coordinates from its bounding box and sending actual
+`mousePressed`/`mouseReleased` events at the OS/browser-input level, the same
+layer real mouse hardware feeds into. That distinction matters: a page
+listening for `mousedown`/`mouseup` (rather than a synthetic `click`) still
+sees the events, exactly as it would for a human. `fill()` is the one
+deliberate exception — it sets the input's value directly and fires a single
+`input`/`change` event, skipping per-keystroke dispatch for speed, which is
+exactly why keystroke-reactive widgets need `press_sequentially()` instead:
+that method sends one `Input.dispatchKeyEvent` triple (keydown, char,
+keyup) per character, matching what a real keyboard driver produces.
+
+`evaluate()` bypasses all of this — it sends the JS string straight to CDP's
+`Runtime.evaluate` for execution inside the page's own JS context, with no
+actionability checks and no synthetic input events at all, which is precisely
+why it can set state a real user interaction never could (and why it should
+stay a deliberate escape hatch, not a habit).
+
 ## Exercise
 
 Using `https://books.toscrape.com/`:

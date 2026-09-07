@@ -232,6 +232,32 @@ pytest
 - **Debugging practices** (Module 9): tracing/screenshots on failure are
   already wired in before you ever hit a real failure.
 
+## How It Actually Works
+
+This project's `inventory_page` fixture chaining a full login flow before
+every test that needs it (Module 2's pattern) has a real protocol-level cost
+worth being aware of: each of the three `test_inventory.py`/`test_checkout.py`
+tests that depend on it re-runs the entire `goto` + two `fill()`s + `click()`
+sequence — a fresh `Page.navigate`, two direct DOM value sets with
+`input`/`change` events, and a full actionability-checked
+`Input.dispatchMouseEvent` click — from scratch, because the fixture is
+`function`-scoped by default and each test gets a brand-new
+`BrowserContext` (Module 2's isolation model) with no session cookie yet.
+Level 3 Module 2 (auth state reuse) shows the alternative: persisting the
+authenticated context's storage state to disk once and injecting it into
+new contexts via `storage_state=...`, which sets the session cookie through
+`Network.setCookie` at context-creation time instead of re-running the login
+UI flow — the same end state reached without repeating the CDP traffic
+every single test.
+
+`sort_by()` calling `select_option(label=...)` on `.product_sort_container`
+sets the underlying `<select>`'s value directly and fires synthetic
+`input`/`change` events (as covered in Level 1 Module 8), which is why
+asserting on the *resulting* re-rendered price order (rather than the
+dropdown's own value) is the meaningful check here — it confirms the app's
+own JS actually reacted to the change event and re-sorted the list, not
+merely that the dropdown's displayed selection changed.
+
 ## Exercise — extend the suite
 
 1. Add a `test_remove_item_from_cart` test using a new `CartPage.remove`

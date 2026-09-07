@@ -143,6 +143,36 @@ broken test fail fast instead of hanging for 30 seconds; raising it for one
 specific slow operation (a report export, a large upload) avoids loosening
 the default for everything else.
 
+## How It Actually Works
+
+Auto-waiting is implemented as a **retry loop around the whole action**, run
+by the Node driver, not a single up-front check. For `click()`, the driver
+repeatedly: re-queries the element via CDP (`DOM.resolveNode` /
+accessibility lookup), asks the browser to compute its current bounding box
+and computed style, and evaluates each actionability condition against that
+fresh snapshot. Only when every condition passes in the *same* iteration
+does it dispatch the actual `Input.dispatchMouseEvent` click — this is why
+the error message on timeout can name a specific failing check: the driver
+recorded which condition was still false on the last iteration before
+giving up.
+
+The "stable" check specifically works by sampling the element's bounding
+box via CDP twice, roughly one animation frame apart (using
+`requestAnimationFrame` semantics under the hood), and comparing the two
+rectangles — if they differ, the check restarts the retry loop rather than
+treating one sample as good enough. This is deliberately conservative: a
+button sliding into place is a common source of "clicked the right element
+at the wrong coordinates" bugs in tools that don't check for motion at all.
+
+`wait_for_selector`, `wait_for_url`, and `expect(...)` all reuse this same
+retry-loop machinery under a different name — `wait_for_url` polls
+`Page.frameNavigated` events and the current URL rather than DOM state, but
+the poll-until-timeout-or-success shape is identical. `wait_for_timeout()`
+is the one primitive in this module that opts *out* of that machinery
+entirely: it's a literal `setTimeout`-style pause with no protocol queries
+in between, which is exactly why it's discouraged as anything but a
+last-resort escape hatch.
+
 ## Exercise
 
 1. On `https://www.saucedemo.com/`, log in, then intentionally slow the
