@@ -1985,6 +1985,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2261,6 +2272,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2412,6 +2434,30 @@ duration:</p>
 <a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a># growth from becoming a boiled-frog problem nobody notices
 <a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a># until the suite takes 45 minutes
 </code></pre></div>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p><code>--durations=20</code>'s <code>setup</code> vs. <code>call</code> split maps directly onto real,
+separable costs in the Playwright object model: a slow <code>setup</code> phase for a
+test using a <code>function</code>-scoped <code>page</code> fixture is almost always the
+<code>Target.createBrowserContext</code> + <code>Target.createTarget</code> CDP round trips plus
+whatever a fixture does before <code>yield</code> (a UI login's full actionability-
+checked action sequence, for instance) — costs Level 2/3 already showed how
+to shrink (session-scoped <code>browser</code>, <code>storage_state</code> reuse). A slow <code>call</code>
+phase, by contrast, is time spent inside the test body itself — real
+navigation waits, <code>expect()</code> retry loops genuinely needing several seconds
+to converge, or the app itself being slow — and no amount of fixture-scope
+tuning touches it, which is precisely why <code>--durations</code> reporting the split
+matters: it tells you which category of fix (protocol-object reuse vs.
+actual app/test logic) is worth pursuing.</p>
+<p>The caution against wide-scoped <code>page</code>/<code>context</code> fixtures at scale is a
+direct consequence of how CDP context isolation works (Level 2 Module 2):
+a <code>BrowserContext</code> is only as isolated as the objects it's told to hold —
+sharing one <code>Page</code> across many tests means every cookie, every
+<code>localStorage</code> write, and every open tab from test N is still present when
+test N+1 runs, because nothing issued the <code>Target.disposeBrowserContext</code>
+call that would have reset it. The "only fails when run after test X" bugs
+this produces are a symptom of state genuinely persisting in the browser
+process, not test-runner ordering flakiness — which is why the fix is
+narrowing the fixture scope back to <code>function</code>, not adding a retry.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Run <code>pytest --durations=20</code> on a real suite and identify the top 3

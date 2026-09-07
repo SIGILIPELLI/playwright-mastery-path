@@ -1957,6 +1957,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2261,6 +2272,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2422,6 +2444,29 @@ without forking the test runner.</p>
 <a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a># coded, which is what turns a one-off script into something
 <a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a># reusable across projects and CI jobs
 </code></pre></div>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>None of this module touches Playwright's own protocol layer at all — it's
+entirely pytest's plugin/hook architecture, which is worth being precise
+about since it's easy to conflate "test reporting" with "browser
+automation." <code>pytest_runtest_logreport</code> fires because pytest's core test
+runner wraps every phase (setup, call, teardown) in its own internal
+try/except and calls every registered hook implementation with the
+resulting <code>TestReport</code> object — <code>config.pluginmanager.register(instance,
+name)</code> is what turns a plain Python object into something pytest's hook
+dispatcher will call alongside every other registered plugin (including
+<code>pytest-playwright</code> itself, which is implemented as exactly this kind of
+plugin). The order and timing of <code>report.when</code> values reflect pytest's own
+execution model, not anything about what happened inside a browser during
+that test.</p>
+<p>Where this does connect back to Playwright specifically: a
+<code>TraceLinkingReporter</code> printing a path like
+<code>test-results/&lt;nodeid&gt;/trace.zip</code> is relying on <code>pytest-playwright</code>'s own
+convention for where it writes trace files when <code>--tracing=retain-on-
+failure</code> is set — that path is populated by the driver's <code>context.tracing.
+stop(path=...)</code> call (Level 2/3), invoked automatically by the plugin's own
+fixture teardown when a test fails, before your reporter hook even runs;
+the reporter is just constructing the well-known path string, not creating
+or reading the trace file itself.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Write a <code>pytest_runtest_logreport</code> hook in <code>conftest.py</code> that prints a

@@ -1901,6 +1901,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2261,6 +2272,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2407,6 +2429,28 @@ multi-browser and multi-device runs when you do need them.</p>
 <a id="__codelineno-11-31" name="__codelineno-11-31" href="#__codelineno-11-31"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip install -r requirements.txt &amp;&amp; playwright install --with-deps</span>
 <a id="__codelineno-11-32" name="__codelineno-11-32" href="#__codelineno-11-32"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pytest --browser ${{ matrix.browser }} --device "${{ matrix.device }}"</span>
 </code></pre></div>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>Passing <code>--browser</code> multiple times doesn't run one browser process
+juggling three engines — <code>pytest-playwright</code> re-parametrizes the entire
+collected test set once per named engine, and each engine gets its own
+completely independent driver conversation: Chromium over its native CDP,
+Firefox over Playwright's patched-Firefox remote protocol, WebKit over its
+own remote-inspector-derived protocol (Level 1 Module 1). This is precisely
+why "browser-specific" bugs exist at all and are worth budgeting real tier-3
+coverage for — the three engines are genuinely different rendering and
+layout implementations behind a unified Playwright API, so a CSS grid quirk
+or a native <code>&lt;input type="date"&gt;</code> rendering difference is a real engine
+behavior difference the automation layer faithfully exposes, not a bug in
+Playwright's abstraction leaking through.</p>
+<p>Device emulation (<code>playwright.devices["iPhone 13"]</code>) only ever runs on the
+Chromium engine underneath, even though it's applied via ordinary context
+options — Chromium's <code>Emulation</code> CDP domain is what actually implements
+touch-event translation, device-pixel-ratio rendering, and user-agent
+overriding; Firefox and WebKit builds don't expose an equivalent set of
+emulation primitives through Playwright, which is a good practical reason
+the "full matrix" tier commonly emulates real devices only on Chromium and
+relies on WebKit itself (rather than emulated "iPhone Safari") for genuine
+Safari-engine coverage.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Configure <code>--browser</code> to run one test file against chromium, firefox,

@@ -2052,6 +2052,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2283,6 +2294,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2403,6 +2425,31 @@ every strict-mode error defeats the feature.</p>
 <a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a># is a real and known category of difference, not always a bug
 <a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a># in the test
 </code></pre></div>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>Going one layer deeper than the diagram above: the "Python process" box is
+itself two processes, not one. <code>sync_playwright()</code> spawns a bundled Node.js
+executable (shipped inside the <code>playwright</code> pip package) as a subprocess
+and communicates with it over <strong>stdio pipes</strong>, using a lightweight
+length-prefixed JSON-RPC-style framing Playwright defines for itself — this
+inner channel is Playwright's own protocol, separate from CDP. That Node
+process is the actual CDP client: it owns the WebSocket connection(s) to
+the browser process(es) and does the real protocol translation. Every
+Python call you make is serialized once (Python → Node, over stdio) and
+then a second time if it results in a browser command (Node → browser, over
+the CDP WebSocket) — two hops, not one, which is why the driver process
+shows up in your OS process list alongside the browser whenever a
+Playwright script is running.</p>
+<p>This two-hop design is also why <code>new_cdp_session</code> is such a clean escape
+hatch rather than a hack: the Node driver already maintains the CDP
+WebSocket and already multiplexes commands from multiple logical callers
+onto it (one for each page/context Playwright itself is managing) — asking
+for a raw CDP session just registers your commands on that same already-
+open connection with their own session ID, rather than opening a
+competing, separate connection to the browser. The browser-side CDP server
+itself has no concept of "Playwright's official API" versus "a raw CDP
+call you made yourself" — both are ordinary commands on the same protocol,
+which is exactly what "you're using the same transport it already relies
+on" means concretely.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Explain in your own words (a short comment block is fine) why

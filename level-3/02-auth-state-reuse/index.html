@@ -1553,6 +1553,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2261,6 +2272,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2442,6 +2464,28 @@ a stale file indefinitely:</p>
 <a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a># and only re-run the UI login when the cached file is
 <a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a># missing or older than the app's actual token lifetime
 </code></pre></div>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p><code>context.storage_state()</code> works by querying two separate CDP surfaces and
+combining them into one JSON document: cookies come from
+<code>Network.getCookies</code> (or <code>Storage.getCookies</code>, scoped to the whole browser
+context rather than one page), while <code>localStorage</code>/<code>sessionStorage</code> per
+origin come from <code>DOMStorage.getDOMStorageItems</code>, called once for every
+origin the context has ever navigated to. Because both are captured at the
+<code>BrowserContext</code> level rather than per-page, a multi-tab login flow's state
+is captured completely in one call.</p>
+<p>Feeding that file back in via <code>browser.new_context(storage_state=...)</code>
+replays it in the opposite direction <em>before any page exists in the new
+context</em>: cookies are set via <code>Network.setCookie</code> calls issued against the
+freshly created context, and each origin's storage entries are written
+through <code>DOMStorage.setDOMStorageItem</code> calls scheduled to run the instant
+that origin is first navigated to — Chromium doesn't let you write
+<code>localStorage</code> for an origin with no document loaded yet, so Playwright
+defers those writes and injects them via an init script that runs before
+the page's own JavaScript on first load. This ordering is exactly why the
+app "believes a real login already happened" the moment <code>page.goto()</code>
+resolves: by the time any of your test's own JavaScript or React code runs,
+both the cookie jar and the storage entries a real login would have
+produced are already in place.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Write a script that logs in through your app's real login form and saves

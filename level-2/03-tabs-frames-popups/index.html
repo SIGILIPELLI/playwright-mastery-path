@@ -1216,6 +1216,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2283,6 +2294,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2417,6 +2439,29 @@ tabs behave.</p>
 lose track of a reference — useful when a flow opens several popups in
 sequence and you need the <em>last</em> one, or need to iterate and find the one
 matching a URL pattern.</p>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>A "new tab" at the protocol level is CDP creating a new <strong>target</strong> of type
+<code>page</code> inside the same browser context — Chromium fires
+<code>Target.targetCreated</code> the instant <code>window.open()</code> or a <code>target="_blank"</code>
+link runs, before that tab has loaded anything. <code>context.expect_page()</code>
+works by registering a listener for that event <em>before</em> your action runs,
+which is exactly why the <code>with</code> block ordering is non-negotiable: if you
+clicked first and asked for the popup after, the <code>targetCreated</code> event
+could already have fired and been missed, since Playwright doesn't buffer
+target-creation events indefinitely waiting for someone to ask.</p>
+<p>Iframes are a fundamentally different case: an <code>&lt;iframe&gt;</code> doesn't create a
+new CDP target (in most cases) — it creates a new <strong>frame</strong> within the same
+page target, with its own execution context and DOM document, tracked via
+CDP's <code>Page.frameAttached</code> / <code>Page.frameNavigated</code> events carrying a
+distinct frame ID. <code>page.locator()</code> queries are scoped to the page's main
+frame's DOM by default, which is mechanically why they can never see into
+an iframe's document — it's not a permissions restriction, it's that the
+query is issued against a different execution context entirely.
+<code>frame_locator()</code> explicitly targets that child frame's context for its DOM
+queries, and — like every other locator — re-resolves the frame reference
+itself on each call, so it survives the iframe's <code>src</code> changing or the
+frame reloading, rather than holding a stale <code>Frame</code> object the way the
+older <code>page.frame(name=...)</code> API effectively does.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Using <code>https://the-internet.herokuapp.com/windows</code> (opens a new tab) and
 <code>https://the-internet.herokuapp.com/iframe</code> (a WYSIWYG editor in an

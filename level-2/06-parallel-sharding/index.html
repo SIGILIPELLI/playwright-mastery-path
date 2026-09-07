@@ -1300,6 +1300,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2283,6 +2294,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2425,6 +2447,24 @@ machines, <code>-n auto</code> gives you vertical scale within each machine.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a># no output — flags compose: pytest-split selects this shard's
 <a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a># subset of tests first, then pytest-xdist parallelizes that subset
 </code></pre></div>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>Each <code>pytest-xdist</code> worker (<code>gw0</code>, <code>gw1</code>, ...) is a fully separate <strong>Python
+interpreter process</strong>, not a thread — this matters because it's also a
+separate Playwright driver connection: each worker's <code>browser</code> fixture opens
+its own Node driver subprocess and its own launched browser process with
+its own CDP WebSocket, entirely independent of every other worker. That
+process-level isolation is exactly what makes parallel Playwright safe at
+the protocol layer — there's no shared CDP connection two workers could
+race on, so any flakiness under <code>-n auto</code> has to come from the <em>application</em>
+under test (a shared database row, a shared login) rather than from
+Playwright's own automation channel colliding with itself.</p>
+<p>Within one worker, <code>session</code>-scoped <code>browser</code> plus <code>function</code>-scoped
+<code>context</code> is what keeps N tests in that worker fast: reusing one already-
+launched browser process for all of that worker's tests means only
+<code>Target.createBrowserContext</code>/<code>Target.disposeBrowserContext</code> CDP round trips
+happen between tests, not a full <code>Browser.launch</code> and OS process spawn each
+time — the latter is the dominant cost <code>pytest-xdist</code>'s process-per-worker
+model deliberately avoids paying per test.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Take an existing small suite (5-10 tests) and time a serial run with

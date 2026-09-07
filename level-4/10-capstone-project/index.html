@@ -2173,6 +2173,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2296,6 +2307,17 @@
     <span class="md-ellipsis">
       
         .github/workflows/nightly.yml
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
       
     </span>
   </a>
@@ -2492,6 +2514,32 @@ setup a real platform/QA team maintains for a company's E2E suite.</p>
 <a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a># API seeding, tracing, retries, visual/a11y gating) composed
 <a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a># together rather than left as separate one-off examples
 </code></pre></div>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>Every piece of this capstone is a composition of mechanisms this site has
+already gone underneath: <code>storage_state_path</code> performs one HTTP login via
+the driver's plain network client and captures cookies/origin storage as
+JSON (Level 3 Module 2); <code>page</code> replays that state via <code>Network.setCookie</code>
+and deferred <code>DOMStorage.setDOMStorageItem</code> writes at context creation
+(Level 3 Module 2's mechanism, reused here at framework scale); <code>make_order</code>
+seeds backend state over the same driver-side HTTP channel with no browser
+involvement (Level 3 Modules 3 and 9); <code>to_show_currency</code> plugs into the
+Node driver's matcher-retry loop exactly like any built-in <code>expect()</code> call
+(Module 9, this level); and the tiered CI matrix fans the whole suite out
+across independent driver/browser process pairs, each with its own isolated
+<code>BrowserContext</code>s (Level 2 Module 6, Level 4 Module 4).</p>
+<p>The one genuinely new thing happening at this scale is <em>ordering</em>: <code>page</code>
+depends on <code>storage_state_path</code>, which depends on <code>api_context</code>, which
+depends on <code>base_url</code> — a real fixture dependency graph that pytest resolves
+once per test by building each fixture in dependency order and caching
+anything scoped wider than <code>function</code> for reuse. Because <code>api_context</code> and
+<code>storage_state_path</code> are <code>session</code>-scoped, that entire chain of "read CLI
+env flag → open HTTP client → log in once → capture state" happens exactly
+once per pytest process regardless of how many hundreds of tests import
+<code>page</code> — every individual test only ever pays the cost of its own
+<code>function</code>-scoped <code>Target.createBrowserContext</code>/<code>Target.createTarget</code> CDP
+calls, which is the concrete reason this architecture is what lets a
+suite scale into the hundreds of files without login cost scaling
+linearly alongside it.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Assemble this structure (or an adapted version) in a real repository:

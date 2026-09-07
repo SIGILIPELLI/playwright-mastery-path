@@ -1002,6 +1002,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2327,6 +2338,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2480,6 +2502,34 @@ because they block all further page JavaScript until dismissed:</p>
 it — if a dialog appears with no handler registered, Playwright
 auto-dismisses it after a short delay and logs a warning, which usually
 isn't the behavior your test wants.</p>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p><code>select_option()</code> on a native <code>&lt;select&gt;</code> doesn't simulate opening the
+dropdown UI and clicking an option at all — browsers don't expose a
+consistent, cross-platform way to drive their native <code>&lt;select&gt;</code> popup
+through remote-control protocols (it's OS-rendered chrome, not page
+content). Instead, Playwright sets the <code>&lt;select&gt;</code> element's <code>value</code>/selected
+<code>&lt;option&gt;</code> directly via the DOM and then dispatches synthetic <code>input</code> and
+<code>change</code> events, matching what the browser fires after a real selection.
+This is why it works identically headless and headed even though a headless
+browser never renders an actual dropdown popup.</p>
+<p>Custom <code>role="combobox"</code> dropdowns get none of that special handling — your
+<code>.click()</code> on the trigger and <code>.click()</code> on the <code>role="option"</code> element are
+both real <code>Input.dispatchMouseEvent</code> clicks, actionability-checked like any
+other click, which is exactly why they only work correctly when the widget
+truly renders visible, stable, unobstructed elements for each step; a
+custom dropdown that keeps its options in the DOM but visually hidden until
+JS toggles a class will fail the "visible" actionability check until that
+class actually changes.</p>
+<p>Native dialogs (<code>alert</code>/<code>confirm</code>/<code>prompt</code>) are handled through a separate
+CDP domain, <code>Page.javascriptDialogOpening</code>/<code>Page.handleJavaScriptDialog</code>.
+These dialogs are rendered by the browser chrome itself, outside the page's
+DOM entirely, and they <strong>block the renderer's main thread</strong> the instant they
+appear — which is precisely why Playwright requires you to register the
+<code>dialog</code> listener <em>before</em> triggering the action: the driver needs a
+handler already wired to <code>Page.javascriptDialogOpening</code> so it can call
+<code>Page.handleJavaScriptDialog</code> the instant the event fires, rather than
+leaving the page frozen waiting for a human to click a button that will
+never come.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <ol>
 <li>On <code>https://www.saucedemo.com/</code>, submit the login form with an empty

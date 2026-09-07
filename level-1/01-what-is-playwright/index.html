@@ -773,6 +773,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2261,6 +2272,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2424,6 +2446,37 @@ asynchronous. Python offers both a <code>sync_api</code> (used throughout this s
 and an <code>async_api</code> for use inside <code>asyncio</code> code; <code>sync_api</code> is the
 default choice unless your project is already async.</p>
 </div>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>"Driving three engines with one API" is not one library reimplemented three
+times — Playwright talks to each browser through that browser's own native
+remote-control interface, translated into a common Python/JS surface:</p>
+<ul>
+<li><strong>Chromium</strong> is controlled over the <strong>Chrome DevTools Protocol (CDP)</strong>, a
+  JSON-RPC-over-WebSocket protocol Chrome itself exposes for exactly this
+  purpose (DevTools uses the same protocol internally). When you call
+  <code>page.goto(...)</code>, Playwright sends a <code>Page.navigate</code> command over that
+  WebSocket and listens for <code>Page.loadEventFired</code> / <code>Page.frameStoppedLoading</code>
+  events before resolving.</li>
+<li><strong>Firefox</strong> doesn't speak CDP natively, so Playwright ships a <strong>patched
+  build of Firefox</strong> with an added remote-debugging protocol modeled closely
+  on CDP's shape — this is why <code>playwright install</code> downloads browser
+  binaries instead of using whatever Firefox is already on your system.</li>
+<li><strong>WebKit</strong> is driven through a similar custom protocol layered over
+  WebKit's own remote inspector primitives, again against a Playwright-built
+  WebKit binary rather than your OS's Safari (Safari itself can't be
+  automated this way on non-macOS hosts, which is precisely the gap this
+  fills).</li>
+</ul>
+<p><code>sync_playwright()</code> starts a Node.js-based driver process in the background
+the first time you use it — the Python bindings actually talk to a small
+Node process over stdio, which in turn holds the WebSocket connections to
+the browsers. That's why <code>pip install playwright</code> alone isn't enough: the
+separate <code>playwright install</code> step downloads the actual browser binaries
+(and, on Linux, <code>playwright install-deps</code> pulls system shared libraries) that
+this driver process launches and connects to. Every <code>page.</code> method call you
+write is, underneath, a message serialized to that driver, forwarded as a
+protocol command to the right browser, with the response deserialized back
+into the Python object you get.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Install Python 3.9+ if you don't already have it, and confirm with

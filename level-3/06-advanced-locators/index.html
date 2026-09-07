@@ -1698,6 +1698,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2327,6 +2338,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2461,6 +2483,32 @@ locator that isn't specific enough.</p>
 <a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="k">def</span><span class="w"> </span><span class="nf">find_overdue_rows</span><span class="p">(</span><span class="n">page</span><span class="p">):</span>
 <a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>    <span class="k">return</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"xpath=//td[contains(text(),'Overdue')]/ancestor::tr"</span><span class="p">)</span>
 </code></pre></div>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>Every locator method covered here — <code>.filter()</code>, <code>.and_()</code>, <code>.or_()</code>,
+chained <code>.locator()</code> calls — compiles to Playwright's own internal selector
+engine syntax rather than to plain CSS or XPath under the hood, even when
+you write it as fluent Python method calls. <code>row.get_by_role("button",
+name="Delete")</code> becomes a single combined selector string internally, of
+the shape <code>internal:role=row &gt;&gt; internal:role=button[name="Delete"]</code>, and
+that entire chain is evaluated as <strong>one query</strong> sent to the browser (via the
+accessibility-tree lookups CDP exposes), not as two separate round trips
+where Python fetches the row first and then queries within it locally. This
+is why chaining stays fast even on large pages: the narrowing happens
+inside the browser's own query evaluation, in one pass.</p>
+<p><code>.filter(has=...)</code> and <code>.and_()</code>/<code>.or_()</code> are implemented as the selector
+engine's own combinator operators (<code>internal:has=</code>, <code>internal:and=</code>,
+<code>internal:or=</code>), evaluated against the live accessibility/DOM tree exactly
+like any primitive selector — which is why they retain the same
+re-resolve-on-every-action behavior as a plain locator: a <code>.filter(has_text=
+"Out of stock")</code> locator isn't a cached list of elements captured once, it's
+a compound query re-run fully, filter included, at the moment you finally
+act on it.</p>
+<p><code>set_test_id_attribute()</code> doesn't touch application code at all — it
+changes a setting inside the Playwright client library itself, so that
+every subsequent <code>get_by_test_id()</code> call constructs its <code>internal:testid=</code>
+selector against the new attribute name. The attribute lookup itself still
+happens via the browser's own DOM query engine on whatever attribute name
+you configured, not a Playwright-specific mechanism.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Build a locator using <code>.filter(has_text=...)</code> that finds a specific row

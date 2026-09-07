@@ -829,6 +829,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2317,6 +2328,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2451,6 +2473,26 @@ prototyping a flow before you clean it up by hand.</p>
 Python package expects updated browser binaries, and running mismatched
 versions is a common source of confusing failures that have nothing to do
 with your test code.</p>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p><code>playwright install</code> isn't just a convenience download — it's what makes the
+protocol handshake in Module 1 possible at all. Each cached binary in
+<code>~/.cache/ms-playwright</code> is a browser build that Playwright's maintainers
+compiled (or patched, for Firefox and WebKit) against a specific revision of
+that browser's remote-control interface, and pinned to a matching revision
+of the Node.js <strong>driver</strong> bundled inside the <code>playwright</code> package. When
+<code>sync_playwright().start()</code> runs, Python spawns that driver as a child
+process over stdio and asks it to launch a browser binary from the cache
+with a <code>--remote-debugging-port</code> (Chromium) or equivalent flag; the browser
+opens a WebSocket server on that port, the driver connects to it, and every
+Python call after that is proxied: Python → stdio → Node driver → WebSocket
+→ browser, with events flowing back the same path in reverse.</p>
+<p><code>playwright codegen</code> runs that same connection in the other direction: it
+launches a browser with CDP's <code>Input.dispatchMouseEvent</code> /
+<code>DOM.getDocument</code> domains active, listens for the raw DOM events your clicks
+and keystrokes generate, walks the DOM tree CDP hands back to compute a
+locator for whatever you interacted with, and prints the resulting Python
+statement in the Inspector window in real time — it's watching the same
+protocol traffic your own scripts will later drive programmatically.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Create the <code>playwright-practice</code> project exactly as shown above, with a

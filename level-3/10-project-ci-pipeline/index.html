@@ -1810,6 +1810,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2327,6 +2338,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2521,6 +2543,32 @@ real production E2E setup, not a single isolated technique.</p>
 <a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a># this is the shape a real team's E2E suite converges on once
 <a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a># it outgrows "one file of tests that all log in every time"
 </code></pre></div>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>Tracing every mechanism this pipeline depends on back to the protocol layer:
+the session-scoped <code>storage_state_path</code> fixture performs one API login
+(driver-process HTTP call, no CDP at all) and captures cookies/origin
+storage as plain JSON (Module 2's <code>Network.getCookies</code> /
+<code>DOMStorage.getDOMStorageItems</code> shape); every test's <code>page</code> fixture then
+spins up a fresh <code>BrowserContext</code> and replays that state via
+<code>Network.setCookie</code> and deferred <code>DOMStorage.setDOMStorageItem</code> writes
+before the first navigation — meaning every one of this suite's tests pays
+the cost of one HTTP login (amortized once per session) plus one cheap
+<code>Target.createBrowserContext</code>, never a UI login flow's full actionability-
+checked click sequence.</p>
+<p>The visual and accessibility tests layer CDP's screenshot pipeline
+(<code>Page.captureScreenshot</code>, with pre-capture CSS masking) and an injected
+<code>axe-core</code> JS run (<code>Runtime.evaluate</code> against the live accessibility tree)
+on top of that same authenticated context — both are read-only inspections
+of whatever DOM state the seeded, authenticated page currently shows, which
+is why they compose cleanly with API seeding: the seeded record already
+exists in the backend and is already reflected in cookies/DOM by the time
+either check runs, with no extra synchronization needed. Sharding
+(<code>--shard=N/M</code>) then partitions this already-independent-per-test setup
+across N completely separate driver/browser process pairs, which is why
+tests seeded and authenticated this way are safe to run concurrently across
+shards: each shard's <code>BrowserContext</code>s are isolated from every other
+shard's by construction, and any two tests are only coupled by shared
+<em>backend</em> records, not by anything in Playwright's own object model.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Build out this structure (or adapt it to your own app) with a real

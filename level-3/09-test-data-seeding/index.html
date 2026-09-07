@@ -1749,6 +1749,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2261,6 +2272,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2419,6 +2441,26 @@ instead:</p>
 <a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a># fixtures above for anything a specific test needs beyond
 <a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a># the shared baseline
 </code></pre></div>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>Every <code>api_context.post(...)</code>/<code>.delete(...)</code> call in this module uses the
+same driver-side HTTP client covered in Module 3 — no browser process is
+involved in creating or tearing down seeded records, which is precisely why
+seeding-heavy suites with dozens of <code>make_order</code>/<code>make_customer</code> calls per
+test stay fast even though a UI-driven equivalent (clicking through
+"create order" forms repeatedly) would be dominated by CDP round trips and
+actionability-check waits for every single field and button.</p>
+<p>The factory-fixture cleanup pattern (<code>created_ids = []</code>, then a loop after
+<code>yield</code>) relies on ordinary Python closures, not anything Playwright- or
+pytest-specific — <code>_make()</code> appends to a list the enclosing fixture function
+still has a reference to, and the teardown code after <code>yield</code> runs inside
+that same closure's scope. What <em>is</em> worth connecting back to earlier
+modules: because <code>api_context</code> in a full pipeline (Module 10) is typically
+built from the same session as an authenticated <code>BrowserContext</code>, the
+records these fixtures create are visible to the UI the instant the API
+call returns — there's no propagation delay or cache to worry about,
+because both the API client and the browser are ultimately just two
+different consumers of the same backend, not two systems that need to be
+kept in sync.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Write a fixture that creates a record via the API, yields it to the

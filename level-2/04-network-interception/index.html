@@ -1255,6 +1255,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2305,6 +2316,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2465,6 +2487,33 @@ mock body that will silently drift out of sync with the real API shape.</p>
 <a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a># to keep tests fast and to avoid polluting real analytics with
 <a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a># test traffic every CI run generates
 </code></pre></div>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p><code>page.route()</code> is built on CDP's <strong>Fetch domain</strong>, not a browser-external
+proxy. Registering a route sends <code>Fetch.enable</code> with a URL pattern filter to
+the browser; from that point on, the browser itself <em>pauses</em> any matching
+request at the network layer and emits a <code>Fetch.requestPaused</code> event to the
+driver instead of letting the request continue — the actual HTTP request
+hasn't even left the browser process yet at this point. Your Python handler
+runs, and depending on what it calls, the driver sends back one of three
+different Fetch-domain commands: <code>route.continue_()</code> maps to
+<code>Fetch.continueRequest</code> (let it proceed, optionally with modified
+headers/method/body), <code>route.fulfill()</code> maps to <code>Fetch.fulfillRequest</code>
+(never let the request reach the network at all — hand back a fabricated
+response directly), and <code>route.abort()</code> maps to <code>Fetch.failRequest</code> (fail it
+with a specific network error code).</p>
+<p>This is why mocking works with zero proxy setup and zero app code changes:
+the interception happens inside the browser process itself, at the same
+layer CDP's network domain observes real traffic, so it's indistinguishable
+to the page's JavaScript from a real network response arriving. <code>route.fetch()</code>
+followed by <code>route.fulfill(response=...)</code> is the one path that does perform
+a real network round trip — <code>fetch()</code> here issues an actual HTTP request
+(outside the paused one) to get a genuine response object your handler can
+then mutate before finally resolving the paused request with
+<code>Fetch.fulfillRequest</code> using your edited body. <code>page.on("request"/"response")</code>
+listeners are simpler — they subscribe to <code>Network.requestWillBeSent</code> /
+<code>Network.responseReceived</code> events, which fire for observation only and
+carry no ability to pause or alter anything, which is exactly why they're
+positioned as passive/read-only in contrast to <code>route()</code>.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Using <code>https://httpbin.org</code> as a stand-in backend and any simple page you
 control (or <code>https://the-internet.herokuapp.com/</code>):</p>

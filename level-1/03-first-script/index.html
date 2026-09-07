@@ -829,6 +829,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2261,6 +2272,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2422,6 +2444,34 @@ as accumulating zombie Chromium processes on a CI runner. Always pair every
 <code>launch()</code> with a <code>close()</code>, or better, let a fixture do it for you — which
 is exactly what <code>pytest-playwright</code>'s <code>page</code> fixture does starting next
 module.</p>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>The <code>Browser → BrowserContext → Page</code> hierarchy maps directly onto real OS
+and CDP concepts, not just an API convenience layer:</p>
+<ul>
+<li><strong><code>Browser</code></strong> corresponds to one actual browser process launched with
+  <code>--remote-debugging-port=0</code> (an ephemeral port Playwright picks and reads
+  back). The Node driver holds the single WebSocket connection to that
+  process's browser-level CDP endpoint.</li>
+<li><strong><code>BrowserContext</code></strong> maps to a CDP <code>Target.createBrowserContext</code> call —
+  Chromium supports multiple independent, ephemeral "profiles" inside one
+  running process, each with separate cookie jars, storage partitions, and
+  cache, without spawning a second OS process. This is <em>why</em> contexts are
+  cheap: creating one is a single CDP command, not a new process fork, which
+  is what makes running dozens of isolated, parallel-safe tests against one
+  browser process practical.</li>
+<li><strong><code>Page</code></strong> maps to a CDP <em>target</em> of type <code>page</code> — effectively one tab.
+  <code>context.new_page()</code> sends <code>Target.createTarget</code>, and Playwright then opens
+  a dedicated CDP <strong>session</strong> attached to that target ID so subsequent
+  commands (<code>Page.navigate</code>, <code>Runtime.evaluate</code>, <code>Input.dispatchMouseEvent</code>)
+  are routed to the right tab specifically, not broadcast to every tab in the
+  context.</li>
+</ul>
+<p><code>goto()</code>'s <code>wait_until</code> options are literal CDP lifecycle events:
+<code>Page.navigate</code> returns immediately with a frame ID, and Playwright then
+listens for <code>Page.lifecycleEvent</code> messages carrying <code>"load"</code>,
+<code>"DOMContentLoaded"</code>, or <code>"networkIdle"</code> names before resolving your await —
+so choosing <code>wait_until="domcontentloaded"</code> is choosing exactly which of
+those events unblocks your script, nothing more.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Write a script <code>first_script.py</code> that launches Chromium headed with

@@ -1036,6 +1036,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2283,6 +2294,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2448,6 +2470,26 @@ automation practice, with a known set of test accounts.</p>
 <li>Run the whole file with <code>--browser firefox</code> and <code>--browser webkit</code> and
   confirm all five tests still pass identically across engines.</li>
 </ul>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>Nothing in this file introduces new API surface — its value for
+understanding internals is in seeing the CDP round trips <em>stack up</em> across
+one realistic flow. <code>login()</code> alone triggers: a <code>Page.navigate</code> +
+lifecycle-event wait for <code>goto</code>, two <code>fill()</code> calls that each resolve a
+locator via an accessibility-tree query and dispatch <code>input</code>/<code>change</code>
+events directly, and a <code>click()</code> that runs the full actionability retry
+loop before dispatching real <code>Input.dispatchMouseEvent</code> mouse-down/up
+events on the Login button — after which the driver watches for the
+resulting <code>Page.frameNavigated</code> to know the SPA/page transition occurred,
+which is exactly what the subsequent <code>expect(page).to_have_url(...)</code> is
+polling for.</p>
+<p>The <code>pytest-playwright</code> <code>page</code> fixture used throughout this file (formalized
+in Level 2 Module 2) is what actually owns the <code>Browser</code>/<code>BrowserContext</code>
+lifecycle: it launches one browser process per test session (reused across
+tests for speed) but creates a <strong>fresh <code>BrowserContext</code> per test function</strong>,
+which is why five independent tests in this file never leak cookies,
+localStorage, or the saucedemo session between each other — each gets a
+brand-new isolated CDP browser context with an empty cookie jar, torn down
+with <code>Target.disposeBrowserContext</code> after the test completes.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Build the project exactly as shown and get all 5 tests passing headless.</li>

@@ -1951,6 +1951,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2305,6 +2316,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2456,6 +2478,28 @@ fails, rather than to "somewhere in the checkout flow."</p>
 <a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a><span class="w">  </span><span class="nx">expect</span><span class="p">(</span><span class="nx">submitted</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">({</span><span class="w"> </span><span class="nx">email</span><span class="o">:</span><span class="w"> </span><span class="s2">"user@example.com"</span><span class="p">,</span><span class="w"> </span><span class="nx">password</span><span class="o">:</span><span class="w"> </span><span class="s2">"hunter2"</span><span class="w"> </span><span class="p">});</span>
 <a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a><span class="p">});</span>
 </code></pre></div>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p><code>mount()</code> isn't a JavaScript simulation like jsdom — it works by starting a
+tiny purpose-built dev server (a Vite build under the hood for the React/
+Vue/Svelte CT runners) that compiles your component and a small test
+harness page around it, then has Playwright navigate a real Chromium page
+to that served harness via ordinary <code>Page.navigate</code>, exactly like navigating
+to any other URL. The <code>component</code> handle returned from <code>mount()</code> is a
+regular <code>Locator</code> scoped to the mounted root element — every method on it
+(<code>.click()</code>, <code>.getByRole()</code>, <code>to_be_visible</code>) goes through the identical CDP
+actionability-check and accessibility-tree pipeline covered throughout this
+site, which is exactly why <code>component.click({force: true})</code> behaves
+identically to a page-level forced click: it's the same underlying
+mechanism, just scoped to a component mounted in isolation rather than a
+full app route.</p>
+<p>This is also why component tests catch real rendering/CSS/event bugs that a
+jsdom-based unit test structurally cannot: jsdom never runs an actual layout
+or paint engine, so it can't observe genuine CSS cascade effects, real
+<code>getBoundingClientRect()</code> values, or true browser event dispatch order —
+whereas a Playwright component test's <code>mount()</code> produces a real DOM inside a
+real rendering engine, subject to the exact same actionability and
+accessibility-tree machinery as a full E2E page, just with the surrounding
+application (routing, global state, real API calls) deliberately absent.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Scaffold <code>@playwright/experimental-ct-react</code> (or the Vue/Svelte

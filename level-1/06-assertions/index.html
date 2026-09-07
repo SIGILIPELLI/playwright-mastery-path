@@ -924,6 +924,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2283,6 +2294,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2469,6 +2491,27 @@ spinner that flashes visible-then-hidden faster than you could ever observe.</p>
 <a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a># (report generation, a large file upload) without loosening
 <a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a># the default for every other assertion in the suite
 </code></pre></div>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p><code>expect(locator).to_be_visible()</code> isn't a single check — it's a <strong>poll loop</strong>
+Playwright runs internally: re-resolve the locator against the live DOM,
+evaluate the condition, and if it fails, wait a short backoff interval and
+try again, up to the timeout. Each retry is a fresh round trip over CDP
+(re-querying the accessibility tree or DOM, re-checking bounding boxes for
+visibility), not a cached comparison — which is why the call log you see on
+failure can show the <em>actual value changing</em> across retries: you're watching
+real snapshots of the page at each poll, not one static check repeated.</p>
+<p>This retry behavior is implemented on the <strong>Node driver side</strong>, not by
+Python looping and re-calling into the driver each time — Python sends one
+<code>expect</code> command describing the condition and timeout, and the driver itself
+owns the poll loop, which keeps the retry cadence tight (tens of
+milliseconds) without round-tripping through the Python/driver stdio pipe on
+every single poll.</p>
+<p><code>to_have_text()</code> normalizes whitespace before comparing (collapsing runs of
+spaces/newlines the way a browser renders them visually), which is why it
+tolerates source-formatting differences in the HTML that <code>to_have_text()</code>'s
+plain-string cousin in a naive scraper would not — the comparison happens
+against the <em>rendered</em> text content the accessibility layer reports, not the
+raw markup.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Using <code>https://www.saucedemo.com/</code> (<code>standard_user</code> / <code>secret_sauce</code>):</p>
 <ol>

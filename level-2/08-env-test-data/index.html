@@ -1356,6 +1356,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2283,6 +2294,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2462,6 +2484,28 @@ backend's own API instead (Level 3 covers this with Playwright's
 <a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a># body fails an assertion, keeping the environment from
 <a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a># accumulating orphaned test data across thousands of CI runs
 </code></pre></div>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>None of <code>.env</code> loading, <code>Faker</code>, or API seeding touch Playwright's
+automation layer at all — they operate purely in your Python process, one
+level above the browser. What's worth understanding mechanically is <em>why</em>
+API seeding (rather than UI seeding) is the better default once a suite
+grows: <code>api_context.post(...)</code> uses Playwright's <code>APIRequestContext</code>
+(Level 3 covers it fully), which sends a plain HTTP request directly from
+the Node driver process — no browser, no page, no CDP navigation or
+rendering involved at all. It shares the same cookie jar as a
+<code>BrowserContext</code> you create it from, though, which is why an
+API-authenticated session and a UI-driven <code>page</code> in the same context see
+each other's login state without any extra wiring: the session cookie set
+by the API call is visible to subsequent <code>page.goto()</code> calls in that
+context, and vice versa, because both are reading and writing the same
+underlying context-scoped cookie store the browser process maintains.</p>
+<p>The <code>yield</code>-based teardown pattern for <code>temp_order</code> relies on the exact same
+pytest guarantee discussed in Module 2: the code after <code>yield</code> runs in a
+<code>finally</code>-equivalent block pytest manages, independent of whether the test
+body passed, failed an assertion, or raised — which is what makes it safe
+to rely on for cleaning up real backend state (an order, a seeded resource)
+rather than a plain <code>return</code> plus a manual cleanup call a developer could
+forget to add to every test.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Add <code>python-dotenv</code> and <code>faker</code> to your project, create a <code>.env</code> with a

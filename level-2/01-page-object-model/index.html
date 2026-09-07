@@ -1149,6 +1149,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2261,6 +2272,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2417,6 +2439,26 @@ workflows (e.g., "complete checkout") out of a single page's class — those
 belong in a higher-level "flow" or in the test itself composing multiple
 page objects. Page objects that grow into 500-line god classes doing
 assertions, waiting, <em>and</em> orchestration are a sign the boundaries slipped.</p>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>Storing locators as <code>__init__</code> attributes works only because of the lazy,
+descriptive nature of a <code>Locator</code> covered in Level 1 Module 4 — each
+attribute is nothing but a stored selector string (e.g. an
+<code>internal:role=</code> or <code>internal:has-text=</code> expression) plus a frame reference.
+No CDP query happens at construction time; the query is deferred entirely
+to whichever method call finally acts on it. This is precisely why <code>login()</code>
+can be called minutes, or several DOM re-renders, after <code>LoginPage.__init__</code>
+ran and still finds the right element: it re-resolves against the live
+accessibility tree at call time, not against whatever existed when the
+object was built.</p>
+<p><code>ProductCard</code>'s constructor taking a <code>Locator</code> (<code>root</code>) rather than a <code>Page</code>
+is deliberately narrowing scope: <code>root.locator("h3")</code> and
+<code>root.get_by_role(...)</code> compile to a selector chain like
+<code>internal:has-text=...</code> &gt;&gt; <code>h3</code>, evaluated as one nested query against only
+the descendants of whatever element <code>root</code> currently resolves to. The
+resolution still happens fresh on every call — if the card at index 2 gets
+removed and a new one shifts into that DOM position, <code>cards.nth(2)</code>'s
+<code>ProductCard</code> wrapper transparently now describes the <em>new</em> card there,
+because nothing about a <code>Locator</code> pins it to a specific DOM node identity.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Using <code>https://demoqa.com/login</code> (a public demo site with a real, if flaky,
 login form):</p>

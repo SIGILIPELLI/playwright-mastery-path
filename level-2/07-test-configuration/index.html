@@ -1317,6 +1317,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2261,6 +2272,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2419,6 +2441,29 @@ exact real-device emulation instead of hand-typing viewport/UA:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a># no output — p.devices["iPhone 13"] expands to a full dict of
 <a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a># viewport, user_agent, device_scale_factor, is_mobile, has_touch
 </code></pre></div>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p><code>browser_context_args</code> and <code>browser_type_launch_args</code> aren't just Python
+dict merging tricks — the resulting dict is passed almost verbatim into the
+underlying CDP-level calls that create the browser and context.
+<code>browser_type_launch_args</code>'s keys become command-line flags and options on
+the actual <code>chromium.exe</code>/<code>firefox</code>/<code>webkit</code> process launch (e.g.
+<code>headless</code> toggles <code>--headless=new</code>; <code>slow_mo</code> is a driver-side delay
+inserted between dispatched CDP commands, as covered in Level 1 Module 9).
+<code>browser_context_args</code>'s keys map onto the <code>Target.createBrowserContext</code> and
+subsequent per-context CDP setup calls: <code>viewport</code> issues
+<code>Emulation.setDeviceMetricsOverride</code>, <code>geolocation</code> +
+<code>permissions: ["geolocation"]</code> calls <code>Browser.grantPermissions</code> followed by
+<code>Emulation.setGeolocationOverride</code>, and <code>locale</code>/<code>timezone_id</code> set
+<code>Emulation.setLocaleOverride</code> / <code>Emulation.setTimezoneOverride</code> — all
+executed once when the context is created, which is why every page opened
+from that context inherits them automatically with no per-page setup.</p>
+<p><code>p.devices["iPhone 13"]</code> is a static dictionary Playwright ships (mirroring
+Chrome DevTools' own device-emulation presets) bundling a matching
+<code>viewport</code>, <code>user_agent</code>, <code>device_scale_factor</code>, <code>is_mobile</code>, and
+<code>has_touch</code> — spreading it into <code>new_context(**iphone_13)</code> is functionally
+identical to setting each of those emulation calls by hand, just
+pre-tuned to match a real device's reported characteristics rather than a
+guess.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Move any hardcoded <code>page.goto("https://...")</code> calls in an existing

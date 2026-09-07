@@ -1721,6 +1721,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2261,6 +2272,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2403,6 +2425,31 @@ a full CPU/network timeline useful for spotting performance regressions:</p>
 <a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a># the same way a functional assertion turns a bug report into
 <a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a># a specific failing line
 </code></pre></div>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p><code>page.context.new_cdp_session(page)</code> is the module's most direct exposure
+of what every other API in this site abstracts away: it hands you a raw CDP
+session object, letting you call CDP domains/methods (<code>Network.
+emulateNetworkConditions</code>, <code>Emulation.setCPUThrottlingRate</code>) that have no
+higher-level Playwright wrapper at all. <code>Network.emulateNetworkConditions</code>
+works by throttling traffic inside the browser's own network stack — the
+same layer real requests flow through — rather than delaying route handlers
+in Playwright's own process (Level 2 Module 4's <code>page.route</code> approach),
+which is exactly why it affects every resource (subresources, fonts,
+images fetched by the browser directly) proportionally instead of only the
+specific patterns you've written <code>route()</code> handlers for.</p>
+<p>The <code>PerformanceObserver</code>/<code>performance.getEntriesByType('navigation')</code> calls
+run as plain JavaScript inside the page via <code>Runtime.evaluate</code> — Playwright
+isn't measuring anything itself here; it's retrieving numbers the browser's
+own Navigation Timing and Performance Observer APIs already computed
+internally as part of normal page-load instrumentation, then marshaling the
+JSON-serializable result back to Python. <code>context.tracing.start(...)</code>
+overlaps with this: the trace's CPU/network graph is built from the same
+underlying <code>Tracing.start</code> CDP domain Chrome DevTools itself uses for its
+Performance panel, recording detailed timeline events (paint, script
+execution, network) continuously rather than sampling discrete metrics on
+demand — which is why a trace can show <em>where</em> time went between two
+actions, while a single <code>performance.getEntriesByType()</code> call only gives
+you the endpoint numbers.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Write a test that reads Navigation Timing data via <code>page.evaluate()</code> and

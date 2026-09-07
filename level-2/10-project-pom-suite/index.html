@@ -1423,6 +1423,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise-extend-the-suite" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2305,6 +2316,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise-extend-the-suite" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2535,6 +2557,29 @@ Level 2's pieces into one working project.</p>
 <li><strong>Debugging practices</strong> (Module 9): tracing/screenshots on failure are
   already wired in before you ever hit a real failure.</li>
 </ul>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>This project's <code>inventory_page</code> fixture chaining a full login flow before
+every test that needs it (Module 2's pattern) has a real protocol-level cost
+worth being aware of: each of the three <code>test_inventory.py</code>/<code>test_checkout.py</code>
+tests that depend on it re-runs the entire <code>goto</code> + two <code>fill()</code>s + <code>click()</code>
+sequence — a fresh <code>Page.navigate</code>, two direct DOM value sets with
+<code>input</code>/<code>change</code> events, and a full actionability-checked
+<code>Input.dispatchMouseEvent</code> click — from scratch, because the fixture is
+<code>function</code>-scoped by default and each test gets a brand-new
+<code>BrowserContext</code> (Module 2's isolation model) with no session cookie yet.
+Level 3 Module 2 (auth state reuse) shows the alternative: persisting the
+authenticated context's storage state to disk once and injecting it into
+new contexts via <code>storage_state=...</code>, which sets the session cookie through
+<code>Network.setCookie</code> at context-creation time instead of re-running the login
+UI flow — the same end state reached without repeating the CDP traffic
+every single test.</p>
+<p><code>sort_by()</code> calling <code>select_option(label=...)</code> on <code>.product_sort_container</code>
+sets the underlying <code>&lt;select&gt;</code>'s value directly and fires synthetic
+<code>input</code>/<code>change</code> events (as covered in Level 1 Module 8), which is why
+asserting on the <em>resulting</em> re-rendered price order (rather than the
+dropdown's own value) is the meaningful check here — it confirms the app's
+own JS actually reacted to the change event and re-sorted the list, not
+merely that the dropdown's displayed selection changed.</p>
 <h2 id="exercise-extend-the-suite">Exercise — extend the suite<a class="headerlink" href="#exercise-extend-the-suite" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Add a <code>test_remove_item_from_cart</code> test using a new <code>CartPage.remove</code>

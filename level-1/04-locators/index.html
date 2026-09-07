@@ -918,6 +918,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2383,6 +2394,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2534,6 +2556,31 @@ one of several matches.</p>
 on <code>page</code>) scopes the search to inside that element — the single most
 effective technique for disambiguating a page with repeated text or
 structure, like a navbar and footer that both link to "Pricing."</p>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>A <code>Locator</code> object is intentionally inert until you act on it — it stores
+only a <strong>selector string</strong> (e.g. <code>internal:role=button[name="Sign in"]</code> for
+<code>get_by_role</code>) and a reference to its parent frame. Nothing is queried yet.
+The moment you call <code>.click()</code>, <code>.fill()</code>, or read <code>.text_content()</code>,
+Playwright sends a fresh <code>DOM.querySelector</code>/accessibility-tree query over
+CDP at that exact instant, gets back the current matching node(s), and
+throws them away again once the action finishes. This is what makes locators
+resilient to re-renders where a captured <code>WebElement</code> reference would go
+stale: there is no cached node to go stale, only a query re-run live every
+time.</p>
+<p><code>get_by_role</code> in particular doesn't search the raw DOM tree at all — it asks
+the browser to compute its <strong>accessibility tree</strong> (the same structure exposed
+via CDP's <code>Accessibility.getFullAXTree</code>), which each engine builds from DOM
+semantics, ARIA attributes, and computed styles combined. That's why
+<code>get_by_role("button", name="Sign in")</code> matches a <code>&lt;div role="button"&gt;</code> a
+CSS selector would never associate with "button" — Playwright is reading the
+browser's own interpretation of what the element means to assistive
+technology, not the tag name.</p>
+<p><code>filter(has_text=...)</code> and <code>filter(has=...)</code> compile down to an internal
+selector engine step (<code>internal:has-text=</code>, <code>internal:has=</code>) evaluated
+entirely inside the query — Playwright doesn't fetch the unfiltered list into
+Python and filter it there; the filtering happens as part of the single
+protocol round trip, which is why chained locators stay fast even against
+pages with hundreds of matching elements.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Using <code>https://books.toscrape.com/</code>:</p>
 <ol>

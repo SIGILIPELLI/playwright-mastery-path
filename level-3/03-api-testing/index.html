@@ -1592,6 +1592,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2283,6 +2294,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2434,6 +2456,27 @@ that actually needs rendering.</p>
 <a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>    <span class="n">ids_page2</span> <span class="o">=</span> <span class="p">{</span><span class="n">item</span><span class="p">[</span><span class="s2">"id"</span><span class="p">]</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">page2</span><span class="p">[</span><span class="s2">"items"</span><span class="p">]}</span>
 <a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>    <span class="k">assert</span> <span class="n">ids_page1</span><span class="o">.</span><span class="n">isdisjoint</span><span class="p">(</span><span class="n">ids_page2</span><span class="p">)</span>  <span class="c1"># no duplicate items across pages</span>
 </code></pre></div>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p><code>playwright.request.new_context()</code> does not launch a browser process at
+all — it asks the Node driver to open a plain HTTP client directly, using
+Node's own networking stack rather than routing traffic through a browser's
+CDP <code>Fetch</code>/<code>Network</code> domains. This is the actual source of the speed
+difference the module calls out: a UI test's every request goes
+browser-process → renderer → network stack → back through CDP events to the
+driver, while an <code>APIRequestContext</code> call is just driver-process → network
+stack → response, with no browser in the loop whatsoever.</p>
+<p>The cookie-sharing between <code>APIRequestContext</code> and <code>BrowserContext</code> is real
+shared state, not a translation layer: when you create an
+<code>APIRequestContext</code> from a <code>BrowserContext</code> (or hand its <code>storage_state()</code>
+to <code>browser.new_context(storage_state=...)</code>), you're working with the exact
+same cookie-jar representation described in Module 2 — a plain list of
+cookie dicts with domain/path/expiry — so a <code>Set-Cookie</code> header returned by
+<code>api_context.post("/api/login", ...)</code> becomes, after <code>storage_state()</code> and
+<code>new_context(storage_state=...)</code>, a <code>Network.setCookie</code> call on the browser
+context precisely as if a real login form's response had set it. There's no
+special-casing for "API-originated" cookies; the format is identical
+because both paths ultimately produce the same storage-state JSON shape
+covered in Module 2.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Write a fixture that creates an <code>APIRequestContext</code> pointed at a real or

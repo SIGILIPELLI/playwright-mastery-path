@@ -2097,6 +2097,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2261,6 +2272,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2403,6 +2425,34 @@ without a multi-month test-freeze.</p>
 <a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a># role/label locators (Level 1), rather than mechanically
 <a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a># translating By.ID("email") into page.locator("#email")
 </code></pre></div>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>The concept mapping in this module reflects a genuine architectural
+difference, not just an API rename. Selenium's WebDriver protocol is a
+<strong>stateless HTTP REST API</strong>: every command (<code>find_element</code>, <code>click</code>,
+<code>send_keys</code>) is its own independent HTTP request/response round trip to a
+separate driver executable (chromedriver, geckodriver), which then issues
+its own commands to the browser — two network hops per action, with no
+persistent connection and no built-in mechanism for the driver to push
+events back to your test code. This is precisely why Selenium needs
+<code>WebDriverWait</code>/<code>expected_conditions</code> as an explicit, separate polling
+construct: nothing in the underlying request/response model waits for you,
+so every wait has to be hand-built by re-issuing HTTP requests in a loop
+until a condition holds.</p>
+<p>Playwright's CDP-based model (Level 4 Module 6) keeps one persistent
+WebSocket connection over which the browser can push events
+(<code>Page.lifecycleEvent</code>, <code>DOM.attributeModified</code>, and the accessibility-tree
+state actionability checks read) proactively, and the actionability retry
+loop is built into the client library itself rather than left to test
+authors — this is the structural reason "explicit waits become unnecessary"
+during migration isn't a style preference, it's that the retry mechanism
+Selenium requires you to hand-roll per test is something Playwright's
+architecture makes redundant by construction. <code>element.send_keys(text)</code>
+mapping to <code>locator.fill(text)</code> carries a similar architectural note: <code>fill</code>
+sets the DOM value directly and fires one <code>input</code>/<code>change</code> event pair
+(Level 1 Module 5), while Selenium's <code>send_keys</code> dispatches real per-
+character key events — the closer Playwright equivalent of that specific
+behavior is <code>press_sequentially()</code>, not <code>fill()</code>, which matters for any
+migrated test relying on keystroke-reactive JavaScript.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Take one real Selenium test from an existing suite and port it to

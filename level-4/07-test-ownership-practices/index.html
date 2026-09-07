@@ -2080,6 +2080,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2283,6 +2294,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2414,6 +2436,29 @@ pile of files nobody wants to touch. This module covers the process side.</p>
 <a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a># conventions in prose, which drifts the moment the real
 <a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a># pattern moves on
 </code></pre></div>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>This module is process, not protocol — but two of its mechanisms are worth
+being precise about since they're easy to get subtly wrong. <code>CODEOWNERS</code>
+matching is handled entirely by GitHub itself at PR-creation/push time: it
+walks the file line by line from the <em>bottom up looking for the last
+matching pattern</em> for each changed file (not the first, and not a merge of
+every matching line), using the same gitignore-style glob semantics as
+<code>.gitignore</code> — which is why ordering entries from general to specific
+matters, and why a broad <code>/tests/</code> catch-all placed <em>after</em> more specific
+team entries would silently override them for every file, since GitHub
+takes the last match, not the most specific one.</p>
+<p><code>@pytest.mark.skip(reason=...)</code> and <code>@pytest.mark.xfail(...)</code> are handled
+inside pytest's own collection phase, before any Playwright fixture ever
+runs: a <code>skip</code>-marked test's body — and critically, its fixtures, including
+<code>page</code>/<code>browser_context_args</code> — never executes at all, so a skipped E2E
+test costs zero browser/CDP overhead, unlike a test that runs and then
+fails an assertion. <code>xfail(strict=False)</code> (used for flaky quarantine, Level
+3 Module 5) does still fully execute the test, browser and all — it only
+changes how pytest <em>classifies</em> the outcome afterward, which is why
+quarantining a flaky test this way still costs full CI time even though it
+no longer blocks a merge; a genuinely resource-heavy known-flaky test is
+sometimes better served by <code>skip</code> with a tracking issue than by <code>xfail</code>
+alone.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Add a <code>CODEOWNERS</code> entry mapping at least two test directories to

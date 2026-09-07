@@ -1620,6 +1620,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2283,6 +2294,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2466,6 +2488,28 @@ merge results, rather than accepting a 40-minute serial run:</p>
 <a id="__codelineno-10-37" name="__codelineno-10-37" href="#__codelineno-10-37"></a><span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">traces-shard-${{ matrix.shard }}</span>
 <a id="__codelineno-10-38" name="__codelineno-10-38" href="#__codelineno-10-38"></a><span class="w">          </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test-results/</span>
 </code></pre></div>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p><code>playwright install --with-deps</code> is really two independent operations
+happening back to back: <code>playwright install</code> downloads the pinned browser
+build (Level 1 Module 2) into <code>~/.cache/ms-playwright</code>, while <code>--with-deps</code>
+additionally shells out to the runner's package manager (<code>apt-get</code> on
+Ubuntu images) to install the shared libraries — font rendering libraries,
+GTK/NSS/audio codecs — that a <em>headless Linux Chromium process</em> needs just
+to start up and produce correct output, since a bare CI container image
+typically ships none of them. Caching <code>~/.cache/ms-playwright</code> skips the
+download but not the <code>apt-get</code> step, which is exactly why the workflow
+still runs <code>install-deps</code> separately on a cache hit — the OS package
+manager state isn't part of what gets cached.</p>
+<p><code>--shard=N/M</code> doesn't change how any individual test runs — it operates
+purely at pytest's collection phase, partitioning the already-collected
+list of test items into M disjoint groups (typically by simple index modulo,
+similar to the hand-rolled sharder in Level 2 Module 6) before any browser
+is launched. Each shard then runs its own completely independent
+Playwright session — separate driver process, separate browser process —
+which is why <code>fail-fast: false</code> matters for sharded CI: one shard's browser
+crashing or one shard's assertion failing has zero effect on the CDP
+sessions running in the other matrix jobs, since they share nothing beyond
+the git checkout.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Add a GitHub Actions workflow to a real (or sample) repository that

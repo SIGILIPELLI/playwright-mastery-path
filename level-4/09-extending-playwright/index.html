@@ -2125,6 +2125,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2254,6 +2265,17 @@
     <span class="md-ellipsis">
       
         Full worked example: a small internal plugin package
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
       
     </span>
   </a>
@@ -2438,6 +2460,31 @@ your own custom assertions in the same idiom as Playwright's built-in
 <a id="__codelineno-13-27" name="__codelineno-13-27" href="#__codelineno-13-27"></a>
 <a id="__codelineno-13-28" name="__codelineno-13-28" href="#__codelineno-13-28"></a><span class="n">expect</span><span class="o">.</span><span class="n">extend</span><span class="p">({</span><span class="s2">"to_have_valid_email_format"</span><span class="p">:</span> <span class="n">to_have_valid_email_format</span><span class="p">})</span>
 </code></pre></div>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>Registering a plugin via <code>[project.entry-points.pytest11]</code> relies on
+Python's standard packaging <strong>entry point</strong> mechanism, not anything
+Playwright-specific: when <code>pip install</code>s your package, it writes that
+mapping into the installed distribution's metadata, and at startup pytest's
+own plugin manager (<code>pluggy</code>, the library pytest's hook system is built on)
+enumerates every installed package's <code>pytest11</code> entry points and imports
+each named module automatically — this is the exact same discovery
+mechanism that makes <code>pip install pytest-playwright</code> alone enough to give
+every project <code>page</code>/<code>browser</code>/<code>context</code> fixtures with zero manual
+registration; your own plugin package now participates in that same
+auto-discovery pass, indistinguishable to pytest from a third-party plugin.</p>
+<p><code>expect.extend()</code> works by registering your function into the same
+matcher registry Playwright's own <code>to_have_text</code>/<code>to_be_visible</code> live in
+inside the Node driver — calling <code>expect(locator).to_have_valid_email_format()</code>
+sends a generic "run this named custom matcher" command to the driver,
+which then re-invokes your Python function repeatedly (via a callback
+channel back across the stdio pipe) on a poll loop timed exactly like every
+built-in assertion's retry loop (Level 1 Module 6), re-reading
+<code>locator.inner_text()</code> — and therefore re-resolving the locator against the
+live DOM — on every attempt. This is the mechanical reason a custom matcher
+genuinely retries rather than merely wrapping a one-shot <code>assert</code>: it's
+plugged into the identical timeout/backoff loop the driver runs for every
+other <code>expect()</code> call, not a separate implementation you'd have to build
+polling into yourself.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Package a fixture your team reuses across multiple test files into a

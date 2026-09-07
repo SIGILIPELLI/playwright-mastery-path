@@ -918,6 +918,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2327,6 +2338,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2471,6 +2493,33 @@ easily trigger (seeding <code>localStorage</code> before a test, for example) �
 bypasses actionability checks and real event dispatch entirely, so prefer a
 real action method whenever one exists. A test that only ever manipulates
 the page through <code>evaluate()</code> isn't really testing what a user experiences.</p>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>Every action method runs the same pipeline before doing anything to the
+page: resolve the locator to a single element, run the <strong>actionability
+checks</strong> against it (attached, visible, stable, receiving events, and
+enabled where relevant), and only then dispatch the actual input. "Stable"
+specifically means Playwright takes two bounding-box readings a animation
+frame apart via CDP and confirms the element hasn't moved — this is how it
+avoids clicking a button mid-slide-in-animation and landing on the wrong
+coordinates.</p>
+<p>Once an element passes those checks, <code>click()</code> doesn't call a JavaScript
+<code>.click()</code> method on the DOM node — it dispatches <strong>real, trusted input
+events</strong> through CDP's <code>Input.dispatchMouseEvent</code>, computing the element's
+center coordinates from its bounding box and sending actual
+<code>mousePressed</code>/<code>mouseReleased</code> events at the OS/browser-input level, the same
+layer real mouse hardware feeds into. That distinction matters: a page
+listening for <code>mousedown</code>/<code>mouseup</code> (rather than a synthetic <code>click</code>) still
+sees the events, exactly as it would for a human. <code>fill()</code> is the one
+deliberate exception — it sets the input's value directly and fires a single
+<code>input</code>/<code>change</code> event, skipping per-keystroke dispatch for speed, which is
+exactly why keystroke-reactive widgets need <code>press_sequentially()</code> instead:
+that method sends one <code>Input.dispatchKeyEvent</code> triple (keydown, char,
+keyup) per character, matching what a real keyboard driver produces.</p>
+<p><code>evaluate()</code> bypasses all of this — it sends the JS string straight to CDP's
+<code>Runtime.evaluate</code> for execution inside the page's own JS context, with no
+actionability checks and no synthetic input events at all, which is precisely
+why it can set state a real user interaction never could (and why it should
+stay a deliberate escape hatch, not a habit).</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Using <code>https://books.toscrape.com/</code>:</p>
 <ol>

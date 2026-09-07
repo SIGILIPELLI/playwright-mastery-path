@@ -1177,6 +1177,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2261,6 +2272,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2442,6 +2464,27 @@ exact purpose).</p>
 documents, in one place, every category of test your suite recognizes —
 useful once you have hundreds of tests and want to run only a subset in a
 pre-commit hook versus nightly CI.</p>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p>The <code>browser</code>/<code>context</code>/<code>page</code> fixture chain <code>pytest-playwright</code> provides
+mirrors the real CDP object hierarchy one-to-one, and the scoping choices
+matter for <em>why</em> it's fast: <code>browser</code> at <code>session</code> scope means exactly one
+<code>Browser.launch</code> (one OS process, one CDP WebSocket connection to the Node
+driver) exists for the entire test run. Every <code>context</code> fixture at
+<code>function</code> scope issues one cheap <code>Target.createBrowserContext</code> CDP command
+against that already-running process — no new process, no new WebSocket
+connection, just an isolated cookie/storage partition inside the existing
+browser. Teardown (<code>ctx.close()</code>) sends <code>Target.disposeBrowserContext</code>,
+which the browser handles by discarding that partition's state entirely,
+guaranteeing the next test's <code>context</code> fixture starts from zero regardless
+of what the previous test did.</p>
+<p>This is also why <code>autouse=True</code> fixtures and <code>yield</code>-based teardown compose
+safely with the underlying protocol: pytest guarantees the code after
+<code>yield</code> runs even on test failure (via its own exception-handling, not
+anything Playwright-specific), so a <code>context.close()</code> call always fires and
+its <code>Target.disposeBrowserContext</code> command always gets sent — a crashed
+assertion mid-test doesn't leak a browser context the way a raw,
+non-fixture <code>p.chromium.launch()</code> script easily can if you forget a
+<code>try/finally</code>.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <ol>
 <li>In <code>conftest.py</code>, write a <code>session</code>-scoped fixture <code>api_base_url</code> that

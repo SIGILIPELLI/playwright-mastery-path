@@ -1704,6 +1704,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2283,6 +2294,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2431,6 +2453,32 @@ rather than blocking all progress on a single PR fixing everything at once:</p>
 <a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>        <span class="o">+</span> <span class="n">results</span><span class="o">.</span><span class="n">generate_report</span><span class="p">()</span>
 <a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>    <span class="p">)</span>
 </code></pre></div>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p><code>axe.run(page)</code> doesn't run inside Playwright's own process at all — it
+takes the bundled <code>axe-core</code> JavaScript library and injects it into the
+page via <code>Page.addScriptToEvaluateOnNewDocument</code>/<code>Runtime.evaluate</code> (the
+same CDP mechanism <code>page.evaluate()</code> uses), so the entire accessibility
+audit executes as real JavaScript inside the page's own execution context,
+walking the live DOM and the browser's actual computed accessibility tree —
+the identical data source <code>get_by_role()</code> reads from (Level 1 Module 4).
+This is why axe can catch things a human visual check misses entirely
+(a <code>color-contrast</code> failure is computed from real computed CSS values via
+<code>getComputedStyle</code>, not a screenshot heuristic) and why results are only as
+current as the DOM state at the moment <code>axe.run()</code> executes — a violation
+introduced by a state change after the scan runs won't be caught until you
+scan again.</p>
+<p><code>to_be_focused()</code> reads <code>document.activeElement</code> via the same
+<code>Runtime.evaluate</code>/accessibility-tree channel every other assertion uses,
+comparing it against the resolved node for your locator — which is
+precisely why it's a meaningful check for keyboard-trap bugs: it verifies
+the actual OS/browser-level focus target, the same state a real screen
+reader or keyboard user's Tab key would be constrained by, not merely
+whether an element exists in the DOM. <code>page.keyboard.press("Tab")</code> in turn
+dispatches a real <code>Input.dispatchKeyEvent</code>, letting the browser's own
+native focus-management logic (not Playwright) decide where focus lands
+next — so this test only passes if the app's actual focus-trap
+implementation is correct, not because Playwright is simulating tab order
+itself.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Run <code>Axe().run(page)</code> against a real page in your app and read through

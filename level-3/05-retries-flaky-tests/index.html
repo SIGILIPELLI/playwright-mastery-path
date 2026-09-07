@@ -1637,6 +1637,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2261,6 +2272,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2407,6 +2429,30 @@ and visible without blocking merges while it's being fixed:</p>
 <a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="c1"># — never raise the global number past 1-2, or the suite starts</span>
 <a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="c1"># tolerating real bugs instead of surfacing them</span>
 </code></pre></div>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p><code>pytest-rerunfailures</code> operates entirely at the pytest level — it catches
+the <code>AssertionError</code>/<code>TimeoutError</code> a test raises, discards the result, and
+re-invokes the same test function again from scratch. Because
+<code>pytest-playwright</code>'s <code>page</code> fixture is function-scoped, a rerun gets a
+<strong>brand-new <code>BrowserContext</code></strong> (fresh <code>Target.createBrowserContext</code>) just
+like a completely separate test would — so a rerun genuinely re-executes
+every action from zero DOM/network state, not a resume of wherever the
+previous attempt left off. This is exactly why retries paper over real race
+conditions rather than fixing them: if the underlying timing problem is
+non-deterministic, a fresh attempt has some independent probability of
+avoiding it, but the actual actionability-check retry loop and CDP timing
+that caused the original flake are completely unaffected by the rerun
+wrapper sitting outside them.</p>
+<p>The most common root causes the module lists map directly onto Playwright
+internals: a "race condition" test is one where the assertion runs before
+the DOM query behind an <code>expect()</code> retry loop would have converged — using
+<code>expect()</code> instead of a plain check lets the same underlying poll-until-
+timeout machinery from Level 1 Module 7 absorb the timing variance instead
+of a human guessing a sleep duration. "Animation/transition timing"
+flakiness is specifically the actionability "stable" check (two bounding-box
+samples an animation frame apart) catching an element genuinely still
+moving — <code>expect(dialog).to_be_visible()</code> first gives the CSS transition
+time to finish before the click's own stability check ever has to fight it.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Write a test with a deliberate race condition (act immediately after

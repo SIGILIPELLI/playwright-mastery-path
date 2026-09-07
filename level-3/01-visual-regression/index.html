@@ -1536,6 +1536,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2283,6 +2294,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2420,6 +2442,33 @@ is identical.</p>
 <a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a># their end state before the screenshot, so a fade-in or
 <a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a># spinner mid-animation never causes a false-positive diff
 </code></pre></div>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p><code>expect(page).to_have_screenshot()</code> doesn't ask the OS to capture the
+screen — it sends CDP's <code>Page.captureScreenshot</code>, which asks the browser's
+own compositor to render its current internal pixel buffer directly into a
+PNG, entirely independent of whether a window is actually visible on any
+display (which is why it works identically headless, as covered in Level 1
+Module 9). For a full-page screenshot, Playwright first resizes the
+viewport (<code>Emulation.setDeviceMetricsOverride</code>) to the page's full scroll
+height so the compositor renders content that would otherwise require
+scrolling, all in one capture rather than stitching multiple screenshots
+together.</p>
+<p><code>mask=[...]</code> works by injecting a temporary CSS override — effectively
+<code>Runtime.evaluate</code>-ing a style rule that paints each masked locator's
+resolved bounding box a solid color — immediately before the
+<code>captureScreenshot</code> call, then removing it after. This happens entirely
+inside the render pipeline before pixels are captured, which is why masked
+regions never show their real content in the diff at all, rather than being
+excluded from the comparison after the fact (which would still leak a
+partially-composited frame into version control if timed wrong).</p>
+<p>The pixel diff itself runs through <code>pixelmatch</code>, comparing the new capture
+against the baseline PNG pixel-by-pixel in an anti-aliasing-aware mode
+(<code>threshold</code> controls how different a single pixel's RGB values must be to
+count as changed at all, <code>max_diff_pixel_ratio</code> controls what fraction of
+the total image can differ before the whole comparison fails) — this is a
+pure post-processing step over two already-captured images, with no browser
+involvement, which is why you can re-run a diff against saved artifacts
+without ever relaunching Chromium.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Add <code>expect(page).to_have_screenshot()</code> to a page in your own project and
