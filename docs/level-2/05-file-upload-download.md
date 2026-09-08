@@ -159,6 +159,10 @@ def browser_context_args(browser_context_args):
 # and matters if a project has changed the default
 ```
 
+## How It Actually Works
+
+`set_input_files` doesn't simulate mouse clicks and OS file-picker dialogs at all — Playwright talks to the browser's DevTools Protocol (CDP) directly and calls `DOM.setFileInputFiles`, which writes the file paths straight into the `<input type="file">` element's internal file list, bypassing the OS dialog entirely (that's why it works headlessly, where no real dialog could even render). Downloads work the same way in reverse: Playwright intercepts the browser's `Page.downloadWillBegin`/`downloadWillFinish` CDP events, which fire the instant the browser's network layer decides a response is a download (based on `Content-Disposition` or MIME type) — the `download` object you get in your script is just a handle to that in-flight browser-side download, which is why you still need to explicitly `save_as()` it to control where the file actually lands on disk.
+
 ## Exercise
 
 Using `https://the-internet.herokuapp.com/upload` (upload) and
