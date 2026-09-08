@@ -1283,6 +1283,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2305,6 +2316,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#how-it-actually-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How It Actually Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#exercise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2451,6 +2473,8 @@ assertions that don't need to persist the artifact past the test.</p>
 <a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a># Playwright versions, but making it explicit documents intent
 <a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a># and matters if a project has changed the default
 </code></pre></div>
+<h2 id="how-it-actually-works">How It Actually Works<a class="headerlink" href="#how-it-actually-works" title="Permanent link">&para;</a></h2>
+<p><code>set_input_files</code> doesn't simulate mouse clicks and OS file-picker dialogs at all — Playwright talks to the browser's DevTools Protocol (CDP) directly and calls <code>DOM.setFileInputFiles</code>, which writes the file paths straight into the <code>&lt;input type="file"&gt;</code> element's internal file list, bypassing the OS dialog entirely (that's why it works headlessly, where no real dialog could even render). Downloads work the same way in reverse: Playwright intercepts the browser's <code>Page.downloadWillBegin</code>/<code>downloadWillFinish</code> CDP events, which fire the instant the browser's network layer decides a response is a download (based on <code>Content-Disposition</code> or MIME type) — the <code>download</code> object you get in your script is just a handle to that in-flight browser-side download, which is why you still need to explicitly <code>save_as()</code> it to control where the file actually lands on disk.</p>
 <h2 id="exercise">Exercise<a class="headerlink" href="#exercise" title="Permanent link">&para;</a></h2>
 <p>Using <code>https://the-internet.herokuapp.com/upload</code> (upload) and
 <code>https://the-internet.herokuapp.com/download</code> (a page listing downloadable
