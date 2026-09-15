@@ -223,6 +223,12 @@ to rely on for cleaning up real backend state (an order, a seeded resource)
 rather than a plain `return` plus a manual cleanup call a developer could
 forget to add to every test.
 
+## 🔀 Related lessons on other tracks
+
+- [Automotive Testing — 05 · Test Data Management at Scale](https://sigilipelli.github.io/automotive-testing-mastery-path/level-4/05-test-data-management/)
+- [Java Testing — 05 · Test Data Management](https://sigilipelli.github.io/java-testing-mastery-path/level-2/05-test-data-management/)
+- [Python Testing — 05 · Test Data Management & Factories](https://sigilipelli.github.io/python-testing-mastery-path/level-2/05-test-data-management/)
+
 ## Exercise
 
 1. Add `python-dotenv` and `faker` to your project, create a `.env` with a

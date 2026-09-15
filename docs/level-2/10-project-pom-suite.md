@@ -262,6 +262,12 @@ dropdown's own value) is the meaningful check here — it confirms the app's
 own JS actually reacted to the change event and re-sorted the list, not
 merely that the dropdown's displayed selection changed.
 
+## 🔀 Related lessons on other tracks
+
+- [Cpp Testing — 10 · Project — Test Plan & GoogleTest Suite](https://sigilipelli.github.io/cpp-testing-mastery-path/level-1/10-project-test-plan-and-suite/)
+- [Java Testing — 10 · Project — Manual Test Plan + Automated Suite](https://sigilipelli.github.io/java-testing-mastery-path/level-1/10-project-test-plan-suite/)
+- [Python Testing — 10 · Project — Test Plan + Automated Suite](https://sigilipelli.github.io/python-testing-mastery-path/level-1/10-project-test-suite/)
+
 ## Exercise — extend the suite
 
 1. Add a `test_remove_item_from_cart` test using a new `CartPage.remove`

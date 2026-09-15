@@ -177,6 +177,12 @@ special-casing for "API-originated" cookies; the format is identical
 because both paths ultimately produce the same storage-state JSON shape
 covered in Module 2.
 
+## 🔀 Related lessons on other tracks
+
+- [Java Testing — 04 · API Testing with RestAssured](https://sigilipelli.github.io/java-testing-mastery-path/level-2/04-api-testing-restassured/)
+- [Python Testing — 03 · API Testing with requests + pytest](https://sigilipelli.github.io/python-testing-mastery-path/level-2/03-api-testing/)
+- [REST API — 05 · API Testing Strategy](https://sigilipelli.github.io/rest-api-mastery-path/level-3/05-api-testing-strategy/)
+
 ## Exercise
 
 1. Write a fixture that creates an `APIRequestContext` pointed at a real or

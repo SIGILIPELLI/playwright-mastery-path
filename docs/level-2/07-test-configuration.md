@@ -198,6 +198,10 @@ identical to setting each of those emulation calls by hand, just
 pre-tuned to match a real device's reported characteristics rather than a
 guess.
 
+## 🔀 Related lessons on other tracks
+
+- [Java Testing — 06 · Maven/Gradle for Test Projects](https://sigilipelli.github.io/java-testing-mastery-path/level-2/06-maven-gradle-test-projects/)
+
 ## Exercise
 
 1. Move any hardcoded `page.goto("https://...")` calls in an existing

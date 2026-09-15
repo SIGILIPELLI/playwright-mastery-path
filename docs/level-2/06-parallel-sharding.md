@@ -176,6 +176,11 @@ happen between tests, not a full `Browser.launch` and OS process spawn each
 time — the latter is the dominant cost `pytest-xdist`'s process-per-worker
 model deliberately avoids paying per test.
 
+## 🔀 Related lessons on other tracks
+
+- [Java Testing — 04 · Selenium Grid & Parallel Execution](https://sigilipelli.github.io/java-testing-mastery-path/level-3/04-selenium-grid-parallel/)
+- [Python Testing — 08 · Parallel Execution (pytest-xdist)](https://sigilipelli.github.io/python-testing-mastery-path/level-2/08-parallel-execution/)
+
 ## Exercise
 
 1. Take an existing small suite (5-10 tests) and time a serial run with

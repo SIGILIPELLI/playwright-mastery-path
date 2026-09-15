@@ -213,6 +213,10 @@ crashing or one shard's assertion failing has zero effect on the CDP
 sessions running in the other matrix jobs, since they share nothing beyond
 the git checkout.
 
+## 🔀 Related lessons on other tracks
+
+- [GitHub & Git — 04 · GitHub Actions Basics (a simple CI workflow)](https://sigilipelli.github.io/github-mastery-path/level-3/04-github-actions-basics/)
+
 ## Exercise
 
 1. Add a GitHub Actions workflow to a real (or sample) repository that

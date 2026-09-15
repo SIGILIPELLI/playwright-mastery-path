@@ -186,6 +186,12 @@ because both the API client and the browser are ultimately just two
 different consumers of the same backend, not two systems that need to be
 kept in sync.
 
+## 🔀 Related lessons on other tracks
+
+- [Automotive Testing — 05 · Test Data Management at Scale](https://sigilipelli.github.io/automotive-testing-mastery-path/level-4/05-test-data-management/)
+- [Java Testing — 05 · Test Data Management](https://sigilipelli.github.io/java-testing-mastery-path/level-2/05-test-data-management/)
+- [Python Testing — 05 · Test Data Management & Factories](https://sigilipelli.github.io/python-testing-mastery-path/level-2/05-test-data-management/)
+
 ## Exercise
 
 1. Write a fixture that creates a record via the API, yields it to the

@@ -183,6 +183,11 @@ removed and a new one shifts into that DOM position, `cards.nth(2)`'s
 `ProductCard` wrapper transparently now describes the *new* card there,
 because nothing about a `Locator` pins it to a specific DOM node identity.
 
+## 🔀 Related lessons on other tracks
+
+- [Java Testing — 01 · Page Object Model (POM)](https://sigilipelli.github.io/java-testing-mastery-path/level-2/01-page-object-model/)
+- [Python Testing — 01 · Page Object Model in Python](https://sigilipelli.github.io/python-testing-mastery-path/level-2/01-page-object-model/)
+
 ## Exercise
 
 Using `https://demoqa.com/login` (a public demo site with a real, if flaky,

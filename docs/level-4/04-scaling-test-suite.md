@@ -182,6 +182,12 @@ this produces are a symptom of state genuinely persisting in the browser
 process, not test-runner ordering flakiness — which is why the fix is
 narrowing the fixture scope back to `function`, not adding a retry.
 
+## 🔀 Related lessons on other tracks
+
+- [Cpp Testing — 10 · Project — Test Plan & GoogleTest Suite](https://sigilipelli.github.io/cpp-testing-mastery-path/level-1/10-project-test-plan-and-suite/)
+- [Java Testing — 10 · Project — Manual Test Plan + Automated Suite](https://sigilipelli.github.io/java-testing-mastery-path/level-1/10-project-test-plan-suite/)
+- [Python Testing — 10 · Project — Test Plan + Automated Suite](https://sigilipelli.github.io/python-testing-mastery-path/level-1/10-project-test-suite/)
+
 ## Exercise
 
 1. Run `pytest --durations=20` on a real suite and identify the top 3

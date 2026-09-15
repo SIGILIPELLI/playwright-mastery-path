@@ -184,6 +184,11 @@ samples an animation frame apart) catching an element genuinely still
 moving — `expect(dialog).to_be_visible()` first gives the CSS transition
 time to finish before the click's own stability check ever has to fight it.
 
+## 🔀 Related lessons on other tracks
+
+- [Java Testing — 09 · Flaky Test Diagnosis & Stabilization](https://sigilipelli.github.io/java-testing-mastery-path/level-3/09-flaky-test-diagnosis/)
+- [Python Testing — 09 · Flaky Test Diagnosis & Stabilization](https://sigilipelli.github.io/python-testing-mastery-path/level-3/09-flaky-tests/)
+
 ## Exercise
 
 1. Write a test with a deliberate race condition (act immediately after
