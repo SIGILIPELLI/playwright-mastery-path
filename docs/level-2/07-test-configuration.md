@@ -1,3 +1,7 @@
+---
+description: "Test Configuration & Projects — Command-line flags typed by hand drift between developers and CI. Baking them into config means pytest alone reproduces…"
+---
+
 # 07 · Test Configuration & Projects
 
 ## `pytest.ini` / `pyproject.toml` as the single source of truth

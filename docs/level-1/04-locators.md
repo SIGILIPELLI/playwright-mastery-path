@@ -1,3 +1,7 @@
+---
+description: "Locators — A Locator is a description of how to find an element — not a reference to a specific DOM node captured at one moment in time. This distinction…"
+---
+
 # 04 · Locators
 
 ## What a locator is

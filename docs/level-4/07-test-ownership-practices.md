@@ -1,3 +1,7 @@
+---
+description: "Test Ownership & Team Practices — Technical practices (retries, tracing, sharding) only pay off if the team around the suite treats it as owned…"
+---
+
 # 07 · Test Ownership & Team Practices
 
 Technical practices (retries, tracing, sharding) only pay off if the team

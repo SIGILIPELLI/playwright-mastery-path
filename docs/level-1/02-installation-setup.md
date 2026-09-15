@@ -1,3 +1,7 @@
+---
+description: "Installation & Project Setup — pip install gets you the Python library — the API you import and call. playwright install downloads the actual browser…"
+---
+
 # 02 · Installation & Project Setup
 
 ## Creating the project

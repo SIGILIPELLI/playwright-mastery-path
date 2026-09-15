@@ -1,3 +1,7 @@
+---
+description: "Page Object Model — A script like Level 1's login flow is fine for one test. Once you have dozens of tests touching the same login page, search bar, or…"
+---
+
 # 01 · Page Object Model
 
 ## Why not just write scripts?

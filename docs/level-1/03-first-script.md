@@ -1,3 +1,7 @@
+---
+description: "Your First Script — Running this also writes example.png to your working directory — a full screenshot of the rendered page, useful for a quick visual…"
+---
+
 # 03 · Your First Script
 
 ## The core objects

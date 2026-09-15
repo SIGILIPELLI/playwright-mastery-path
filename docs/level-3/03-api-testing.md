@@ -1,3 +1,7 @@
+---
+description: "API Testing with Request Context — Not every check needs a browser. Playwright ships a standalone HTTP client — APIRequestContext — that shares its cookie…"
+---
+
 # 03 · API Testing with Request Context
 
 Not every check needs a browser. Playwright ships a standalone HTTP client —

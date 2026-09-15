@@ -1,3 +1,7 @@
+---
+description: "Project — Full CI E2E Pipeline — This project ties together every Level 3 module into one working pipeline: API-seeded data, reused auth state, visual and…"
+---
+
 # 10 · Project — Full CI E2E Pipeline
 
 This project ties together every Level 3 module into one working pipeline:

@@ -1,3 +1,7 @@
+---
+description: "Performance & Tracing — Playwright can capture real browser performance data — not just 'did it load' but 'how long did it take, and where did the time…"
+---
+
 # 08 · Performance & Tracing
 
 Playwright can capture real browser performance data — not just "did it

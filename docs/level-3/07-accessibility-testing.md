@@ -1,3 +1,7 @@
+---
+description: "Accessibility Testing — Playwright can't tell you your app is usable by someone on a screen reader, but it can automatically catch the mechanical…"
+---
+
 # 07 · Accessibility Testing
 
 Playwright can't tell you your app is *usable* by someone on a screen

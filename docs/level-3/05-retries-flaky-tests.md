@@ -1,3 +1,7 @@
+---
+description: "Test Retries & Flaky Test Triage — A flaky test — one that passes and fails on the same code, non-deterministically — is worse than no test at all: it…"
+---
+
 # 05 · Test Retries & Flaky Test Triage
 
 A flaky test — one that passes and fails on the same code, non-deterministically

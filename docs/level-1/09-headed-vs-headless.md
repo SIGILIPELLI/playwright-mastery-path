@@ -1,3 +1,7 @@
+---
+description: "Running Headed vs. Headless — A headed browser renders an actual visible window you can watch — the same Chromium/Firefox/WebKit UI a human would see. A…"
+---
+
 # 09 · Running Headed vs. Headless
 
 ## The difference

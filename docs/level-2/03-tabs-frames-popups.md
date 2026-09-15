@@ -1,3 +1,7 @@
+---
+description: "Multiple Tabs, Frames & Popups — Clicking a link with target='_blank', or code calling window.open(), opens a new tab. In Playwright terms that's a new…"
+---
+
 # 03 · Multiple Tabs, Frames & Popups
 
 ## Popups: a new page, not a new browser

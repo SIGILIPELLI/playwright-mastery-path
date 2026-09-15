@@ -1,3 +1,7 @@
+---
+description: "Advanced Locator Strategies — Level 1 covers get_by_role, get_by_text, and friends. Real apps often need to combine locators, filter by descendant…"
+---
+
 # 06 · Advanced Locator Strategies
 
 Level 1 covers `get_by_role`, `get_by_text`, and friends. Real apps often

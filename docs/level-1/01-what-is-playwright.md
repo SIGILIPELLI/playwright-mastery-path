@@ -1,3 +1,7 @@
+---
+description: "What Is Playwright & Why E2E Testing — Unit tests verify a function in isolation. Integration tests verify a few components wired together. End-to-end…"
+---
+
 # 01 · What Is Playwright & Why E2E Testing
 
 ## What end-to-end testing actually checks

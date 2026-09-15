@@ -1,3 +1,7 @@
+---
+description: "Authentication State Reuse — Logging in through the UI at the start of every test is slow and, worse, makes every single test depend on the login form…"
+---
+
 # 02 · Authentication State Reuse
 
 Logging in through the UI at the start of every test is slow and, worse,

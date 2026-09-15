@@ -1,3 +1,7 @@
+---
+description: "Extending Playwright (Custom Fixtures/Plugins) — Once a team's suite has grown past a handful of files, repeated fixture boilerplate across projects…"
+---
+
 # 09 · Extending Playwright (Custom Fixtures/Plugins)
 
 Once a team's suite has grown past a handful of files, repeated fixture

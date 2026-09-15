@@ -1,3 +1,7 @@
+---
+description: "Parallel Execution & Sharding — A suite of 500 E2E tests at ~2 seconds each is nearly 17 minutes run serially. Since most Playwright tests spend most of…"
+---
+
 # 06 · Parallel Execution & Sharding
 
 ## Why parallelize

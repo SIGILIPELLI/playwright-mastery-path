@@ -1,3 +1,7 @@
+---
+description: "Custom Reporters — The built-in pytest console output and JUnit XML are enough to know pass/ fail, but a team running hundreds of E2E tests usually wants…"
+---
+
 # 03 · Custom Reporters
 
 The built-in pytest console output and JUnit XML are enough to know pass/

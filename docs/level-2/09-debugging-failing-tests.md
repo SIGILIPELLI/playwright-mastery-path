@@ -1,3 +1,7 @@
+---
+description: "Debugging Failing Tests — Playwright's timeout errors are unusually informative — resist the urge to immediately add page.wait_for_timeout(5000) before…"
+---
+
 # 09 · Debugging Failing Tests
 
 ## Read the error message first

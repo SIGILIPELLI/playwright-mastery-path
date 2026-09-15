@@ -1,3 +1,7 @@
+---
+description: "Cross-Browser & Device Strategy — Running every test against every browser on every PR is rarely the right default — it multiplies CI time for coverage…"
+---
+
 # 01 · Cross-Browser & Device Strategy
 
 Running every test against every browser on every PR is rarely the right

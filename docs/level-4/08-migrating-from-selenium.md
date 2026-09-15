@@ -1,3 +1,7 @@
+---
+description: "Migrating from Selenium — Teams rarely rewrite an entire Selenium suite overnight. This module covers both the concept mapping (so existing Selenium…"
+---
+
 # 08 · Migrating from Selenium
 
 Teams rarely rewrite an entire Selenium suite overnight. This module covers

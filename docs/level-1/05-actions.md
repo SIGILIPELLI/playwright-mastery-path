@@ -1,3 +1,7 @@
+---
+description: "Actions — Every action method below performs Playwright's actionability checks first (Module 7 covers these in depth): the target element must be attached…"
+---
+
 # 05 · Actions
 
 Every action method below performs Playwright's **actionability checks**

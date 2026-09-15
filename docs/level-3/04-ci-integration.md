@@ -1,3 +1,7 @@
+---
+description: "CI Integration (GitHub Actions) — A test suite that only runs on someone's laptop protects nobody. This module wires a Playwright/pytest suite into GitHub…"
+---
+
 # 04 · CI Integration (GitHub Actions)
 
 A test suite that only runs on someone's laptop protects nobody. This module

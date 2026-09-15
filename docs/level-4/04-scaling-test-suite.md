@@ -1,3 +1,7 @@
+---
+description: "Scaling a Test Suite — A suite that takes 5 minutes at 50 tests can take an hour at 2,000 if nobody actively manages its shape. This module covers the…"
+---
+
 # 04 · Scaling a Test Suite
 
 A suite that takes 5 minutes at 50 tests can take an hour at 2,000 if nobody

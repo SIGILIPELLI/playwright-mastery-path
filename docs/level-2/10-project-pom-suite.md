@@ -1,3 +1,7 @@
+---
+description: "Project — POM Test Suite — Build a small but real multi-file test suite against https://www.saucedemo.com/ (a public demo e-commerce app built…"
+---
+
 # 10 · Project — POM Test Suite
 
 ## Goal

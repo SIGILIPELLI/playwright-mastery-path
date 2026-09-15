@@ -1,3 +1,7 @@
+---
+description: "Fixtures & Test Hooks — Every test in Module 1's suite repeated LoginPage(page) and often login.goto(). Multiply that by fifty tests across ten page…"
+---
+
 # 02 · Fixtures & Test Hooks
 
 ## The problem fixtures solve

@@ -1,3 +1,7 @@
+---
+description: "Visual Regression Testing — Functional assertions (expect(locator).to_have_text(...)) can't catch a button that renders with the wrong padding, a broken…"
+---
+
 # 01 · Visual Regression Testing
 
 Functional assertions (`expect(locator).to_have_text(...)`) can't catch a

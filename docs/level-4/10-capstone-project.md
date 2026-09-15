@@ -1,3 +1,7 @@
+---
+description: "Capstone — Production-Grade E2E Framework — The capstone assembles everything from Levels 1-4 into one cohesive framework: a shared fixtures plugin…"
+---
+
 # 10 · Capstone — Production-Grade E2E Framework
 
 The capstone assembles everything from Levels 1-4 into one cohesive

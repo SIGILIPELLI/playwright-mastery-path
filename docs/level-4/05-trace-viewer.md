@@ -1,3 +1,7 @@
+---
+description: "Debugging with Trace Viewer — Earlier levels used tracing to grab a post-mortem on failure. This module goes deeper into the Trace Viewer itself — the…"
+---
+
 # 05 · Debugging with Trace Viewer
 
 Earlier levels used tracing to grab a post-mortem on failure. This module

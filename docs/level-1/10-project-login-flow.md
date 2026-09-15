@@ -1,3 +1,7 @@
+---
+description: "Project — Automate a Login Flow — This project ties together every Module 1–9 concept into one small but real test file: project setup, first script…"
+---
+
 # 10 · Project — Automate a Login Flow
 
 This project ties together every Module 1–9 concept into one small but real

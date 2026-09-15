@@ -1,3 +1,7 @@
+---
+description: "Playwright Architecture Internals — Knowing why Playwright behaves the way it does — one process, a single WebSocket-driven protocol, auto-waiting baked…"
+---
+
 # 06 · Playwright Architecture Internals
 
 Knowing *why* Playwright behaves the way it does — one process, a single

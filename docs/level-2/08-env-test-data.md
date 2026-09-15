@@ -1,3 +1,7 @@
+---
+description: "Environment & Test Data Management — Tests need URLs, credentials, and API keys that differ between local, staging, and CI — and must never contain real…"
+---
+
 # 08 · Environment & Test Data Management
 
 ## The problem: secrets and environment drift

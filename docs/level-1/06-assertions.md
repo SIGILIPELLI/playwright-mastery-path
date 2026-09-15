@@ -1,3 +1,7 @@
+---
+description: "Assertions with expect — You could write assert page.get_by_text('Products').is_visible() instead — but is_visible() checks the DOM at the exact instant…"
+---
+
 # 06 · Assertions with expect
 
 ## Why `expect` instead of plain `assert`

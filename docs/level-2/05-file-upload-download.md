@@ -1,3 +1,7 @@
+---
+description: "File Upload & Download — Most upload widgets are, underneath any custom styling, an . Playwright can set its value directly — no need to interact with the…"
+---
+
 # 05 · File Upload & Download
 
 ## Uploading via `set_input_files`

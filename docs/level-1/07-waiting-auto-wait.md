@@ -1,3 +1,7 @@
+---
+description: "Waiting & Auto-Wait Philosophy — This either wastes time (waiting longer than necessary, multiplied across thousands of test runs) or is still too short…"
+---
+
 # 07 · Waiting & Auto-Wait Philosophy
 
 ## The problem auto-waiting solves

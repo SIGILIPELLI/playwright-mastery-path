@@ -1,3 +1,7 @@
+---
+description: "Component Testing — Full E2E tests are slow and only exercise a component through whatever paths the rest of the app happens to expose. Playwright's…"
+---
+
 # 02 · Component Testing
 
 Full E2E tests are slow and only exercise a component through whatever paths

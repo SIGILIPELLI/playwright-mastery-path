@@ -1,3 +1,7 @@
+---
+description: "Network Interception & Mocking — Real end-to-end tests should hit a real backend most of the time — that's the point of E2E. But some scenarios are…"
+---
+
 # 04 · Network Interception & Mocking
 
 ## Why intercept network traffic in a test
