@@ -186,8 +186,8 @@ time to finish before the click's own stability check ever has to fight it.
 
 ## 🔀 Related lessons on other tracks
 
-- [Java Testing — 09 · Flaky Test Diagnosis & Stabilization](https://sigilipelli.github.io/java-testing-mastery-path/level-3/09-flaky-test-diagnosis/)
-- [Python Testing — 09 · Flaky Test Diagnosis & Stabilization](https://sigilipelli.github.io/python-testing-mastery-path/level-3/09-flaky-tests/)
+- [Java Testing — 09 · Flaky Test Diagnosis & Stabilization](https://learnmasterypath.com/java-testing-mastery-path/level-3/09-flaky-test-diagnosis/)
+- [Python Testing — 09 · Flaky Test Diagnosis & Stabilization](https://learnmasterypath.com/python-testing-mastery-path/level-3/09-flaky-tests/)
 
 ## Exercise
 

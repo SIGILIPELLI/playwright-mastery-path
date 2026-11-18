@@ -185,8 +185,8 @@ because nothing about a `Locator` pins it to a specific DOM node identity.
 
 ## 🔀 Related lessons on other tracks
 
-- [Java Testing — 01 · Page Object Model (POM)](https://sigilipelli.github.io/java-testing-mastery-path/level-2/01-page-object-model/)
-- [Python Testing — 01 · Page Object Model in Python](https://sigilipelli.github.io/python-testing-mastery-path/level-2/01-page-object-model/)
+- [Java Testing — 01 · Page Object Model (POM)](https://learnmasterypath.com/java-testing-mastery-path/level-2/01-page-object-model/)
+- [Python Testing — 01 · Page Object Model in Python](https://learnmasterypath.com/python-testing-mastery-path/level-2/01-page-object-model/)
 
 ## Exercise
 

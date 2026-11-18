@@ -264,9 +264,9 @@ merely that the dropdown's displayed selection changed.
 
 ## 🔀 Related lessons on other tracks
 
-- [Cpp Testing — 10 · Project — Test Plan & GoogleTest Suite](https://sigilipelli.github.io/cpp-testing-mastery-path/level-1/10-project-test-plan-and-suite/)
-- [Java Testing — 10 · Project — Manual Test Plan + Automated Suite](https://sigilipelli.github.io/java-testing-mastery-path/level-1/10-project-test-plan-suite/)
-- [Python Testing — 10 · Project — Test Plan + Automated Suite](https://sigilipelli.github.io/python-testing-mastery-path/level-1/10-project-test-suite/)
+- [Cpp Testing — 10 · Project — Test Plan & GoogleTest Suite](https://learnmasterypath.com/cpp-testing-mastery-path/level-1/10-project-test-plan-and-suite/)
+- [Java Testing — 10 · Project — Manual Test Plan + Automated Suite](https://learnmasterypath.com/java-testing-mastery-path/level-1/10-project-test-plan-suite/)
+- [Python Testing — 10 · Project — Test Plan + Automated Suite](https://learnmasterypath.com/python-testing-mastery-path/level-1/10-project-test-suite/)
 
 ## Exercise — extend the suite
 

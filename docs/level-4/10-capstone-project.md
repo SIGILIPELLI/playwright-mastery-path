@@ -219,8 +219,8 @@ linearly alongside it.
 
 ## 🔀 Related lessons on other tracks
 
-- [Java Testing — 10 · Capstone — Production-Grade Test Framework](https://sigilipelli.github.io/java-testing-mastery-path/level-4/10-capstone-test-framework/)
-- [Python Testing — 10 · Capstone — Production-Grade Framework](https://sigilipelli.github.io/python-testing-mastery-path/level-4/10-capstone-project/)
+- [Java Testing — 10 · Capstone — Production-Grade Test Framework](https://learnmasterypath.com/java-testing-mastery-path/level-4/10-capstone-test-framework/)
+- [Python Testing — 10 · Capstone — Production-Grade Framework](https://learnmasterypath.com/python-testing-mastery-path/level-4/10-capstone-project/)
 
 ## Exercise
 

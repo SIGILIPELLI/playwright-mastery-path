@@ -215,7 +215,7 @@ the git checkout.
 
 ## 🔀 Related lessons on other tracks
 
-- [GitHub & Git — 04 · GitHub Actions Basics (a simple CI workflow)](https://sigilipelli.github.io/github-mastery-path/level-3/04-github-actions-basics/)
+- [GitHub & Git — 04 · GitHub Actions Basics (a simple CI workflow)](https://learnmasterypath.com/github-mastery-path/level-3/04-github-actions-basics/)
 
 ## Exercise
 

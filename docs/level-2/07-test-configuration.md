@@ -200,7 +200,7 @@ guess.
 
 ## 🔀 Related lessons on other tracks
 
-- [Java Testing — 06 · Maven/Gradle for Test Projects](https://sigilipelli.github.io/java-testing-mastery-path/level-2/06-maven-gradle-test-projects/)
+- [Java Testing — 06 · Maven/Gradle for Test Projects](https://learnmasterypath.com/java-testing-mastery-path/level-2/06-maven-gradle-test-projects/)
 
 ## Exercise
 

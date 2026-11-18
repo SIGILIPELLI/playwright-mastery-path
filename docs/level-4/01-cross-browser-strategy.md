@@ -177,9 +177,9 @@ Safari-engine coverage.
 
 ## 🔀 Related lessons on other tracks
 
-- [AI Manager — 05 · Cross-Team AI Platform Strategy](https://sigilipelli.github.io/ai-manager-mastery-path/level-3/05-cross-team-ai-platform-strategy/)
-- [Java Testing — 09 · Cross-Browser Testing](https://sigilipelli.github.io/java-testing-mastery-path/level-2/09-cross-browser-testing/)
-- [Python Testing — 09 · Cross-Browser Testing](https://sigilipelli.github.io/python-testing-mastery-path/level-2/09-cross-browser-testing/)
+- [AI Manager — 05 · Cross-Team AI Platform Strategy](https://learnmasterypath.com/ai-manager-mastery-path/level-3/05-cross-team-ai-platform-strategy/)
+- [Java Testing — 09 · Cross-Browser Testing](https://learnmasterypath.com/java-testing-mastery-path/level-2/09-cross-browser-testing/)
+- [Python Testing — 09 · Cross-Browser Testing](https://learnmasterypath.com/python-testing-mastery-path/level-2/09-cross-browser-testing/)
 
 ## Exercise
 
