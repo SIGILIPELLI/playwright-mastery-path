@@ -1,3 +1,7 @@
+---
+description: "Level 3 (Advanced) of the free Playwright Mastery Path: Visual Regression Testing, Authentication State Reuse, API Testing with Request Context, CI…"
+---
+
 # Level 3 · Advanced
 
 ## Modules

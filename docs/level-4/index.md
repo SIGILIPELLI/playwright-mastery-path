@@ -1,3 +1,7 @@
+---
+description: "Level 4 (Master) of the free Playwright Mastery Path: Cross-Browser & Device Strategy, Component Testing, Custom Reporters, Scaling a Test Suite, Debugging…"
+---
+
 # Level 4 · Master
 
 ## Modules

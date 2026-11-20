@@ -1,3 +1,7 @@
+---
+description: "Level 2 (Intermediate) of the free Playwright Mastery Path. Move from one-off scripts to a real test suite — organize page logic with the Page Object Model…"
+---
+
 # Level 2 · Intermediate <span class="level-badge">Structure & Scale</span>
 
 Goal: move from one-off scripts to a real test suite — organize page logic

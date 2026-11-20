@@ -1,3 +1,7 @@
+---
+description: "Level 1 (Entry) of the free Playwright Mastery Path. Understand what Playwright is and why end-to-end testing with it beats older tools, get a working…"
+---
+
 # Level 1 · Entry <span class="level-badge">Foundations</span>
 
 Goal: understand what Playwright is and why end-to-end testing with it beats
