@@ -53,9 +53,11 @@ markdown_extensions:
 extra_css:
   - stylesheets/extra.css
   - stylesheets/progress-tracker.css
+  - stylesheets/final-quiz.css
 
 extra_javascript:
   - javascripts/progress-tracker.js
+  - javascripts/final-quiz.js
 
 
 
@@ -121,3 +123,5 @@ nav:
       - "08 · Migrating from Selenium": level-4/08-migrating-from-selenium.md
       - "09 · Extending Playwright (Custom Fixtures/Plugins)": level-4/09-extending-playwright.md
       - "10 · Capstone — Production-Grade E2E Framework": level-4/10-capstone-project.md
+  - "🎯 Final Quiz": quiz.md
+
