@@ -234,7 +234,7 @@ Implement LoginPage (locators for the Email and Password fields, the Sign in but
 
 **Starter code**
 
-```javascript
+```python
 from playwright.sync_api import sync_playwright, expect
 
 LOGIN_HTML = '<form id="f"><label>Email <input id="email"></label><label>Password <input id="pw" type="password"></label>\n<button type="submit">Sign in</button><p id="msg" role="alert"></p></form>\n<script>document.getElementById("f").addEventListener("submit",e=>{e.preventDefault();\nconst ok=document.getElementById("email").value==="ada@example.com"&&document.getElementById("pw").value==="s3cret";\ndocument.getElementById("msg").textContent=ok?"Welcome, Ada":"Invalid credentials";});</script>'
@@ -341,7 +341,7 @@ Implement run_case(browser, items): route the items endpoint to a canned JSON re
 
 **Starter code**
 
-```javascript
+```python
 from playwright.sync_api import sync_playwright, expect
 
 PAGE = """<table id="t"><thead><tr><th>Item</th><th>Price</th></tr></thead><tbody id="b"></tbody></table><p id="status">loading</p>
