@@ -77,7 +77,7 @@ not_in_nav: |
 
 nav:
   - Home: index.md
-  - "💼 Interview Questions": interview-questions.md
+  - Interview Questions: interview-questions.md
   - "Level 1 · Entry":
       - Overview: level-1/index.md
       - "01 · What Is Playwright & Why E2E Testing": level-1/01-what-is-playwright.md
@@ -126,5 +126,5 @@ nav:
       - "08 · Migrating from Selenium": level-4/08-migrating-from-selenium.md
       - "09 · Extending Playwright (Custom Fixtures/Plugins)": level-4/09-extending-playwright.md
       - "10 · Capstone — Production-Grade E2E Framework": level-4/10-capstone-project.md
-  - "🎯 Final Quiz": quiz.md
+  - Final Quiz: quiz.md
 
