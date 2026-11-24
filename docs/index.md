@@ -1,6 +1,6 @@
 ---
 title: "Learn Playwright Free: Browser Automation & E2E Testing"
-description: "Free Playwright course -- 40 hands-on lessons covering browser automation, locators, Page Object Model, network mocking, visual regression and CI, with 4 real projects. Part of a free learning library."
+description: "Free Playwright course -- 36 hands-on lessons and 4 projects covering browser automation, locators, Page Object Model, network mocking, visual regression and CI, with 4 real projects. Part of a free learning library."
 ---
 
 # Playwright Mastery Path
