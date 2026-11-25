@@ -1,0 +1,4329 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="179 Playwright interview questions with answers and explanations, from beginner to advanced, organised by level. Free, from the Playwright Mastery Path.">
+      
+      
+      
+        <link rel="canonical" href="https://learnmasterypath.com/playwright-mastery-path/interview-questions/">
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../level-1/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+  
+  <title>Playwright Interview Questions and Answers (179 Questions)</title>
+
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="../stylesheets/progress-tracker.css">
+    
+      <link rel="stylesheet" href="../stylesheets/final-quiz.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-05VBGCXN12"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-05VBGCXN12');
+  </script>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Mastery Path">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Playwright Interview Questions and Answers (179 Questions)">
+  <meta property="og:description" content="179 Playwright interview questions with answers and explanations, from beginner to advanced, organised by level. Free, from the Playwright Mastery Path.">
+  <meta property="og:url" content="https://learnmasterypath.com/playwright-mastery-path/interview-questions/">
+  <meta property="og:image" content="https://learnmasterypath.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Mastery Path: free structured courses, beginner to master">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Playwright Interview Questions and Answers (179 Questions)">
+  <meta name="twitter:description" content="179 Playwright interview questions with answers and explanations, from beginner to advanced, organised by level. Free, from the Playwright Mastery Path.">
+  <meta name="twitter:image" content="https://learnmasterypath.com/og-image.png">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9440969811959397"
+     crossorigin="anonymous"></script><script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Mastery Path", "item": "https://learnmasterypath.com/"},
+      {"@type": "ListItem", "position": 2, "name": "Playwright Mastery Path", "item": "https://learnmasterypath.com/playwright-mastery-path/"},
+      {"@type": "ListItem", "position": 3, "name": "Interview Questions", "item": "https://learnmasterypath.com/playwright-mastery-path/interview-questions/"}
+    ]
+  }
+  </script>
+  <style>
+    .md-banner a:hover { text-decoration: underline !important; }
+    .mp-related { margin-top: 2.4rem; padding-top: 1rem; border-top: 1px solid var(--md-default-fg-color--lightest); font-size: .78rem; }
+    .mp-related h2 { font-size: .9rem; margin: 0 0 .5rem; }
+    .mp-related ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .4rem .9rem; }
+    .mp-related li { margin: 0 !important; }
+  </style>
+  <script type="application/json" id="mp-course-meta">{"home": false, "id": "playwright-mastery-path", "name": "Playwright Mastery Path", "repo": "https://github.com/SIGILIPELLI/playwright-mastery-path", "src": "interview-questions.md", "url": "https://learnmasterypath.com/playwright-mastery-path/"}</script>
+  <link rel="stylesheet" href="https://learnmasterypath.com/assets/learn.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://learnmasterypath.com/assets/course.css?v=1">
+  <script src="https://learnmasterypath.com/assets/learn.js" defer></script>
+  <script src="https://learnmasterypath.com/assets/signup.js" defer></script>
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#playwright-interview-questions-and-answers" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+  <a href="https://learnmasterypath.com/" style="color: inherit; text-decoration: none;">
+    &larr; Mastery Path &middot; all 100+ free courses
+  </a>
+  <span style="opacity: .6; margin: 0 .6em;">|</span>
+  <a href="https://learnmasterypath.com/search/" style="color: inherit; text-decoration: none;">Search all courses</a>
+  <span style="opacity: .6; margin: 0 .6em;">|</span>
+  <a href="https://learnmasterypath.com/resume/" style="color: inherit; font-weight: 700; text-decoration: none;">
+    Got the skills? Free resume ATS check &rarr;
+  </a>
+
+          </div>
+          
+        </aside>
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Playwright Mastery Path" class="md-header__button md-logo" aria-label="Playwright Mastery Path" data-md-component="logo">
+      <svg class="mp-mark" viewBox="0 0 160 160" role="img" aria-label="Mastery Path logo">
+  <circle cx="80" cy="80" r="74" fill="#FAF7EF" stroke="#2FA98D" stroke-width="5"/>
+  <rect class="mp-bar mp-bar-1" x="36" y="90" width="17" height="24" rx="5" fill="#2FA98D"/>
+  <rect class="mp-bar mp-bar-2" x="59" y="74" width="17" height="40" rx="5" fill="#7FC9B7"/>
+  <rect class="mp-bar mp-bar-3" x="82" y="56" width="17" height="58" rx="5" fill="#E0B457"/>
+  <rect class="mp-bar mp-bar-4" x="105" y="38" width="17" height="76" rx="5" fill="#C97B4A"/>
+  <circle class="mp-dot" cx="44.5" cy="82" r="7" fill="#22261f"/>
+</svg>
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Playwright Mastery Path
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Playwright Interview Questions and Answers (179 Questions)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/SIGILIPELLI/playwright-mastery-path" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    playwright-mastery-path
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Interview Questions
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../level-1/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Level 1 · Entry
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../level-2/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Level 2 · Intermediate
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../level-3/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Level 3 · Advanced
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../level-4/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Level 4 · Master
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../quiz/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Final Quiz
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Playwright Mastery Path" class="md-nav__button md-logo" aria-label="Playwright Mastery Path" data-md-component="logo">
+      <svg class="mp-mark" viewBox="0 0 160 160" role="img" aria-label="Mastery Path logo">
+  <circle cx="80" cy="80" r="74" fill="#FAF7EF" stroke="#2FA98D" stroke-width="5"/>
+  <rect class="mp-bar mp-bar-1" x="36" y="90" width="17" height="24" rx="5" fill="#2FA98D"/>
+  <rect class="mp-bar mp-bar-2" x="59" y="74" width="17" height="40" rx="5" fill="#7FC9B7"/>
+  <rect class="mp-bar mp-bar-3" x="82" y="56" width="17" height="58" rx="5" fill="#E0B457"/>
+  <rect class="mp-bar mp-bar-4" x="105" y="38" width="17" height="76" rx="5" fill="#C97B4A"/>
+  <circle class="mp-dot" cx="44.5" cy="82" r="7" fill="#22261f"/>
+</svg>
+    </a>
+    Playwright Mastery Path
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/SIGILIPELLI/playwright-mastery-path" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    playwright-mastery-path
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interview Questions
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interview Questions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#level-1-entry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Level 1 · Entry
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Level 1 · Entry">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#01-what-is-playwright-why-e2e-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        01 · What Is Playwright &amp; Why E2E Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#02-installation-project-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        02 · Installation &amp; Project Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#03-your-first-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        03 · Your First Script
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#04-locators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        04 · Locators
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#05-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        05 · Actions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#06-assertions-with-expect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        06 · Assertions with expect
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#07-waiting-auto-wait-philosophy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        07 · Waiting &amp; Auto-Wait Philosophy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#08-handling-forms-dropdowns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        08 · Handling Forms &amp; Dropdowns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#09-running-headed-vs-headless" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        09 · Running Headed vs. Headless
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-project-automate-a-login-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10 · Project — Automate a Login Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#level-2-intermediate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Level 2 · Intermediate
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Level 2 · Intermediate">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#01-page-object-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        01 · Page Object Model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#02-fixtures-test-hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        02 · Fixtures &amp; Test Hooks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#03-multiple-tabs-frames-popups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        03 · Multiple Tabs, Frames &amp; Popups
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#04-network-interception-mocking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        04 · Network Interception &amp; Mocking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#05-file-upload-download" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        05 · File Upload &amp; Download
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#06-parallel-execution-sharding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        06 · Parallel Execution &amp; Sharding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#07-test-configuration-projects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        07 · Test Configuration &amp; Projects
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#08-environment-test-data-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        08 · Environment &amp; Test Data Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#09-debugging-failing-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        09 · Debugging Failing Tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-project-pom-test-suite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10 · Project — POM Test Suite
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#level-3-advanced" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Level 3 · Advanced
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Level 3 · Advanced">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#01-visual-regression-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        01 · Visual Regression Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#02-authentication-state-reuse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        02 · Authentication State Reuse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#03-api-testing-with-request-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        03 · API Testing with Request Context
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#04-ci-integration-github-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        04 · CI Integration (GitHub Actions)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#05-test-retries-flaky-test-triage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        05 · Test Retries &amp; Flaky Test Triage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#06-advanced-locator-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        06 · Advanced Locator Strategies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#07-accessibility-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        07 · Accessibility Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#08-performance-tracing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        08 · Performance &amp; Tracing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#09-test-data-seeding-via-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        09 · Test Data Seeding via API
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-project-full-ci-e2e-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10 · Project — Full CI E2E Pipeline
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#level-4-master" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Level 4 · Master
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Level 4 · Master">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#01-cross-browser-device-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        01 · Cross-Browser &amp; Device Strategy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#02-component-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        02 · Component Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#03-custom-reporters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        03 · Custom Reporters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#04-scaling-a-test-suite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        04 · Scaling a Test Suite
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#05-debugging-with-trace-viewer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        05 · Debugging with Trace Viewer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#06-playwright-architecture-internals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        06 · Playwright Architecture Internals
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#07-test-ownership-team-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        07 · Test Ownership &amp; Team Practices
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#08-migrating-from-selenium" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        08 · Migrating from Selenium
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#09-extending-playwright-custom-fixturesplugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        09 · Extending Playwright (Custom Fixtures/Plugins)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-capstone-production-grade-e2e-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10 · Capstone — Production-Grade E2E Framework
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mixed-questions-across-all-levels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mixed questions across all levels
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practical-coding-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Practical coding questions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Practical coding questions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-page-object-and-isolated-login-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A page object and isolated login tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mock-an-api-and-read-a-table-without-sleeping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mock an API and read a table without sleeping
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../level-1/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 1 · Entry
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 1 · Entry
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-1/01-what-is-playwright/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 · What Is Playwright & Why E2E Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-1/02-installation-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 · Installation & Project Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-1/03-first-script/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 · Your First Script
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-1/04-locators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 · Locators
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-1/05-actions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 · Actions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-1/06-assertions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06 · Assertions with expect
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-1/07-waiting-auto-wait/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07 · Waiting & Auto-Wait Philosophy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-1/08-forms-dropdowns/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08 · Forms & Dropdowns
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-1/09-headed-vs-headless/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09 · Headed vs. Headless
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-1/10-project-login-flow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10 · Project — Automate a Login Flow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../level-2/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 2 · Intermediate
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 2 · Intermediate
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-2/01-page-object-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 · Page Object Model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-2/02-fixtures-hooks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 · Fixtures & Test Hooks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-2/03-tabs-frames-popups/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 · Multiple Tabs, Frames & Popups
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-2/04-network-interception/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 · Network Interception & Mocking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-2/05-file-upload-download/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 · File Upload & Download
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-2/06-parallel-sharding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06 · Parallel Execution & Sharding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-2/07-test-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07 · Test Configuration & Projects
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-2/08-env-test-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08 · Environment & Test Data Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-2/09-debugging-failing-tests/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09 · Debugging Failing Tests
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-2/10-project-pom-suite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10 · Project — POM Test Suite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../level-3/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 3 · Advanced
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 3 · Advanced
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-3/01-visual-regression/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 · Visual Regression Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-3/02-auth-state-reuse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 · Authentication State Reuse
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-3/03-api-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 · API Testing with Request Context
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-3/04-ci-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 · CI Integration (GitHub Actions)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-3/05-retries-flaky-tests/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 · Test Retries & Flaky Test Triage
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-3/06-advanced-locators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06 · Advanced Locator Strategies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-3/07-accessibility-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07 · Accessibility Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-3/08-performance-tracing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08 · Performance & Tracing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-3/09-test-data-seeding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09 · Test Data Seeding via API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-3/10-project-ci-pipeline/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10 · Project — Full CI E2E Pipeline
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../level-4/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Level 4 · Master
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Level 4 · Master
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-4/01-cross-browser-strategy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    01 · Cross-Browser & Device Strategy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-4/02-component-testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    02 · Component Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-4/03-custom-reporters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    03 · Custom Reporters
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-4/04-scaling-test-suite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    04 · Scaling a Test Suite
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-4/05-trace-viewer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    05 · Debugging with Trace Viewer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-4/06-architecture-internals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    06 · Playwright Architecture Internals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-4/07-test-ownership-practices/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    07 · Test Ownership & Team Practices
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-4/08-migrating-from-selenium/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    08 · Migrating from Selenium
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-4/09-extending-playwright/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    09 · Extending Playwright (Custom Fixtures/Plugins)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../level-4/10-capstone-project/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10 · Capstone — Production-Grade E2E Framework
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../quiz/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Final Quiz
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#level-1-entry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Level 1 · Entry
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Level 1 · Entry">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#01-what-is-playwright-why-e2e-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        01 · What Is Playwright &amp; Why E2E Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#02-installation-project-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        02 · Installation &amp; Project Setup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#03-your-first-script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        03 · Your First Script
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#04-locators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        04 · Locators
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#05-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        05 · Actions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#06-assertions-with-expect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        06 · Assertions with expect
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#07-waiting-auto-wait-philosophy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        07 · Waiting &amp; Auto-Wait Philosophy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#08-handling-forms-dropdowns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        08 · Handling Forms &amp; Dropdowns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#09-running-headed-vs-headless" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        09 · Running Headed vs. Headless
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-project-automate-a-login-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10 · Project — Automate a Login Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#level-2-intermediate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Level 2 · Intermediate
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Level 2 · Intermediate">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#01-page-object-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        01 · Page Object Model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#02-fixtures-test-hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        02 · Fixtures &amp; Test Hooks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#03-multiple-tabs-frames-popups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        03 · Multiple Tabs, Frames &amp; Popups
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#04-network-interception-mocking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        04 · Network Interception &amp; Mocking
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#05-file-upload-download" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        05 · File Upload &amp; Download
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#06-parallel-execution-sharding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        06 · Parallel Execution &amp; Sharding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#07-test-configuration-projects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        07 · Test Configuration &amp; Projects
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#08-environment-test-data-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        08 · Environment &amp; Test Data Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#09-debugging-failing-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        09 · Debugging Failing Tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-project-pom-test-suite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10 · Project — POM Test Suite
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#level-3-advanced" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Level 3 · Advanced
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Level 3 · Advanced">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#01-visual-regression-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        01 · Visual Regression Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#02-authentication-state-reuse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        02 · Authentication State Reuse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#03-api-testing-with-request-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        03 · API Testing with Request Context
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#04-ci-integration-github-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        04 · CI Integration (GitHub Actions)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#05-test-retries-flaky-test-triage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        05 · Test Retries &amp; Flaky Test Triage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#06-advanced-locator-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        06 · Advanced Locator Strategies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#07-accessibility-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        07 · Accessibility Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#08-performance-tracing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        08 · Performance &amp; Tracing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#09-test-data-seeding-via-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        09 · Test Data Seeding via API
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-project-full-ci-e2e-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10 · Project — Full CI E2E Pipeline
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#level-4-master" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Level 4 · Master
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Level 4 · Master">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#01-cross-browser-device-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        01 · Cross-Browser &amp; Device Strategy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#02-component-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        02 · Component Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#03-custom-reporters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        03 · Custom Reporters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#04-scaling-a-test-suite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        04 · Scaling a Test Suite
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#05-debugging-with-trace-viewer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        05 · Debugging with Trace Viewer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#06-playwright-architecture-internals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        06 · Playwright Architecture Internals
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#07-test-ownership-team-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        07 · Test Ownership &amp; Team Practices
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#08-migrating-from-selenium" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        08 · Migrating from Selenium
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#09-extending-playwright-custom-fixturesplugins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        09 · Extending Playwright (Custom Fixtures/Plugins)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-capstone-production-grade-e2e-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10 · Capstone — Production-Grade E2E Framework
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mixed-questions-across-all-levels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mixed questions across all levels
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practical-coding-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Practical coding questions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Practical coding questions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-page-object-and-isolated-login-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A page object and isolated login tests
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mock-an-api-and-read-a-table-without-sleeping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mock an API and read a table without sleeping
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+              
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+
+  
+  
+
+
+<h1 id="playwright-interview-questions-and-answers">Playwright Interview Questions and Answers<a class="headerlink" href="#playwright-interview-questions-and-answers" title="Permanent link">&para;</a></h1>
+<p><strong>179 questions</strong> with the correct answer and a short explanation, organised from beginner (Level 1) to advanced (Level 4). Every question comes from a lesson in the free Playwright Mastery Path, so you can open the lesson to go deeper.</p>
+<div class="admonition tip">
+<p class="admonition-title">Practise, don't just read</p>
+<p>Each lesson also ends with an interactive quiz, and the <a href="../quiz/">final quiz</a> tests all four levels. Try to answer each question below before reading the answer.</p>
+</div>
+<h2 id="level-1-entry">Level 1 · Entry<a class="headerlink" href="#level-1-entry" title="Permanent link">&para;</a></h2>
+<h3 id="01-what-is-playwright-why-e2e-testing"><a href="../level-1/01-what-is-playwright/">01 · What Is Playwright &amp; Why E2E Testing</a><a class="headerlink" href="#01-what-is-playwright-why-e2e-testing" title="Permanent link">&para;</a></h3>
+<p><strong>Q1.</strong> What is Playwright?</p>
+<p><strong>Answer:</strong> A library for automating and testing web browsers (Chromium, Firefox, WebKit) from code</p>
+<p>One API, three engines.</p>
+<p><strong>Q2.</strong> Where does an end-to-end test sit in the test pyramid?</p>
+<p><strong>Answer:</strong> At the top: few, slow tests that exercise the whole system like a user</p>
+<p>Balance with unit tests.</p>
+<p><strong>Q3.</strong> Which languages does Playwright officially support?</p>
+<p><strong>Answer:</strong> JavaScript/TypeScript, Python, Java and .NET</p>
+<p>Same concepts across them.</p>
+<p><strong>Q4.</strong> Why do Playwright tests get less flaky than older tools?</p>
+<p><strong>Answer:</strong> Built-in auto-waiting and retrying web-first assertions</p>
+<p>Core design.</p>
+<h3 id="02-installation-project-setup"><a href="../level-1/02-installation-setup/">02 · Installation &amp; Project Setup</a><a class="headerlink" href="#02-installation-project-setup" title="Permanent link">&para;</a></h3>
+<p><strong>Q5.</strong> What does <code>playwright install</code> do?</p>
+<p><strong>Answer:</strong> Downloads the browser binaries Playwright drives</p>
+<p>Run it after pip install.</p>
+<p><strong>Q6.</strong> Which package gives you the <code>page</code> fixture in pytest?</p>
+<p><strong>Answer:</strong> pytest-playwright</p>
+<p>Plugin.</p>
+<p><strong>Q7.</strong> How run your tests headed for debugging?</p>
+<p><strong>Answer:</strong> pytest --headed</p>
+<p>Also --browser firefox.</p>
+<p><strong>Q8.</strong> Why use a virtual environment?</p>
+<p><strong>Answer:</strong> Isolate project dependencies and versions</p>
+<p>Reproducible.</p>
+<h3 id="03-your-first-script"><a href="../level-1/03-first-script/">03 · Your First Script</a><a class="headerlink" href="#03-your-first-script" title="Permanent link">&para;</a></h3>
+<p><strong>Q9.</strong> What does this print?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># page content:</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1"># &lt;h1&gt;Shop&lt;/h1&gt;&lt;ul&gt;&lt;li class="p"&gt;Pen&lt;/li&gt;&lt;li class="p"&gt;Book&lt;/li&gt;&lt;li class="p"&gt;Bag&lt;/li&gt;&lt;/ul&gt;&lt;button&gt;Buy&lt;/button&gt;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">page</span><span class="o">.</span><span class="n">goto</span><span class="p">(</span><span class="s2">"about:blank"</span><span class="p">)</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">page</span><span class="o">.</span><span class="n">set_content</span><span class="p">(</span><span class="s2">"&lt;p id='x'&gt;hi&lt;/p&gt;"</span><span class="p">)</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">title</span><span class="p">()</span> <span class="o">==</span> <span class="s2">""</span><span class="p">,</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#x"</span><span class="p">)</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+</code></pre></div>
+<p><strong>Answer:</strong> True hi</p>
+<p>about:blank has an empty title. Verified by running it with Playwright for Python.</p>
+<p><strong>Q10.</strong> What does <code>browser.new_page()</code> give you?</p>
+<p><strong>Answer:</strong> A new page in a fresh default context</p>
+<p>Isolated state.</p>
+<p><strong>Q11.</strong> What must a script always do at the end?</p>
+<p><strong>Answer:</strong> Close the browser to free resources</p>
+<p>Use with-blocks.</p>
+<p><strong>Q12.</strong> What does sync_playwright() manage?</p>
+<p><strong>Answer:</strong> Starting and stopping the Playwright driver in the sync API</p>
+<p>Context manager.</p>
+<h3 id="04-locators"><a href="../level-1/04-locators/">04 · Locators</a><a class="headerlink" href="#04-locators" title="Permanent link">&para;</a></h3>
+<p><strong>Q13.</strong> What does this print?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># page content:</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="c1"># &lt;h1&gt;Shop&lt;/h1&gt;&lt;ul&gt;&lt;li class="p"&gt;Pen&lt;/li&gt;&lt;li class="p"&gt;Book&lt;/li&gt;&lt;li class="p"&gt;Bag&lt;/li&gt;&lt;/ul&gt;&lt;button&gt;Buy&lt;/button&gt;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"li.p"</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Buy"</span><span class="p">)</span><span class="o">.</span><span class="n">text_content</span><span class="p">(),</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"li.p"</span><span class="p">)</span><span class="o">.</span><span class="n">nth</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">text_content</span><span class="p">(),</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"li.p"</span><span class="p">)</span><span class="o">.</span><span class="n">last</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+</code></pre></div>
+<p><strong>Answer:</strong> 3 Buy Book Bag</p>
+<p>Locators are lazy descriptions; nth is zero-based. Verified by running it with Playwright for Python.</p>
+<p><strong>Q14.</strong> What does this print?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># page content:</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="c1"># &lt;label for="e"&gt;Email&lt;/label&gt;&lt;input id="e"&gt;&lt;label for="c"&gt;Remember me&lt;/label&gt;&lt;input id="c" type="checkbox"&gt;&lt;select id="s"&gt;&lt;option value="a"&gt;Alpha&lt;/option&gt;&lt;option value="b"&gt;Beta&lt;/option&gt;&lt;/select&gt;&lt;button disabled&gt;Send&lt;/button&gt;</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Email"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"a@b.c"</span><span class="p">)</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#e"</span><span class="p">)</span><span class="o">.</span><span class="n">input_value</span><span class="p">(),</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_text</span><span class="p">(</span><span class="s2">"Remember me"</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>
+</code></pre></div>
+<p><strong>Answer:</strong> a@b.c 1</p>
+<p>get_by_label finds the input by its label. Verified by running it with Playwright for Python.</p>
+<p><strong>Q15.</strong> Which locator style is most recommended?</p>
+<p><strong>Answer:</strong> User-facing: get_by_role, get_by_label, get_by_text</p>
+<p>Resilient.</p>
+<p><strong>Q16.</strong> What happens when a locator matches several elements and you call click()?</p>
+<p><strong>Answer:</strong> Strict mode raises an error</p>
+<p>Narrow it or use .first.</p>
+<h3 id="05-actions"><a href="../level-1/05-actions/">05 · Actions</a><a class="headerlink" href="#05-actions" title="Permanent link">&para;</a></h3>
+<p><strong>Q17.</strong> What does this print?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># page content:</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="c1"># &lt;label for="e"&gt;Email&lt;/label&gt;&lt;input id="e"&gt;&lt;label for="c"&gt;Remember me&lt;/label&gt;&lt;input id="c" type="checkbox"&gt;&lt;select id="s"&gt;&lt;option value="a"&gt;Alpha&lt;/option&gt;&lt;option value="b"&gt;Beta&lt;/option&gt;&lt;/select&gt;&lt;button disabled&gt;Send&lt;/button&gt;</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Email"</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"x"</span><span class="p">)</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Remember me"</span><span class="p">)</span><span class="o">.</span><span class="n">check</span><span class="p">()</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">page</span><span class="o">.</span><span class="n">select_option</span><span class="p">(</span><span class="s2">"#s"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">)</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Remember me"</span><span class="p">)</span><span class="o">.</span><span class="n">is_checked</span><span class="p">(),</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#s"</span><span class="p">)</span><span class="o">.</span><span class="n">input_value</span><span class="p">(),</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#e"</span><span class="p">)</span><span class="o">.</span><span class="n">input_value</span><span class="p">())</span>
+</code></pre></div>
+<p><strong>Answer:</strong> True b x</p>
+<p>fill, check and select_option. Verified by running it with Playwright for Python.</p>
+<p><strong>Q18.</strong> What does this print?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># page content:</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="c1"># &lt;button id="b" onclick="this.textContent='Clicked'"&gt;Go&lt;/button&gt;</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">page</span><span class="o">.</span><span class="n">click</span><span class="p">(</span><span class="s2">"#b"</span><span class="p">)</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">text_content</span><span class="p">(</span><span class="s2">"#b"</span><span class="p">))</span>
+</code></pre></div>
+<p><strong>Answer:</strong> Clicked</p>
+<p>click runs the handler. Verified by running it with Playwright for Python.</p>
+<p><strong>Q19.</strong> What does fill() do differently from type()/press_sequentially()?</p>
+<p><strong>Answer:</strong> fill sets the value at once; typing sends key events one by one</p>
+<p>Use typing only to test key handlers.</p>
+<p><strong>Q20.</strong> How press Enter?</p>
+<p><strong>Answer:</strong> page.keyboard.press('Enter') or locator.press('Enter')</p>
+<p>Key names.</p>
+<h3 id="06-assertions-with-expect"><a href="../level-1/06-assertions/">06 · Assertions with expect</a><a class="headerlink" href="#06-assertions-with-expect" title="Permanent link">&para;</a></h3>
+<p><strong>Q21.</strong> What does this print?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># page content:</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="c1"># &lt;label for="e"&gt;Email&lt;/label&gt;&lt;input id="e"&gt;&lt;label for="c"&gt;Remember me&lt;/label&gt;&lt;input id="c" type="checkbox"&gt;&lt;select id="s"&gt;&lt;option value="a"&gt;Alpha&lt;/option&gt;&lt;option value="b"&gt;Beta&lt;/option&gt;&lt;/select&gt;&lt;button disabled&gt;Send&lt;/button&gt;</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Send"</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_enabled</span><span class="p">()</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="k">except</span> <span class="ne">AssertionError</span><span class="p">:</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="s2">"not enabled"</span><span class="p">)</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Send"</span><span class="p">))</span><span class="o">.</span><span class="n">to_be_disabled</span><span class="p">()</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"h1"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_count</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"ok"</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Answer:</strong> not enabled
+ok</p>
+<p>Web-first assertions retry then raise AssertionError. Verified by running it with Playwright for Python.</p>
+<p><strong>Q22.</strong> What does this print?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># page content:</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="c1"># &lt;h1&gt;Shop&lt;/h1&gt;&lt;ul&gt;&lt;li class="p"&gt;Pen&lt;/li&gt;&lt;li class="p"&gt;Book&lt;/li&gt;&lt;li class="p"&gt;Bag&lt;/li&gt;&lt;/ul&gt;&lt;button&gt;Buy&lt;/button&gt;</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"li.p"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_count</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"h1"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"Shop"</span><span class="p">)</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"li.p"</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">)</span><span class="o">.</span><span class="n">to_contain_text</span><span class="p">(</span><span class="s2">"Pe"</span><span class="p">)</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="nb">print</span><span class="p">(</span><span class="s2">"passed"</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Answer:</strong> passed</p>
+<p>Auto-retrying assertions. Verified by running it with Playwright for Python.</p>
+<p><strong>Q23.</strong> Why prefer expect(locator).to_be_visible() to assert locator.is_visible()?</p>
+<p><strong>Answer:</strong> expect retries until the condition holds or times out; is_visible is a one-shot check</p>
+<p>Avoid flakiness.</p>
+<p><strong>Q24.</strong> What does expect(page).to_have_url() check?</p>
+<p><strong>Answer:</strong> The current URL (string or regex), with retries</p>
+<p>Navigation result.</p>
+<h3 id="07-waiting-auto-wait-philosophy"><a href="../level-1/07-waiting-auto-wait/">07 · Waiting &amp; Auto-Wait Philosophy</a><a class="headerlink" href="#07-waiting-auto-wait-philosophy" title="Permanent link">&para;</a></h3>
+<p><strong>Q25.</strong> What does this print?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># page content:</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="c1"># &lt;div id="r"&gt;&lt;/div&gt;&lt;script&gt;setTimeout(()=&gt;{document.getElementById("r").textContent="loaded"},300)&lt;/script&gt;</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">page</span><span class="o">.</span><span class="n">set_default_timeout</span><span class="p">(</span><span class="mi">3000</span><span class="p">)</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#r"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"loaded"</span><span class="p">)</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#r"</span><span class="p">)</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+</code></pre></div>
+<p><strong>Answer:</strong> loaded</p>
+<p>expect waits for the asynchronous update. Verified by running it with Playwright for Python.</p>
+<p><strong>Q26.</strong> What is auto-wait?</p>
+<p><strong>Answer:</strong> Playwright waits for elements to be visible, stable, enabled and receiving events before acting</p>
+<p>Actionability checks.</p>
+<p><strong>Q27.</strong> Why avoid page.wait_for_timeout(5000)?</p>
+<p><strong>Answer:</strong> Fixed sleeps are slow when fast and flaky when slow; wait for a condition instead</p>
+<p>Use expect or wait_for.</p>
+<p><strong>Q28.</strong> What does the default action timeout typically do?</p>
+<p><strong>Answer:</strong> Fails the action with TimeoutError when the element is not actionable in time</p>
+<p>Configurable.</p>
+<h3 id="08-handling-forms-dropdowns"><a href="../level-1/08-forms-dropdowns/">08 · Handling Forms &amp; Dropdowns</a><a class="headerlink" href="#08-handling-forms-dropdowns" title="Permanent link">&para;</a></h3>
+<p><strong>Q29.</strong> What does this print?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># page content:</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="c1"># &lt;label for="e"&gt;Email&lt;/label&gt;&lt;input id="e"&gt;&lt;label for="c"&gt;Remember me&lt;/label&gt;&lt;input id="c" type="checkbox"&gt;&lt;select id="s"&gt;&lt;option value="a"&gt;Alpha&lt;/option&gt;&lt;option value="b"&gt;Beta&lt;/option&gt;&lt;/select&gt;&lt;button disabled&gt;Send&lt;/button&gt;</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="n">page</span><span class="o">.</span><span class="n">select_option</span><span class="p">(</span><span class="s2">"#s"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Beta"</span><span class="p">)</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#s"</span><span class="p">)</span><span class="o">.</span><span class="n">input_value</span><span class="p">())</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Remember me"</span><span class="p">)</span><span class="o">.</span><span class="n">set_checked</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Remember me"</span><span class="p">)</span><span class="o">.</span><span class="n">set_checked</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Remember me"</span><span class="p">)</span><span class="o">.</span><span class="n">is_checked</span><span class="p">())</span>
+</code></pre></div>
+<p><strong>Answer:</strong> b
+False</p>
+<p>select by label; set_checked is idempotent. Verified by running it with Playwright for Python.</p>
+<p><strong>Q30.</strong> How do you pick an option by its value?</p>
+<p><strong>Answer:</strong> select_option('b') or select_option(value='b')</p>
+<p>Also by label/index.</p>
+<p><strong>Q31.</strong> Which locator targets an input via its visible label?</p>
+<p><strong>Answer:</strong> get_by_label('Email')</p>
+<p>Accessible.</p>
+<p><strong>Q32.</strong> Why is disabled-button clicking a problem?</p>
+<p><strong>Answer:</strong> Actionability waits until it is enabled, then times out if it never is</p>
+<p>Assert state first.</p>
+<h3 id="09-running-headed-vs-headless"><a href="../level-1/09-headed-vs-headless/">09 · Running Headed vs. Headless</a><a class="headerlink" href="#09-running-headed-vs-headless" title="Permanent link">&para;</a></h3>
+<p><strong>Q33.</strong> What is headless mode?</p>
+<p><strong>Answer:</strong> Running the browser without a visible window</p>
+<p>Default in CI.</p>
+<p><strong>Q34.</strong> Why run headed locally?</p>
+<p><strong>Answer:</strong> To watch and debug what the test does</p>
+<p>--headed, slow_mo.</p>
+<p><strong>Q35.</strong> What does slow_mo do?</p>
+<p><strong>Answer:</strong> Slows each operation by N ms so you can follow along</p>
+<p>Debugging aid.</p>
+<p><strong>Q36.</strong> What does headless differ in for tests?</p>
+<p><strong>Answer:</strong> Mostly nothing; same engine, but rendering/viewport defaults can differ</p>
+<p>Set viewport explicitly.</p>
+<h3 id="10-project-automate-a-login-flow"><a href="../level-1/10-project-login-flow/">10 · Project — Automate a Login Flow</a><a class="headerlink" href="#10-project-automate-a-login-flow" title="Permanent link">&para;</a></h3>
+<p><strong>Q37.</strong> What does the login flow project combine?</p>
+<p><strong>Answer:</strong> Locators, fills, clicks, assertions and a pytest test</p>
+<p>Level 1 project.</p>
+<p><strong>Q38.</strong> What proves a login worked?</p>
+<p><strong>Answer:</strong> Assert URL or a logged-in element (e.g. dashboard heading) is visible</p>
+<p>User-visible outcome.</p>
+<p><strong>Q39.</strong> How test a failed login?</p>
+<p><strong>Answer:</strong> Submit wrong credentials and assert the error message</p>
+<p>Negative paths.</p>
+<p><strong>Q40.</strong> Why use a public demo site for practice?</p>
+<p><strong>Answer:</strong> It is safe, stable and built for automation practice</p>
+<p>Don't hit production.</p>
+<h2 id="level-2-intermediate">Level 2 · Intermediate<a class="headerlink" href="#level-2-intermediate" title="Permanent link">&para;</a></h2>
+<h3 id="01-page-object-model"><a href="../level-2/01-page-object-model/">01 · Page Object Model</a><a class="headerlink" href="#01-page-object-model" title="Permanent link">&para;</a></h3>
+<p><strong>Q41.</strong> What does this print?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># page content:</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="c1"># &lt;label for="e"&gt;Email&lt;/label&gt;&lt;input id="e"&gt;&lt;label for="c"&gt;Remember me&lt;/label&gt;&lt;input id="c" type="checkbox"&gt;&lt;select id="s"&gt;&lt;option value="a"&gt;Alpha&lt;/option&gt;&lt;option value="b"&gt;Beta&lt;/option&gt;&lt;/select&gt;&lt;button disabled&gt;Send&lt;/button&gt;</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="k">class</span><span class="w"> </span><span class="nc">FormPage</span><span class="p">:</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">page</span><span class="p">):</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">page</span> <span class="o">=</span> <span class="n">page</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">email</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Email"</span><span class="p">)</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">remember</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_label</span><span class="p">(</span><span class="s2">"Remember me"</span><span class="p">)</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">fill</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">):</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">email</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">remember</span><span class="o">.</span><span class="n">check</span><span class="p">()</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>        <span class="k">return</span> <span class="bp">self</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="n">fp</span> <span class="o">=</span> <span class="n">FormPage</span><span class="p">(</span><span class="n">page</span><span class="p">)</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="s2">"a@b.c"</span><span class="p">)</span>
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="nb">print</span><span class="p">(</span><span class="n">fp</span><span class="o">.</span><span class="n">email</span><span class="o">.</span><span class="n">input_value</span><span class="p">(),</span> <span class="n">fp</span><span class="o">.</span><span class="n">remember</span><span class="o">.</span><span class="n">is_checked</span><span class="p">())</span>
+</code></pre></div>
+<p><strong>Answer:</strong> a@b.c True</p>
+<p>Page objects own locators and actions; locators are lazy. Verified by running it with Playwright for Python.</p>
+<p><strong>Q42.</strong> What belongs in a page object?</p>
+<p><strong>Answer:</strong> Locators and user actions for a page, not assertions about test goals</p>
+<p>Keep tests readable.</p>
+<p><strong>Q43.</strong> Why build locators in <strong>init</strong>?</p>
+<p><strong>Answer:</strong> Locators are lazy descriptions so it's safe before navigation</p>
+<p>Resolve on use.</p>
+<p><strong>Q44.</strong> What does a base page share?</p>
+<p><strong>Answer:</strong> Common chrome like navigation, toasts and helpers</p>
+<p>Inheritance.</p>
+<h3 id="02-fixtures-test-hooks"><a href="../level-2/02-fixtures-hooks/">02 · Fixtures &amp; Test Hooks</a><a class="headerlink" href="#02-fixtures-test-hooks" title="Permanent link">&para;</a></h3>
+<p><strong>Q45.</strong> What does a pytest fixture do?</p>
+<p><strong>Answer:</strong> Provides setup (and teardown after yield) to tests via parameters</p>
+<p>Dependency injection.</p>
+<p><strong>Q46.</strong> What is fixture scope function vs session?</p>
+<p><strong>Answer:</strong> Function runs per test; session runs once per run</p>
+<p>Expensive setup.</p>
+<p><strong>Q47.</strong> What does <code>yield</code> do in a fixture?</p>
+<p><strong>Answer:</strong> Splits setup from teardown, which runs even if the test fails</p>
+<p>try/finally.</p>
+<p><strong>Q48.</strong> Where do shared fixtures live?</p>
+<p><strong>Answer:</strong> conftest.py</p>
+<p>Auto-discovered.</p>
+<h3 id="03-multiple-tabs-frames-popups"><a href="../level-2/03-tabs-frames-popups/">03 · Multiple Tabs, Frames &amp; Popups</a><a class="headerlink" href="#03-multiple-tabs-frames-popups" title="Permanent link">&para;</a></h3>
+<p><strong>Q49.</strong> What does this print?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># page content:</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="c1"># &lt;a id="l" href="#x" target="_blank"&gt;go&lt;/a&gt;</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="k">with</span> <span class="n">page</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">expect_page</span><span class="p">()</span> <span class="k">as</span> <span class="n">info</span><span class="p">:</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>    <span class="n">page</span><span class="o">.</span><span class="n">click</span><span class="p">(</span><span class="s2">"#l"</span><span class="p">)</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="n">new</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">value</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">pages</span><span class="p">),</span> <span class="n">new</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Answer:</strong> 2 about:blank#x</p>
+<p>expect_page captures the new tab (target=_blank opens a popup). Verified by running it with Playwright for Python.</p>
+<p><strong>Q50.</strong> What does this print?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># page content:</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="c1"># &lt;iframe srcdoc="&lt;button&gt;Inner&lt;/button&gt;"&gt;&lt;/iframe&gt;&lt;button&gt;Outer&lt;/button&gt;</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="n">page</span><span class="o">.</span><span class="n">frame_locator</span><span class="p">(</span><span class="s2">"iframe"</span><span class="p">)</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">)</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+</code></pre></div>
+<p><strong>Answer:</strong> 1 Inner</p>
+<p>Locators don't pierce iframes; use frame_locator. Verified by running it with Playwright for Python.</p>
+<p><strong>Q51.</strong> How handle a JavaScript alert?</p>
+<p><strong>Answer:</strong> Register page.on('dialog', handler) to accept or dismiss it</p>
+<p>Unhandled dialogs auto-dismiss.</p>
+<p><strong>Q52.</strong> What does context isolation give?</p>
+<p><strong>Answer:</strong> Separate cookies/storage per context, like incognito profiles</p>
+<p>Multi-user tests.</p>
+<h3 id="04-network-interception-mocking"><a href="../level-2/04-network-interception/">04 · Network Interception &amp; Mocking</a><a class="headerlink" href="#04-network-interception-mocking" title="Permanent link">&para;</a></h3>
+<p><strong>Q53.</strong> What does this print?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># page content:</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="c1"># &lt;div id="o"&gt;&lt;/div&gt;</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="n">page</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">"http://test.local/api"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">r</span><span class="p">:</span> <span class="n">r</span><span class="o">.</span><span class="n">fulfill</span><span class="p">(</span><span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="s2">"mocked"</span><span class="p">}))</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="n">page</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="s2">"fetch('http://test.local/api').then(r =&gt; r.json()).then(j =&gt; { document.getElementById('o').textContent = j.name })"</span><span class="p">)</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#o"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"mocked"</span><span class="p">)</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="nb">print</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">text_content</span><span class="p">(</span><span class="s2">"#o"</span><span class="p">))</span>
+</code></pre></div>
+<p><strong>Answer:</strong> mocked</p>
+<p>route + fulfill mocks the network response. Verified by running it with Playwright for Python.</p>
+<p><strong>Q54.</strong> What does page.route do?</p>
+<p><strong>Answer:</strong> Intercepts matching requests to fulfill, modify, abort or continue them</p>
+<p>Network control.</p>
+<p><strong>Q55.</strong> Why mock a flaky third-party API in tests?</p>
+<p><strong>Answer:</strong> Deterministic, fast tests independent of external services</p>
+<p>But keep some real contract tests.</p>
+<p><strong>Q56.</strong> What does route.abort() simulate?</p>
+<p><strong>Answer:</strong> A failed request (e.g. offline) to test error handling</p>
+<p>Resilience.</p>
+<h3 id="05-file-upload-download"><a href="../level-2/05-file-upload-download/">05 · File Upload &amp; Download</a><a class="headerlink" href="#05-file-upload-download" title="Permanent link">&para;</a></h3>
+<p><strong>Q57.</strong> How upload a file?</p>
+<p><strong>Answer:</strong> locator.set_input_files('path') on the file input</p>
+<p>Also lists and buffers.</p>
+<p><strong>Q58.</strong> How capture a download?</p>
+<p><strong>Answer:</strong> with page.expect_download() as d: click; then d.value.save_as(path)</p>
+<p>Event-based.</p>
+<p><strong>Q59.</strong> Why use tmp_path for test files?</p>
+<p><strong>Answer:</strong> Isolated temporary directory cleaned by pytest</p>
+<p>No leftovers.</p>
+<p><strong>Q60.</strong> What should you assert after a download?</p>
+<p><strong>Answer:</strong> Suggested filename and file contents</p>
+<p>Verify behavior.</p>
+<h3 id="06-parallel-execution-sharding"><a href="../level-2/06-parallel-sharding/">06 · Parallel Execution &amp; Sharding</a><a class="headerlink" href="#06-parallel-execution-sharding" title="Permanent link">&para;</a></h3>
+<p><strong>Q61.</strong> How run tests in parallel with pytest?</p>
+<p><strong>Answer:</strong> pytest -n auto with pytest-xdist</p>
+<p>Workers.</p>
+<p><strong>Q62.</strong> Why must tests be independent for parallelism?</p>
+<p><strong>Answer:</strong> Order and shared state would otherwise cause flaky failures</p>
+<p>Isolation.</p>
+<p><strong>Q63.</strong> What is sharding?</p>
+<p><strong>Answer:</strong> Splitting the suite across multiple machines/jobs</p>
+<p>CI matrix.</p>
+<p><strong>Q64.</strong> What gives each test isolated state?</p>
+<p><strong>Answer:</strong> A fresh browser context per test</p>
+<p>pytest-playwright default.</p>
+<h3 id="07-test-configuration-projects"><a href="../level-2/07-test-configuration/">07 · Test Configuration &amp; Projects</a><a class="headerlink" href="#07-test-configuration-projects" title="Permanent link">&para;</a></h3>
+<p><strong>Q65.</strong> Where configure browser, viewport and base URL for pytest-playwright?</p>
+<p><strong>Answer:</strong> pytest.ini options or conftest fixtures (browser_context_args)</p>
+<p>Central config.</p>
+<p><strong>Q66.</strong> What does --base-url do?</p>
+<p><strong>Answer:</strong> Lets page.goto('/path') resolve relative paths</p>
+<p>Environment switch.</p>
+<p><strong>Q67.</strong> What does browser_context_args customize?</p>
+<p><strong>Answer:</strong> Viewport, locale, timezone, storage state and more for each context</p>
+<p>Fixture override.</p>
+<p><strong>Q68.</strong> Why keep config out of tests?</p>
+<p><strong>Answer:</strong> Same tests run across environments without edits</p>
+<p>Separation.</p>
+<h3 id="08-environment-test-data-management"><a href="../level-2/08-env-test-data/">08 · Environment &amp; Test Data Management</a><a class="headerlink" href="#08-environment-test-data-management" title="Permanent link">&para;</a></h3>
+<p><strong>Q69.</strong> Where keep secrets for test environments?</p>
+<p><strong>Answer:</strong> Environment variables/CI secrets, not committed files</p>
+<p>Security.</p>
+<p><strong>Q70.</strong> What does python-dotenv do?</p>
+<p><strong>Answer:</strong> Loads variables from a .env file for local runs</p>
+<p>Gitignore it.</p>
+<p><strong>Q71.</strong> What's a good test data approach?</p>
+<p><strong>Answer:</strong> Create the data a test needs via API/fixtures and clean it up</p>
+<p>Independence.</p>
+<p><strong>Q72.</strong> Why not hard-code URLs?</p>
+<p><strong>Answer:</strong> They differ between dev, staging and production</p>
+<p>Config.</p>
+<h3 id="09-debugging-failing-tests"><a href="../level-2/09-debugging-failing-tests/">09 · Debugging Failing Tests</a><a class="headerlink" href="#09-debugging-failing-tests" title="Permanent link">&para;</a></h3>
+<p><strong>Q73.</strong> What do you open to debug interactively?</p>
+<p><strong>Answer:</strong> PWDEBUG=1 (Playwright Inspector) or page.pause()</p>
+<p>Step through.</p>
+<p><strong>Q74.</strong> What does the trace capture?</p>
+<p><strong>Answer:</strong> Actions, DOM snapshots, network and console for each step</p>
+<p>Post-mortem.</p>
+<p><strong>Q75.</strong> What do screenshots on failure help with?</p>
+<p><strong>Answer:</strong> Seeing the page state when the test failed</p>
+<p>--screenshot only-on-failure.</p>
+<p><strong>Q76.</strong> What's the first step with a failing test?</p>
+<p><strong>Answer:</strong> Reproduce it and read the actual error and trace</p>
+<p>Evidence.</p>
+<h3 id="10-project-pom-test-suite"><a href="../level-2/10-project-pom-suite/">10 · Project — POM Test Suite</a><a class="headerlink" href="#10-project-pom-test-suite" title="Permanent link">&para;</a></h3>
+<p><strong>Q77.</strong> What does the POM suite project combine?</p>
+<p><strong>Answer:</strong> Page objects, fixtures, config, test data and parallel runs</p>
+<p>Level 2 project.</p>
+<p><strong>Q78.</strong> How keep the suite maintainable?</p>
+<p><strong>Answer:</strong> Small page objects, clear names and no logic in tests</p>
+<p>Readability.</p>
+<p><strong>Q79.</strong> Where do assertions live?</p>
+<p><strong>Answer:</strong> In the tests, using page-object state</p>
+<p>Intent visible.</p>
+<p><strong>Q80.</strong> How verify the suite is stable?</p>
+<p><strong>Answer:</strong> Run repeatedly and in parallel</p>
+<p>Flakiness check.</p>
+<h2 id="level-3-advanced">Level 3 · Advanced<a class="headerlink" href="#level-3-advanced" title="Permanent link">&para;</a></h2>
+<h3 id="01-visual-regression-testing"><a href="../level-3/01-visual-regression/">01 · Visual Regression Testing</a><a class="headerlink" href="#01-visual-regression-testing" title="Permanent link">&para;</a></h3>
+<p><strong>Q81.</strong> What does visual regression compare?</p>
+<p><strong>Answer:</strong> Screenshots against approved baselines</p>
+<p>expect(page).to_have_screenshot().</p>
+<p><strong>Q82.</strong> Why are screenshots flaky across machines?</p>
+<p><strong>Answer:</strong> Fonts, rendering and OS differences; use the same container/CI environment</p>
+<p>Consistency.</p>
+<p><strong>Q83.</strong> When update baselines?</p>
+<p><strong>Answer:</strong> After a deliberate, reviewed UI change</p>
+<p>Review diffs.</p>
+<p><strong>Q84.</strong> What reduces noise?</p>
+<p><strong>Answer:</strong> Masking dynamic regions and disabling animations</p>
+<p>mask=[...].</p>
+<h3 id="02-authentication-state-reuse"><a href="../level-3/02-auth-state-reuse/">02 · Authentication State Reuse</a><a class="headerlink" href="#02-authentication-state-reuse" title="Permanent link">&para;</a></h3>
+<p><strong>Q85.</strong> What does storage_state do?</p>
+<p><strong>Answer:</strong> Saves cookies/localStorage after login to reuse in other contexts</p>
+<p>Skip repeated UI logins.</p>
+<p><strong>Q86.</strong> Why reuse auth state?</p>
+<p><strong>Answer:</strong> Faster, more stable tests that don't repeat the login UI</p>
+<p>Test login once.</p>
+<p><strong>Q87.</strong> Where store the state file?</p>
+<p><strong>Answer:</strong> Gitignored location, treated as a secret</p>
+<p>Contains session tokens.</p>
+<p><strong>Q88.</strong> When state expires?</p>
+<p><strong>Answer:</strong> Regenerate it in a setup step before the run</p>
+<p>Fresh.</p>
+<h3 id="03-api-testing-with-request-context"><a href="../level-3/03-api-testing/">03 · API Testing with Request Context</a><a class="headerlink" href="#03-api-testing-with-request-context" title="Permanent link">&para;</a></h3>
+<p><strong>Q89.</strong> Does page.route() intercept calls made with page.request / APIRequestContext?</p>
+<p><strong>Answer:</strong> No: routing applies to browser traffic; API requests go straight to the server</p>
+<p>Use a real test API or mock the server instead.</p>
+<p><strong>Q90.</strong> What is request.new_context for?</p>
+<p><strong>Answer:</strong> Calling APIs directly (no browser UI) with shared headers/auth</p>
+<p>API tests.</p>
+<p><strong>Q91.</strong> Why combine API setup with UI checks?</p>
+<p><strong>Answer:</strong> Fast arrange via API, then verify the user-visible result</p>
+<p>Efficient.</p>
+<p><strong>Q92.</strong> What do you assert for API responses?</p>
+<p><strong>Answer:</strong> Status code, headers and body shape</p>
+<p>Contract.</p>
+<h3 id="04-ci-integration-github-actions"><a href="../level-3/04-ci-integration/">04 · CI Integration (GitHub Actions)</a><a class="headerlink" href="#04-ci-integration-github-actions" title="Permanent link">&para;</a></h3>
+<p><strong>Q93.</strong> What should CI do on each push?</p>
+<p><strong>Answer:</strong> Install dependencies and browsers, run tests and upload artifacts</p>
+<p>Quality gate.</p>
+<p><strong>Q94.</strong> Which artifacts help debugging?</p>
+<p><strong>Answer:</strong> Traces, screenshots and HTML reports</p>
+<p>Post-mortem.</p>
+<p><strong>Q95.</strong> Why use the official Playwright Docker image?</p>
+<p><strong>Answer:</strong> Browsers and OS dependencies are preinstalled and consistent</p>
+<p>Reproducibility.</p>
+<p><strong>Q96.</strong> How speed up CI?</p>
+<p><strong>Answer:</strong> Cache dependencies and shard tests across jobs</p>
+<p>Parallel.</p>
+<h3 id="05-test-retries-flaky-test-triage"><a href="../level-3/05-retries-flaky-tests/">05 · Test Retries &amp; Flaky Test Triage</a><a class="headerlink" href="#05-test-retries-flaky-test-triage" title="Permanent link">&para;</a></h3>
+<p><strong>Q97.</strong> What are flaky tests?</p>
+<p><strong>Answer:</strong> Tests that pass and fail without code changes</p>
+<p>Erode trust.</p>
+<p><strong>Q98.</strong> What do retries do?</p>
+<p><strong>Answer:</strong> Rerun failures to detect flakiness, which should still be investigated</p>
+<p>Mitigation, not a cure.</p>
+<p><strong>Q99.</strong> Most common flake cause?</p>
+<p><strong>Answer:</strong> Timing assumptions and shared state</p>
+<p>Use auto-wait.</p>
+<p><strong>Q100.</strong> What should you do with a flaky test?</p>
+<p><strong>Answer:</strong> Fix the root cause or quarantine it with a ticket</p>
+<p>Track.</p>
+<h3 id="06-advanced-locator-strategies"><a href="../level-3/06-advanced-locators/">06 · Advanced Locator Strategies</a><a class="headerlink" href="#06-advanced-locator-strategies" title="Permanent link">&para;</a></h3>
+<p><strong>Q101.</strong> What does this print?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># page content:</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="c1"># &lt;ul&gt;&lt;li&gt;&lt;button&gt;Edit&lt;/button&gt; Pen&lt;/li&gt;&lt;li&gt;&lt;button&gt;Edit&lt;/button&gt; Book&lt;/li&gt;&lt;/ul&gt;</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="n">row</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"listitem"</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">has_text</span><span class="o">=</span><span class="s2">"Book"</span><span class="p">)</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Edit"</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"listitem"</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"listitem"</span><span class="p">)</span><span class="o">.</span><span class="n">nth</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">text_content</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+</code></pre></div>
+<p><strong>Answer:</strong> 1 2 Edit Pen</p>
+<p>filter() scopes locators. Verified by running it with Playwright for Python.</p>
+<p><strong>Q102.</strong> What does this print?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># page content:</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="c1"># &lt;div data-testid="card"&gt;&lt;h2&gt;A&lt;/h2&gt;&lt;/div&gt;&lt;div data-testid="card"&gt;&lt;h2&gt;B&lt;/h2&gt;&lt;/div&gt;</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="n">cards</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get_by_test_id</span><span class="p">(</span><span class="s2">"card"</span><span class="p">)</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">cards</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="n">cards</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">has</span><span class="o">=</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"heading"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"B"</span><span class="p">))</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="n">cards</span><span class="o">.</span><span class="n">nth</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"h2"</span><span class="p">)</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+</code></pre></div>
+<p><strong>Answer:</strong> 2 1 B</p>
+<p>has= filters by inner locator. Verified by running it with Playwright for Python.</p>
+<p><strong>Q103.</strong> When use data-testid?</p>
+<p><strong>Answer:</strong> When no accessible role or text is stable</p>
+<p>Fallback.</p>
+<p><strong>Q104.</strong> What does locator.and_/or_ do?</p>
+<p><strong>Answer:</strong> Combine locators to match either/both conditions</p>
+<p>Advanced.</p>
+<h3 id="07-accessibility-testing"><a href="../level-3/07-accessibility-testing/">07 · Accessibility Testing</a><a class="headerlink" href="#07-accessibility-testing" title="Permanent link">&para;</a></h3>
+<p><strong>Q105.</strong> What does axe-core check?</p>
+<p><strong>Answer:</strong> Common accessibility violations (contrast, labels, roles)</p>
+<p>Automated subset.</p>
+<p><strong>Q106.</strong> What can automation not prove?</p>
+<p><strong>Answer:</strong> Full accessibility; manual testing with assistive tech is still needed</p>
+<p>Limits.</p>
+<p><strong>Q107.</strong> Why prefer get_by_role?</p>
+<p><strong>Answer:</strong> It mirrors how assistive technology sees the page and encourages accessible markup</p>
+<p>Dual benefit.</p>
+<p><strong>Q108.</strong> When fail the build on a11y?</p>
+<p><strong>Answer:</strong> On new violations, gradually ratcheting standards</p>
+<p>Baseline.</p>
+<h3 id="08-performance-tracing"><a href="../level-3/08-performance-tracing/">08 · Performance &amp; Tracing</a><a class="headerlink" href="#08-performance-tracing" title="Permanent link">&para;</a></h3>
+<p><strong>Q109.</strong> What can a trace record?</p>
+<p><strong>Answer:</strong> Screenshots, snapshots, network and console per action</p>
+<p>context.tracing.start().</p>
+<p><strong>Q110.</strong> What does page.evaluate with performance.timing/getEntries give?</p>
+<p><strong>Answer:</strong> Browser-reported timing metrics</p>
+<p>Basic perf.</p>
+<p><strong>Q111.</strong> What's a limit of E2E perf checks?</p>
+<p><strong>Answer:</strong> Noisy; use dedicated tools for load and budgets</p>
+<p>Lighthouse/load tests.</p>
+<p><strong>Q112.</strong> How use tracing in CI?</p>
+<p><strong>Answer:</strong> Record on first retry and upload as an artifact</p>
+<p>trace on-first-retry.</p>
+<h3 id="09-test-data-seeding-via-api"><a href="../level-3/09-test-data-seeding/">09 · Test Data Seeding via API</a><a class="headerlink" href="#09-test-data-seeding-via-api" title="Permanent link">&para;</a></h3>
+<p><strong>Q113.</strong> Why seed test data via API/DB?</p>
+<p><strong>Answer:</strong> Fast, deterministic setup instead of clicking through UIs</p>
+<p>Arrange.</p>
+<p><strong>Q114.</strong> How avoid collisions in parallel tests?</p>
+<p><strong>Answer:</strong> Unique data per test (uuid suffixes) and cleanup</p>
+<p>Isolation.</p>
+<p><strong>Q115.</strong> What should cleanup do?</p>
+<p><strong>Answer:</strong> Remove created data even if the test fails (fixture teardown)</p>
+<p>yield.</p>
+<p><strong>Q116.</strong> Why not rely on pre-existing data?</p>
+<p><strong>Answer:</strong> It drifts and breaks tests unpredictably</p>
+<p>Own your data.</p>
+<h3 id="10-project-full-ci-e2e-pipeline"><a href="../level-3/10-project-ci-pipeline/">10 · Project — Full CI E2E Pipeline</a><a class="headerlink" href="#10-project-full-ci-e2e-pipeline" title="Permanent link">&para;</a></h3>
+<p><strong>Q117.</strong> What does the CI pipeline project combine?</p>
+<p><strong>Answer:</strong> Config, auth reuse, API setup, parallelism, artifacts and reports</p>
+<p>Level 3 project.</p>
+<p><strong>Q118.</strong> What gates a merge?</p>
+<p><strong>Answer:</strong> Green tests plus reviewed artifacts for failures</p>
+<p>Quality.</p>
+<p><strong>Q119.</strong> What do you publish after a run?</p>
+<p><strong>Answer:</strong> HTML report and traces for failures</p>
+<p>Debuggability.</p>
+<p><strong>Q120.</strong> How keep pipelines fast?</p>
+<p><strong>Answer:</strong> Shard, cache and run only affected tests where possible</p>
+<p>Feedback time.</p>
+<h2 id="level-4-master">Level 4 · Master<a class="headerlink" href="#level-4-master" title="Permanent link">&para;</a></h2>
+<h3 id="01-cross-browser-device-strategy"><a href="../level-4/01-cross-browser-strategy/">01 · Cross-Browser &amp; Device Strategy</a><a class="headerlink" href="#01-cross-browser-device-strategy" title="Permanent link">&para;</a></h3>
+<p><strong>Q121.</strong> What does cross-browser strategy decide?</p>
+<p><strong>Answer:</strong> Which browsers/devices to cover and how often, based on usage and risk</p>
+<p>Balance cost.</p>
+<p><strong>Q122.</strong> How run one test on several engines?</p>
+<p><strong>Answer:</strong> pytest --browser chromium --browser firefox --browser webkit</p>
+<p>Matrix.</p>
+<p><strong>Q123.</strong> What does WebKit give you?</p>
+<p><strong>Answer:</strong> A proxy for Safari's engine on any OS</p>
+<p>Not exact.</p>
+<p><strong>Q124.</strong> How emulate a phone?</p>
+<p><strong>Answer:</strong> playwright.devices['iPhone 13'] context options</p>
+<p>Viewport, UA, touch.</p>
+<h3 id="02-component-testing"><a href="../level-4/02-component-testing/">02 · Component Testing</a><a class="headerlink" href="#02-component-testing" title="Permanent link">&para;</a></h3>
+<p><strong>Q125.</strong> What does component testing mount?</p>
+<p><strong>Answer:</strong> A single UI component in a real browser instead of the full app</p>
+<p>Fast feedback.</p>
+<p><strong>Q126.</strong> When choose component over E2E?</p>
+<p><strong>Answer:</strong> For rendering and interaction logic of isolated UI parts</p>
+<p>Pyramid.</p>
+<p><strong>Q127.</strong> What stays E2E?</p>
+<p><strong>Answer:</strong> Critical user journeys across the full stack</p>
+<p>Few and valuable.</p>
+<p><strong>Q128.</strong> What's a limitation?</p>
+<p><strong>Answer:</strong> Doesn't cover integration with real backends</p>
+<p>Complement.</p>
+<h3 id="03-custom-reporters"><a href="../level-4/03-custom-reporters/">03 · Custom Reporters</a><a class="headerlink" href="#03-custom-reporters" title="Permanent link">&para;</a></h3>
+<p><strong>Q129.</strong> What is a custom reporter for?</p>
+<p><strong>Answer:</strong> Sending results to your own format or system (Slack, dashboards)</p>
+<p>Hooks into results.</p>
+<p><strong>Q130.</strong> Which pytest hook adds report data?</p>
+<p><strong>Answer:</strong> pytest_runtest_makereport</p>
+<p>Per test outcome.</p>
+<p><strong>Q131.</strong> What belongs in a failure report?</p>
+<p><strong>Answer:</strong> Test name, error, trace link and environment</p>
+<p>Actionable.</p>
+<p><strong>Q132.</strong> Why track trends?</p>
+<p><strong>Answer:</strong> Spot flaky tests and slow tests over time</p>
+<p>Metrics.</p>
+<h3 id="04-scaling-a-test-suite"><a href="../level-4/04-scaling-test-suite/">04 · Scaling a Test Suite</a><a class="headerlink" href="#04-scaling-a-test-suite" title="Permanent link">&para;</a></h3>
+<p><strong>Q133.</strong> What helps scale a big suite?</p>
+<p><strong>Answer:</strong> Parallel workers, sharding, stable tests and fast setup via API</p>
+<p>Combination.</p>
+<p><strong>Q134.</strong> What's a test impact strategy?</p>
+<p><strong>Answer:</strong> Run only tests relevant to changed code, with full runs nightly</p>
+<p>Speed.</p>
+<p><strong>Q135.</strong> What kills scale?</p>
+<p><strong>Answer:</strong> Flaky tests and shared state</p>
+<p>Fix first.</p>
+<p><strong>Q136.</strong> How organize tests?</p>
+<p><strong>Answer:</strong> By feature with tags/markers for suites (smoke, regression)</p>
+<p>pytest markers.</p>
+<h3 id="05-debugging-with-trace-viewer"><a href="../level-4/05-trace-viewer/">05 · Debugging with Trace Viewer</a><a class="headerlink" href="#05-debugging-with-trace-viewer" title="Permanent link">&para;</a></h3>
+<p><strong>Q137.</strong> How open a trace?</p>
+<p><strong>Answer:</strong> playwright show-trace trace.zip or trace.playwright.dev</p>
+<p>Viewer.</p>
+<p><strong>Q138.</strong> What does the timeline show?</p>
+<p><strong>Answer:</strong> Each action, snapshot before/after, network and console</p>
+<p>Time travel.</p>
+<p><strong>Q139.</strong> When use trace over screenshot?</p>
+<p><strong>Answer:</strong> To see what happened between steps, especially in CI failures</p>
+<p>Rich.</p>
+<p><strong>Q140.</strong> What can you inspect per step?</p>
+<p><strong>Answer:</strong> DOM snapshot, locators used, errors and network calls</p>
+<p>Deep dive.</p>
+<h3 id="06-playwright-architecture-internals"><a href="../level-4/06-architecture-internals/">06 · Playwright Architecture Internals</a><a class="headerlink" href="#06-playwright-architecture-internals" title="Permanent link">&para;</a></h3>
+<p><strong>Q141.</strong> How does Playwright talk to browsers?</p>
+<p><strong>Answer:</strong> A driver process over a protocol (CDP or equivalents), one API for all engines</p>
+<p>Direct control.</p>
+<p><strong>Q142.</strong> Why is it faster than WebDriver-based tools?</p>
+<p><strong>Answer:</strong> Persistent connection and event-driven control instead of request/response commands</p>
+<p>Architecture.</p>
+<p><strong>Q143.</strong> What is a browser context?</p>
+<p><strong>Answer:</strong> An isolated profile (cookies, storage) inside one browser</p>
+<p>Cheap to create.</p>
+<p><strong>Q144.</strong> What does auto-wait rely on?</p>
+<p><strong>Answer:</strong> Actionability checks the driver performs before each action</p>
+<p>Built in.</p>
+<h3 id="07-test-ownership-team-practices"><a href="../level-4/07-test-ownership-practices/">07 · Test Ownership &amp; Team Practices</a><a class="headerlink" href="#07-test-ownership-team-practices" title="Permanent link">&para;</a></h3>
+<p><strong>Q145.</strong> Who should own tests?</p>
+<p><strong>Answer:</strong> The team that owns the feature, with shared standards</p>
+<p>Shift left.</p>
+<p><strong>Q146.</strong> What makes a good test?</p>
+<p><strong>Answer:</strong> Independent, deterministic, readable and focused on user behavior</p>
+<p>Quality.</p>
+<p><strong>Q147.</strong> What do you do with obsolete tests?</p>
+<p><strong>Answer:</strong> Delete them; tests are code with maintenance cost</p>
+<p>Prune.</p>
+<p><strong>Q148.</strong> How review tests?</p>
+<p><strong>Answer:</strong> Like production code, checking clarity and stability</p>
+<p>Standards.</p>
+<h3 id="08-migrating-from-selenium"><a href="../level-4/08-migrating-from-selenium/">08 · Migrating from Selenium</a><a class="headerlink" href="#08-migrating-from-selenium" title="Permanent link">&para;</a></h3>
+<p><strong>Q149.</strong> What maps Selenium to Playwright concepts?</p>
+<p><strong>Answer:</strong> WebDriver ↔ browser/context/page; explicit waits → auto-wait</p>
+<p>Migration.</p>
+<p><strong>Q150.</strong> What do you usually remove when migrating?</p>
+<p><strong>Answer:</strong> Explicit waits and sleeps</p>
+<p>Auto-wait.</p>
+<p><strong>Q151.</strong> How migrate a big suite?</p>
+<p><strong>Answer:</strong> Incrementally: new tests in Playwright, port high-value ones, retire old gradually</p>
+<p>Risk.</p>
+<p><strong>Q152.</strong> What improves after migration?</p>
+<p><strong>Answer:</strong> Speed and reliability from parallel contexts and web-first assertions</p>
+<p>Benefits.</p>
+<h3 id="09-extending-playwright-custom-fixturesplugins"><a href="../level-4/09-extending-playwright/">09 · Extending Playwright (Custom Fixtures/Plugins)</a><a class="headerlink" href="#09-extending-playwright-custom-fixturesplugins" title="Permanent link">&para;</a></h3>
+<p><strong>Q153.</strong> How extend Playwright?</p>
+<p><strong>Answer:</strong> Custom fixtures, helper functions and plugins for your domain</p>
+<p>Composition.</p>
+<p><strong>Q154.</strong> What do custom expect helpers do?</p>
+<p><strong>Answer:</strong> Encapsulate repeated assertions with clear failure messages</p>
+<p>Readable.</p>
+<p><strong>Q155.</strong> Why wrap Playwright in your own layer?</p>
+<p><strong>Answer:</strong> Hide repetitive details, but avoid over-abstracting</p>
+<p>Balance.</p>
+<p><strong>Q156.</strong> What is a pytest plugin?</p>
+<p><strong>Answer:</strong> A package that adds fixtures, hooks and options via entry points</p>
+<p>Distribution.</p>
+<h3 id="10-capstone-production-grade-e2e-framework"><a href="../level-4/10-capstone-project/">10 · Capstone — Production-Grade E2E Framework</a><a class="headerlink" href="#10-capstone-production-grade-e2e-framework" title="Permanent link">&para;</a></h3>
+<p><strong>Q157.</strong> What does the capstone combine?</p>
+<p><strong>Answer:</strong> Architecture, POM, fixtures, API setup, CI, reports and cross-browser runs</p>
+<p>Production suite.</p>
+<p><strong>Q158.</strong> How prove it works?</p>
+<p><strong>Answer:</strong> Stable repeated CI runs with traces on failure</p>
+<p>Evidence.</p>
+<p><strong>Q159.</strong> What documentation helps?</p>
+<p><strong>Answer:</strong> README, conventions and how to debug failures</p>
+<p>Onboarding.</p>
+<p><strong>Q160.</strong> What sustains it?</p>
+<p><strong>Answer:</strong> Ownership, flake triage and regular dependency updates</p>
+<p>Maintenance.</p>
+<h2 id="mixed-questions-across-all-levels">Mixed questions across all levels<a class="headerlink" href="#mixed-questions-across-all-levels" title="Permanent link">&para;</a></h2>
+<p><strong>Q161.</strong> What does this print?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># page content:</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="c1"># &lt;ul&gt;&lt;li&gt;Pen&lt;/li&gt;&lt;li&gt;Book&lt;/li&gt;&lt;/ul&gt;</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="n">loc</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"li"</span><span class="p">)</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="n">page</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="s2">"document.querySelector('ul').insertAdjacentHTML('beforeend', '&lt;li&gt;Bag&lt;/li&gt;')"</span><span class="p">)</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">loc</span><span class="o">.</span><span class="n">count</span><span class="p">(),</span> <span class="n">loc</span><span class="o">.</span><span class="n">last</span><span class="o">.</span><span class="n">text_content</span><span class="p">())</span>
+</code></pre></div>
+<p><strong>Answer:</strong> 3 Bag</p>
+<p>A Locator is lazy: it queries the DOM each time you use it. Verified by running it with Playwright for Python.</p>
+<p><strong>Q162.</strong> Why are locators lazy descriptions and not element handles?</p>
+<p><strong>Answer:</strong> They re-resolve on every use so they keep working when the DOM re-renders</p>
+<p>Resilience to change.</p>
+<p><strong>Q163.</strong> What does this print?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># page content:</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="c1"># &lt;button&gt;Save&lt;/button&gt;&lt;button&gt;Save as&lt;/button&gt;</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>    <span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Save"</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>    <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get_by_role</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Save"</span><span class="p">,</span> <span class="n">exact</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">())</span>
+</code></pre></div>
+<p><strong>Answer:</strong> Error
+1</p>
+<p>Strict mode violation: name matches substrings unless exact=True. Verified by running it with Playwright for Python.</p>
+<p><strong>Q164.</strong> Which assertion style waits for async updates?</p>
+<p><strong>Answer:</strong> expect(locator).to_have_text(...) (web-first, auto-retrying)</p>
+<p>Retries until timeout.</p>
+<p><strong>Q165.</strong> What does this print?</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># page content:</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="c1"># &lt;div id="r"&gt;0&lt;/div&gt;&lt;script&gt;let n=0;const t=setInterval(()=&gt;{document.getElementById("r").textContent=++n;if(n==3)clearInterval(t)},50)&lt;/script&gt;</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">locator</span><span class="p">(</span><span class="s2">"#r"</span><span class="p">))</span><span class="o">.</span><span class="n">to_have_text</span><span class="p">(</span><span class="s2">"3"</span><span class="p">)</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">text_content</span><span class="p">(</span><span class="s2">"#r"</span><span class="p">))</span>
+</code></pre></div>
+<p><strong>Answer:</strong> 3</p>
+<p>Assertions retry until the text matches. Verified by running it with Playwright for Python.</p>
+<p><strong>Q166.</strong> Why is time.sleep(5) in a test a smell?</p>
+<p><strong>Answer:</strong> It's slow when the app is fast and still flaky when it is slow; wait for a condition</p>
+<p>Auto-wait and expect.</p>
+<p><strong>Q167.</strong> A test passes alone but fails in parallel. Likely cause?</p>
+<p><strong>Answer:</strong> Shared state (accounts, data, files) between tests</p>
+<p>Make tests independent.</p>
+<p><strong>Q168.</strong> What is the best use of storage_state?</p>
+<p><strong>Answer:</strong> Log in once in setup and reuse cookies/localStorage for other tests</p>
+<p>Faster, fewer login flakes.</p>
+<p><strong>Q169.</strong> How do you capture a popup opened by a click?</p>
+<p><strong>Answer:</strong> with page.context.expect_page() (or page.expect_popup()) around the click</p>
+<p>Event-based.</p>
+<p><strong>Q170.</strong> How should network mocks be used?</p>
+<p><strong>Answer:</strong> To make third-party/error scenarios deterministic, keeping some real end-to-end coverage</p>
+<p>Balance.</p>
+<p><strong>Q171.</strong> What does a trace help with in CI?</p>
+<p><strong>Answer:</strong> Replaying a failed run step by step with DOM, network and console</p>
+<p>Upload as an artifact.</p>
+<p><strong>Q172.</strong> Screenshot comparisons differ between laptop and CI. What helps?</p>
+<p><strong>Answer:</strong> Generate and compare baselines in the same containerized environment</p>
+<p>Fonts and rendering.</p>
+<p><strong>Q173.</strong> A flaky test is retried and passes. What should you do?</p>
+<p><strong>Answer:</strong> Investigate the root cause; retries only reveal and tolerate flakiness</p>
+<p>Track flaky tests.</p>
+<p><strong>Q174.</strong> Which locator is usually most resilient?</p>
+<p><strong>Answer:</strong> get_by_role('button', name='Pay')</p>
+<p>User-facing.</p>
+<p><strong>Q175.</strong> What does the Page Object Model buy you?</p>
+<p><strong>Answer:</strong> One place to change when the UI changes and tests that read like user stories</p>
+<p>Maintainability.</p>
+<p><strong>Q176.</strong> What does a fresh browser context per test provide?</p>
+<p><strong>Answer:</strong> Isolated cookies and storage at low cost</p>
+<p>Test independence.</p>
+<p><strong>Q177.</strong> How can one suite run on Chromium, Firefox and WebKit?</p>
+<p><strong>Answer:</strong> pytest --browser chromium --browser firefox --browser webkit</p>
+<p>One API.</p>
+<p><strong>Q178.</strong> What should fail a pull request pipeline?</p>
+<p><strong>Answer:</strong> Failing tests, with traces/screenshots uploaded for diagnosis</p>
+<p>Quality gate.</p>
+<p><strong>Q179.</strong> Automated accessibility checks (axe) are best described as?</p>
+<p><strong>Answer:</strong> A useful baseline that catches common issues but doesn't replace manual testing</p>
+<p>Limits.</p>
+<h2 id="practical-coding-questions">Practical coding questions<a class="headerlink" href="#practical-coding-questions" title="Permanent link">&para;</a></h2>
+<h3 id="a-page-object-and-isolated-login-tests">A page object and isolated login tests<a class="headerlink" href="#a-page-object-and-isolated-login-tests" title="Permanent link">&para;</a></h3>
+<p>Implement LoginPage (locators for the Email and Password fields, the Sign in button and the alert; a login() method that returns self), then run the three login cases in fresh browser contexts. A deliberately wrong expectation shows how a failure is reported.</p>
+<p>Starter code:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>from playwright.sync_api import sync_playwright, expect
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>LOGIN_HTML = '&lt;form id="f"&gt;&lt;label&gt;Email &lt;input id="email"&gt;&lt;/label&gt;&lt;label&gt;Password &lt;input id="pw" type="password"&gt;&lt;/label&gt;\n&lt;button type="submit"&gt;Sign in&lt;/button&gt;&lt;p id="msg" role="alert"&gt;&lt;/p&gt;&lt;/form&gt;\n&lt;script&gt;document.getElementById("f").addEventListener("submit",e=&gt;{e.preventDefault();\nconst ok=document.getElementById("email").value==="ada@example.com"&amp;&amp;document.getElementById("pw").value==="s3cret";\ndocument.getElementById("msg").textContent=ok?"Welcome, Ada":"Invalid credentials";});&lt;/script&gt;'
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>class LoginPage:
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>    def __init__(self, page):
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>        self.page = page
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>        # create locators for: Email field, Password field, the "Sign in" button and the alert message
+<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>        # (use get_by_label, get_by_role) -- locators are lazy, so it is fine to build them here
+<a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a>
+<a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a>    def login(self, email, password):
+<a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a>        # fill both fields, click the button and return self so calls can be chained
+<a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a>        return self
+<a id="__codelineno-18-14" name="__codelineno-18-14" href="#__codelineno-18-14"></a>
+<a id="__codelineno-18-15" name="__codelineno-18-15" href="#__codelineno-18-15"></a>def check(name, fn):
+<a id="__codelineno-18-16" name="__codelineno-18-16" href="#__codelineno-18-16"></a>    try:
+<a id="__codelineno-18-17" name="__codelineno-18-17" href="#__codelineno-18-17"></a>        fn()
+<a id="__codelineno-18-18" name="__codelineno-18-18" href="#__codelineno-18-18"></a>        print("PASS", name)
+<a id="__codelineno-18-19" name="__codelineno-18-19" href="#__codelineno-18-19"></a>    except AssertionError:
+<a id="__codelineno-18-20" name="__codelineno-18-20" href="#__codelineno-18-20"></a>        print("FAIL", name)
+<a id="__codelineno-18-21" name="__codelineno-18-21" href="#__codelineno-18-21"></a>
+<a id="__codelineno-18-22" name="__codelineno-18-22" href="#__codelineno-18-22"></a>with sync_playwright() as p:
+<a id="__codelineno-18-23" name="__codelineno-18-23" href="#__codelineno-18-23"></a>    browser = p.chromium.launch()
+<a id="__codelineno-18-24" name="__codelineno-18-24" href="#__codelineno-18-24"></a>    for email, pw, expected in [("ada@example.com", "s3cret", "Welcome, Ada"),
+<a id="__codelineno-18-25" name="__codelineno-18-25" href="#__codelineno-18-25"></a>                                ("ada@example.com", "wrong", "Invalid credentials"),
+<a id="__codelineno-18-26" name="__codelineno-18-26" href="#__codelineno-18-26"></a>                                ("", "", "Invalid credentials")]:
+<a id="__codelineno-18-27" name="__codelineno-18-27" href="#__codelineno-18-27"></a>        context = browser.new_context()            # fresh, isolated state per test
+<a id="__codelineno-18-28" name="__codelineno-18-28" href="#__codelineno-18-28"></a>        page = context.new_page()
+<a id="__codelineno-18-29" name="__codelineno-18-29" href="#__codelineno-18-29"></a>        page.set_content(LOGIN_HTML)
+<a id="__codelineno-18-30" name="__codelineno-18-30" href="#__codelineno-18-30"></a>        page.set_default_timeout(1000)
+<a id="__codelineno-18-31" name="__codelineno-18-31" href="#__codelineno-18-31"></a>        expect.set_options(timeout=1000)
+<a id="__codelineno-18-32" name="__codelineno-18-32" href="#__codelineno-18-32"></a>        lp = LoginPage(page).login(email, pw)
+<a id="__codelineno-18-33" name="__codelineno-18-33" href="#__codelineno-18-33"></a>        check(f"login({email or 'empty'!r}, {pw or 'empty'!r})", lambda: expect(lp.message).to_have_text(expected))
+<a id="__codelineno-18-34" name="__codelineno-18-34" href="#__codelineno-18-34"></a>        context.close()
+<a id="__codelineno-18-35" name="__codelineno-18-35" href="#__codelineno-18-35"></a>    # a deliberately wrong expectation shows how a failing check is reported
+<a id="__codelineno-18-36" name="__codelineno-18-36" href="#__codelineno-18-36"></a>    context = browser.new_context(); page = context.new_page(); page.set_content(LOGIN_HTML)
+<a id="__codelineno-18-37" name="__codelineno-18-37" href="#__codelineno-18-37"></a>    expect.set_options(timeout=500)
+<a id="__codelineno-18-38" name="__codelineno-18-38" href="#__codelineno-18-38"></a>    check("expects wrong text", lambda: expect(LoginPage(page).login("ada@example.com", "s3cret").message).to_have_text("Goodbye"))
+<a id="__codelineno-18-39" name="__codelineno-18-39" href="#__codelineno-18-39"></a>    browser.close()
+</code></pre></div>
+<p>Expected output:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>PASS login('ada@example.com', 's3cret')
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>PASS login('ada@example.com', 'wrong')
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>PASS login('empty', 'empty')
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>FAIL expects wrong text
+</code></pre></div>
+<p>??? success "Show a solution"</p>
+<div class="highlight"><pre><span></span><code>```
+from playwright.sync_api import sync_playwright, expect
+
+LOGIN_HTML = '&lt;form id="f"&gt;&lt;label&gt;Email &lt;input id="email"&gt;&lt;/label&gt;&lt;label&gt;Password &lt;input id="pw" type="password"&gt;&lt;/label&gt;\n&lt;button type="submit"&gt;Sign in&lt;/button&gt;&lt;p id="msg" role="alert"&gt;&lt;/p&gt;&lt;/form&gt;\n&lt;script&gt;document.getElementById("f").addEventListener("submit",e=&gt;{e.preventDefault();\nconst ok=document.getElementById("email").value==="ada@example.com"&amp;&amp;document.getElementById("pw").value==="s3cret";\ndocument.getElementById("msg").textContent=ok?"Welcome, Ada":"Invalid credentials";});&lt;/script&gt;'
+
+class LoginPage:
+    def __init__(self, page):
+        self.page = page
+        self.email = page.get_by_label("Email")
+        self.password = page.get_by_label("Password")
+        self.submit = page.get_by_role("button", name="Sign in")
+        self.message = page.get_by_role("alert")
+
+    def login(self, email, password):
+        self.email.fill(email)
+        self.password.fill(password)
+        self.submit.click()
+        return self
+
+def check(name, fn):
+    try:
+        fn()
+        print("PASS", name)
+    except AssertionError:
+        print("FAIL", name)
+
+with sync_playwright() as p:
+    browser = p.chromium.launch()
+    for email, pw, expected in [("ada@example.com", "s3cret", "Welcome, Ada"),
+                                ("ada@example.com", "wrong", "Invalid credentials"),
+                                ("", "", "Invalid credentials")]:
+        context = browser.new_context()            # fresh, isolated state per test
+        page = context.new_page()
+        page.set_content(LOGIN_HTML)
+        page.set_default_timeout(1000)
+        expect.set_options(timeout=1000)
+        lp = LoginPage(page).login(email, pw)
+        check(f"login({email or 'empty'!r}, {pw or 'empty'!r})", lambda: expect(lp.message).to_have_text(expected))
+        context.close()
+    # a deliberately wrong expectation shows how a failing check is reported
+    context = browser.new_context(); page = context.new_page(); page.set_content(LOGIN_HTML)
+    expect.set_options(timeout=500)
+    check("expects wrong text", lambda: expect(LoginPage(page).login("ada@example.com", "s3cret").message).to_have_text("Goodbye"))
+    browser.close()
+```
+
+The page object owns the locators and actions; tests only describe intent. Each case gets a new context for isolation, and expect() retries until the message appears. Verified by running the solution with Playwright for Python and Chromium.
+</code></pre></div>
+<h3 id="mock-an-api-and-read-a-table-without-sleeping">Mock an API and read a table without sleeping<a class="headerlink" href="#mock-an-api-and-read-a-table-without-sleeping" title="Permanent link">&para;</a></h3>
+<p>Implement run_case(browser, items): route the items endpoint to a canned JSON response, load the page, wait for #status to read "ready" with expect (no sleep), and read the table into dicts with read_table. Then report rows, the cheapest item, the total and the names.</p>
+<p>Starter code:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>from playwright.sync_api import sync_playwright, expect
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>PAGE = """&lt;table id="t"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Item&lt;/th&gt;&lt;th&gt;Price&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody id="b"&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;p id="status"&gt;loading&lt;/p&gt;
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>&lt;script&gt;
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>setTimeout(() =&gt; fetch("http://shop.test/api/items").then(r =&gt; r.json()).then(items =&gt; {
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>  document.getElementById("b").innerHTML = items.map(i =&gt; `&lt;tr&gt;&lt;td&gt;${i.name}&lt;/td&gt;&lt;td&gt;${i.price}&lt;/td&gt;&lt;/tr&gt;`).join("");
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>  document.getElementById("status").textContent = "ready";
+<a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>}), 200);
+<a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>&lt;/script&gt;"""
+<a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>
+<a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a>def read_table(page):
+<a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a>    # return a list of {"name": str, "price": float} dicts, one per row of #b tr
+<a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a>    return []
+<a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a>
+<a id="__codelineno-21-15" name="__codelineno-21-15" href="#__codelineno-21-15"></a>def run_case(browser, items):
+<a id="__codelineno-21-16" name="__codelineno-21-16" href="#__codelineno-21-16"></a>    # new page; route http://shop.test/api/items to fulfill(json=items); set_content(PAGE);
+<a id="__codelineno-21-17" name="__codelineno-21-17" href="#__codelineno-21-17"></a>    # wait with expect(...).to_have_text("ready") on #status (never sleep); read the table; close the page; return the data
+<a id="__codelineno-21-18" name="__codelineno-21-18" href="#__codelineno-21-18"></a>    return []
+<a id="__codelineno-21-19" name="__codelineno-21-19" href="#__codelineno-21-19"></a>
+<a id="__codelineno-21-20" name="__codelineno-21-20" href="#__codelineno-21-20"></a>with sync_playwright() as p:
+<a id="__codelineno-21-21" name="__codelineno-21-21" href="#__codelineno-21-21"></a>    browser = p.chromium.launch()
+<a id="__codelineno-21-22" name="__codelineno-21-22" href="#__codelineno-21-22"></a>    data = run_case(browser, [{"name": "Pen", "price": 2.5}, {"name": "Book", "price": 12}, {"name": "Bag", "price": 30.25}])
+<a id="__codelineno-21-23" name="__codelineno-21-23" href="#__codelineno-21-23"></a>    print("rows:", len(data))
+<a id="__codelineno-21-24" name="__codelineno-21-24" href="#__codelineno-21-24"></a>    print("cheapest:", min(data, key=lambda r: r["price"])["name"])
+<a id="__codelineno-21-25" name="__codelineno-21-25" href="#__codelineno-21-25"></a>    print("total:", f"{sum(r['price'] for r in data):.2f}")
+<a id="__codelineno-21-26" name="__codelineno-21-26" href="#__codelineno-21-26"></a>    print("names:", ", ".join(sorted(r["name"] for r in data)))
+<a id="__codelineno-21-27" name="__codelineno-21-27" href="#__codelineno-21-27"></a>    empty = run_case(browser, [])
+<a id="__codelineno-21-28" name="__codelineno-21-28" href="#__codelineno-21-28"></a>    print("empty rows:", len(empty))
+<a id="__codelineno-21-29" name="__codelineno-21-29" href="#__codelineno-21-29"></a>    browser.close()
+</code></pre></div>
+<p>Expected output:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>rows: 3
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>cheapest: Pen
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>total: 44.75
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>names: Bag, Book, Pen
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>empty rows: 0
+</code></pre></div>
+<p>??? success "Show a solution"</p>
+<div class="highlight"><pre><span></span><code>```
+from playwright.sync_api import sync_playwright, expect
+
+PAGE = """&lt;table id="t"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Item&lt;/th&gt;&lt;th&gt;Price&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody id="b"&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;p id="status"&gt;loading&lt;/p&gt;
+&lt;script&gt;
+setTimeout(() =&gt; fetch("http://shop.test/api/items").then(r =&gt; r.json()).then(items =&gt; {
+  document.getElementById("b").innerHTML = items.map(i =&gt; `&lt;tr&gt;&lt;td&gt;${i.name}&lt;/td&gt;&lt;td&gt;${i.price}&lt;/td&gt;&lt;/tr&gt;`).join("");
+  document.getElementById("status").textContent = "ready";
+}), 200);
+&lt;/script&gt;"""
+
+def read_table(page):
+    rows = page.locator("#b tr")
+    return [{"name": rows.nth(i).locator("td").nth(0).text_content(),
+             "price": float(rows.nth(i).locator("td").nth(1).text_content())}
+            for i in range(rows.count())]
+
+def run_case(browser, items):
+    page = browser.new_page()
+    page.set_default_timeout(3000)
+    page.route("http://shop.test/api/items", lambda route: route.fulfill(json=items))
+    page.set_content(PAGE)
+    expect(page.locator("#status")).to_have_text("ready")     # waits for the async render, no sleep
+    data = read_table(page)
+    page.close()
+    return data
+
+with sync_playwright() as p:
+    browser = p.chromium.launch()
+    data = run_case(browser, [{"name": "Pen", "price": 2.5}, {"name": "Book", "price": 12}, {"name": "Bag", "price": 30.25}])
+    print("rows:", len(data))
+    print("cheapest:", min(data, key=lambda r: r["price"])["name"])
+    print("total:", f"{sum(r['price'] for r in data):.2f}")
+    print("names:", ", ".join(sorted(r["name"] for r in data)))
+    empty = run_case(browser, [])
+    print("empty rows:", len(empty))
+    browser.close()
+```
+
+route.fulfill makes the data deterministic, expect waits for the asynchronous render, and locator.nth(i) reads the rows. Verified by running the solution with Playwright for Python and Chromium.
+</code></pre></div>
+<hr />
+<p>More free practice: the <a href="../">Playwright Mastery Path</a> curriculum, the <a href="https://learnmasterypath.com/interview-pack/">Interview Prep Pack</a> and the <a href="https://learnmasterypath.com/resume/">free resume ATS check</a>.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+  
+  <nav class="mp-related" aria-label="Related free courses">
+    <h2>Related free courses</h2>
+    <ul>
+      <li><a href="https://learnmasterypath.com/agile-mastery-path/">Agile/Scrum/Kanban</a></li><li><a href="https://learnmasterypath.com/rest-api-mastery-path/">REST API</a></li>
+      <li><a href="https://learnmasterypath.com/">All 100+ courses &rarr;</a></li>
+    </ul>
+  </nav>
+  
+
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href=".." class="md-footer__link md-footer__link--prev" aria-label="Previous: Home">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Home
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../level-1/" class="md-footer__link md-footer__link--next" aria-label="Next: Overview">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Overview
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+  <div class="mp-foot">
+    <div class="mp-foot-inner">
+      <a class="mp-foot-brand" href="https://learnmasterypath.com/"><svg class="mp-mark" viewBox="0 0 160 160" role="img" aria-label="Mastery Path logo">
+  <circle cx="80" cy="80" r="74" fill="#FAF7EF" stroke="#2FA98D" stroke-width="5"/>
+  <rect class="mp-bar mp-bar-1" x="36" y="90" width="17" height="24" rx="5" fill="#2FA98D"/>
+  <rect class="mp-bar mp-bar-2" x="59" y="74" width="17" height="40" rx="5" fill="#7FC9B7"/>
+  <rect class="mp-bar mp-bar-3" x="82" y="56" width="17" height="58" rx="5" fill="#E0B457"/>
+  <rect class="mp-bar mp-bar-4" x="105" y="38" width="17" height="76" rx="5" fill="#C97B4A"/>
+  <circle class="mp-dot" cx="44.5" cy="82" r="7" fill="#22261f"/>
+</svg><span>Mastery Path</span></a>
+      <nav class="mp-sitelinks" aria-label="Site and legal links">
+        <a href="https://learnmasterypath.com/">All courses</a>
+        <a href="https://learnmasterypath.com/about.html">About</a>
+        <a href="https://learnmasterypath.com/contact.html">Contact</a>
+        <a href="https://learnmasterypath.com/playwright-mastery-path/privacy/">Privacy Policy</a>
+        <a href="https://learnmasterypath.com/terms.html">Terms</a>
+        <a href="https://learnmasterypath.com/playwright-mastery-path/license/">License</a>
+        <a href="https://learnmasterypath.com/verify/">Verify a certificate</a>
+      </nav>
+    </div>
+    <p class="mp-license-note">
+      © 2026 Vinod Kumar Sigilipelli · Except where otherwise noted, lesson content is licensed under
+      <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> and code examples under the
+      <a href="https://opensource.org/license/mit">MIT License</a>.
+    </p>
+  </div>
+
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.path", "navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "navigation.footer", "navigation.indexes", "toc.follow", "content.code.copy", "content.code.annotate", "search.suggest", "search.highlight"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+        <script src="../javascripts/progress-tracker.js"></script>
+      
+        <script src="../javascripts/final-quiz.js"></script>
+      
+    
+  </body>
+</html>
