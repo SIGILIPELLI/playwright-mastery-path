@@ -8,8 +8,7 @@ description: "Free Playwright course -- 36 hands-on lessons, 3 projects and 1 ca
 A structured, module-wise training program that takes you from launching your
 first browser to running a production-grade end-to-end test suite in CI —
 using **Playwright's Python API** (with JavaScript/TypeScript parity notes
-throughout, since most teams run both), with runnable code and a hands-on
-project at the end of each level.
+throughout, since most teams run both), with runnable code and a hands-on project at the end of Levels 1–3 and a capstone at the end of Level 4.
 
 ## How the program is organized
 
@@ -41,7 +40,7 @@ each one justified with real code as you go.
 - Work through each level in order — later modules assume earlier ones.
 - Every module has runnable code — copy it into a local `.py` file and run it
   with `pytest` or plain Python.
-- Each level ends with a project that combines everything learned in that level.
+- Levels 1–3 each end with a project that combines everything learned in that level, and Level 4 ends with the course capstone.
 - Use the search bar (top of the page) to jump straight to a topic.
 
 Start here → [Level 1 · Entry](level-1/index.md)
